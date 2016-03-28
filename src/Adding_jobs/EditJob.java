@@ -488,6 +488,7 @@ public class EditJob extends JFrame {
 		gbc_hours_spinner.gridx = 2;
 		gbc_hours_spinner.gridy = 12;
 		getContentPane().add(hours_spinner, gbc_hours_spinner);
+		hours_spinner.setValue(new Double(Double.parseDouble(editedJob.getHours())));
 
 		lblStartTime = new JLabel("Start Time:");
 		lblStartTime.setFont(new Font("Tahoma", Font.PLAIN, 24));
@@ -528,6 +529,14 @@ public class EditJob extends JFrame {
 		}
 		getContentPane().add(startTime_txt, gbc_startTime_txt);
 
+		System.out.println(editedJob.getStartTime());
+		for (int i = 0; i < 48; i++) {
+
+			if (startTime_txt.getItem(i).equals(editedJob.getStartTime()))
+				startTime_txt.select(i);
+
+		}
+
 		// Start Time JRadioButtons
 		rdbtnAmStart = new JRadioButton("A.M.");
 		rdbtnAmStart.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -545,6 +554,11 @@ public class EditJob extends JFrame {
 		gbc_rdbtnPmStart.gridy = 13;
 		getContentPane().add(rdbtnPmStart, gbc_rdbtnPmStart);
 
+		if (editedJob.isStartTimeAm()) {
+			rdbtnAmStart.setSelected(true);
+		} else {
+			rdbtnPmStart.setSelected(true);
+		}
 		// JRadioButtons are added to a group so only one can be selected at a
 		// time
 		ButtonGroup groupStartTime = new ButtonGroup();
@@ -577,6 +591,11 @@ public class EditJob extends JFrame {
 		gbc_rdbtnPmEnd.gridx = 5;
 		gbc_rdbtnPmEnd.gridy = 14;
 		getContentPane().add(rdbtnPmEnd, gbc_rdbtnPmEnd);
+		if (editedJob.isEndTimeAm()) {
+			rdbtnAmEnd.setSelected(true);
+		} else {
+			rdbtnPmEnd.setSelected(true);
+		}
 
 		// JRadioButtons are added to a group so only one can be selected at a
 		// time
@@ -612,6 +631,13 @@ public class EditJob extends JFrame {
 			endHour++;
 		}
 		getContentPane().add(end_txt, gbc_end_txt);
+		for (int i = 0; i < 48; i++) {
+			System.out.println(startTime_txt.getItem(i));
+
+			if (end_txt.getItem(i).equals(editedJob.getEndTime()))
+				end_txt.select(i);
+
+		}
 
 	}
 
@@ -727,7 +753,7 @@ public class EditJob extends JFrame {
 				fd.setDirectory("C:\\");
 				fd.setFile("*.jpg");
 				fd.setVisible(true);
-				filename = fd.getFile();
+				filename = fd.getDirectory() + fd.getFile();
 				if (filename == null)
 					System.out.println("You cancelled the choice");
 				else {
@@ -782,16 +808,13 @@ public class EditJob extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("save button pressed");
 
-				String dayOrEvening = (rdbtnAmStart.isSelected()) ? " am" : " pm";
-				String startTime = startTime_txt.getSelectedItem() + dayOrEvening;
-				dayOrEvening = (rdbtnPmStart.isSelected()) ? " am" : " pm";
-				String endTime = end_txt.getSelectedItem() + dayOrEvening;
-
 				Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(), fname_txt.getText(),
 						lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
 						zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-						hours_spinner.getValue().toString(), startTime, endTime, notes_txt.getText(), pdf_txt.getText(),
-						images_txt.getText());
+						hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(), end_txt.getSelectedItem(),
+						notes_txt.getText(), pdf_txt.getText(), images_txt.getText(), rdbtnAmStart.isSelected(),
+						rdbtnAmEnd.isSelected());
+
 				// disposes the current window
 				new Editing_Driver(newJob);
 				dispose();

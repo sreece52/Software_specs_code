@@ -25,7 +25,9 @@ public class Jobs {
 	private String date;
 	private String hours;
 	private String startTime;
+	private boolean startTimeAm;
 	private String endTime;
+	private boolean endTimeAm;
 	private String notes;
 	private String PDFs;
 	private String images;
@@ -71,7 +73,7 @@ public class Jobs {
 	 */
 	public Jobs(String work_id, String job_name, String fname, String lname, String street, String city, String state,
 			String zip_code, String phone_num, String materials, String date, String hours, String startTime,
-			String endTime, String notes, String PDFs, String images) {
+			String endTime,String notes, String PDFs, String images,boolean startTimeAm,boolean endTimeAm) {
 		this.work_Id = work_id;
 		this.job_name = job_name;
 		this.fname = fname;
@@ -85,10 +87,28 @@ public class Jobs {
 		this.date = date;
 		this.hours = hours;
 		this.startTime = startTime;
+		this.startTimeAm = startTimeAm;
 		this.endTime = endTime;
+		this.endTimeAm = endTimeAm; 
 		this.notes = notes;
 		this.PDFs = PDFs;
 		this.images = images;
+	}
+
+	public boolean isStartTimeAm() {
+		return startTimeAm;
+	}
+
+	public void setStartTimeAm(boolean startTimeAm) {
+		this.startTimeAm = startTimeAm;
+	}
+
+	public boolean isEndTimeAm() {
+		return endTimeAm;
+	}
+
+	public void setEndTimeAm(boolean endTimeAm) {
+		this.endTimeAm = endTimeAm;
 	}
 
 	/**

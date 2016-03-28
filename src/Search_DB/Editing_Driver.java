@@ -79,16 +79,17 @@ public class Editing_Driver {
 	public void edit() {
 		try {
 			statement = conn.createStatement();
-			
+
 			String insertStatement = String.format(
 					"update jobs set job_name = '%s', fname = '%s', lname = '%s',street = '%s', city = '%s', state = '%s',zip_code = '%s'"
-					+ ",phone_num = '%s', materials = '%s', date = '%s', hours = '%s', starttime = '%s', endtime = '%s', notes = '%s', pdfs = '%s', images = '%s' "
-							+ "where work_id = '%s';",
-							job.getJob_name(), job.getFname(), job.getLname(), job.getStreet(), job.getCity(), job.getState(),
-							job.getZip_code(), job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
-							job.getStartTime(), job.getEndTime(), job.getNotes(), job.getPDFs(), job.getImages(), job.getWork_Id());
+							+ ",phone_num = '%s', materials = '%s', date = '%s', hours = '%s', starttime = '%s',endtime = '%s', notes = '%s', pdfs = '%s', images = '%s', "
+							+ "startam = '%s',endam = '%s' " + "where work_id = '%s';",
+					job.getJob_name(), job.getFname(), job.getLname(), job.getStreet(), job.getCity(), job.getState(),
+					job.getZip_code(), job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
+					job.getStartTime(), job.getEndTime(), job.getNotes(),
+					job.getPDFs(), job.getImages(), job.isStartTimeAm(), job.isEndTimeAm(),job.getWork_Id());
 			statement.execute(insertStatement);
-			JOptionPane.showMessageDialog(null, "The database has been successfully updated","Edit", 1);
+			JOptionPane.showMessageDialog(null, "The database has been successfully updated", "Edit", 1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

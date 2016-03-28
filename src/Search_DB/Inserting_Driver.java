@@ -46,7 +46,7 @@ public class Inserting_Driver {
 		dbUserName = "admin";
 		dbPassword = "password";
 		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "/newDB";
-
+		System.out.println(dataBaseURL);
 		/*
 		 * The following code handle connecting to the db using the above
 		 * credentials
@@ -79,11 +79,12 @@ public class Inserting_Driver {
 			System.out.println(job.getImages());
 			String insertStatement = String.format(
 					"insert into jobs (job_name,fname,lname,street,city,state,zip_code,"
-							+ "phone_num,materials,date,hours,starttime,endtime,notes,pdfs,images) "
-							+ "values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
-					job.getJob_name(), job.getFname(), job.getLname(), job.getStreet(), job.getCity(), job.getState(),job.getZip_code(),
-					job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
-					job.getStartTime(), job.getEndTime(), job.getNotes(), job.getPDFs(), job.getImages());
+							+ "phone_num,materials,date,hours,starttime,endtime,notes,pdfs,images,startam,endam) "
+							+ "values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s');",
+					job.getJob_name(), job.getFname(), job.getLname(), job.getStreet(), job.getCity(), job.getState(),
+					job.getZip_code(), job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
+					job.getStartTime(), job.getEndTime(), job.getNotes(), job.getPDFs(), job.getImages(),
+					job.isStartTimeAm(), job.isEndTimeAm());
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The record has been added to the database", "Inserting", 1);
 

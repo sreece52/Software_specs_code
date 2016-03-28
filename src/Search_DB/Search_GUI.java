@@ -78,7 +78,8 @@ public class Search_GUI extends JFrame {
 		table = new JTable(data, columnNames);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(table.getSelectedRow());
+				System.out.println(driver.getResults().get(table.getSelectedRow()).toString());
+
 			}
 		});
 
@@ -119,27 +120,7 @@ public class Search_GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String work_id = (String) table.getValueAt(table.getSelectedRow(), 0);
-				String job_name = (String) table.getValueAt(table.getSelectedRow(), 1);
-				String fname = (String) table.getValueAt(table.getSelectedRow(), 2);
-				String lname = (String) table.getValueAt(table.getSelectedRow(), 3);
-				String street = (String) table.getValueAt(table.getSelectedRow(), 4);
-				String city = (String) table.getValueAt(table.getSelectedRow(), 5);
-				String state = (String) table.getValueAt(table.getSelectedRow(), 6);
-				String zipCode = (String) table.getValueAt(table.getSelectedRow(), 7);
-				String phone_num = (String) table.getValueAt(table.getSelectedRow(), 8);
-				String materials = (String) table.getValueAt(table.getSelectedRow(), 9);
-				String date = (String) table.getValueAt(table.getSelectedRow(), 10);
-				String hours = (String) table.getValueAt(table.getSelectedRow(), 11);
-				String startTime = (String) table.getValueAt(table.getSelectedRow(), 12);
-				String endTime = (String) table.getValueAt(table.getSelectedRow(), 13);
-				String notes = (String) table.getValueAt(table.getSelectedRow(), 14);
-				String pdfs = (String) table.getValueAt(table.getSelectedRow(), 15);
-				String images = (String) table.getValueAt(table.getSelectedRow(), 16);
-
-				Jobs editedJob = new Jobs(work_id, job_name, fname, lname, street, city, state, zipCode, phone_num,
-						materials, date, hours, startTime, endTime, notes, pdfs, images);
-				new EditJob(editedJob, query, searchType);
+				new EditJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
 				dispose();
 			}
 		});

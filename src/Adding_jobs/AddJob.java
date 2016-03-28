@@ -651,7 +651,7 @@ public class AddJob extends JFrame {
 				fd.setDirectory("C:\\");
 				fd.setFile("*.pdf");
 				fd.setVisible(true);
-				filename = fd.getFile();
+				filename = fd.getDirectory() + fd.getFile();
 				if (filename == null)
 					System.out.println("You cancelled the choice");
 				else {
@@ -709,7 +709,7 @@ public class AddJob extends JFrame {
 				fd.setDirectory("C:\\");
 				fd.setFile("*.jpg");
 				fd.setVisible(true);
-				filename = fd.getFile();
+				filename = fd.getDirectory() + fd.getFile();
 				if (filename == null)
 					System.out.println("You cancelled the choice");
 				else {
@@ -764,16 +764,13 @@ public class AddJob extends JFrame {
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String dayOrEvening = (rdbtnAm_start.isSelected()) ? " am" : " pm";
-				String startTime = start_txt.getSelectedItem() + dayOrEvening;
-				dayOrEvening = (rdbtnPm_start.isSelected()) ? " am" : " pm";
-				String endTime = end_txt.getSelectedItem() + dayOrEvening;
 
 				Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
 						street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
 						phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-						hours_spinner.getValue().toString(), startTime, endTime, notes_txt.getText(),
-						pdf_file_txt.getText(), image_txt.getText());
+						hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
+						notes_txt.getText(), pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
+						rdbtnAm_end.isSelected());
 				System.out.println("save button pressed");
 				// disposes the current window
 				new Inserting_Driver(newJob);
