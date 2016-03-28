@@ -694,7 +694,7 @@ public class EditJob extends JFrame {
 				fd.setDirectory("C:\\");
 				fd.setFile("*.pdf");
 				fd.setVisible(true);
-				filename = fd.getFile();
+				filename = fd.getDirectory() + fd.getFile();
 				if (filename == null)
 					System.out.println("You cancelled the choice");
 				else {
