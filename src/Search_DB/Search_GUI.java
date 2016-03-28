@@ -27,8 +27,8 @@ public class Search_GUI extends JFrame {
 	private JButton remove;
 	private static Search_Driver driver;
 	private JScrollPane contentPane;
-	String[] columnNames = { "work_id", "Job Name", "First Name", "Last Name", "Street", "City", "State", "Zip Code",
-			"Phone Number", "Materials", "Date", "Hours", "Start Time", "EndTime", "Notes", "Pdfs", "Images" };
+	String[] columnNames = { "Job Name", "First Name", "Last Name", "Street", "City", "State", "Zip Code",
+			"Phone Number", "Date" };
 
 	private String query;
 	private String searchType;
@@ -55,23 +55,15 @@ public class Search_GUI extends JFrame {
 
 		// Builds the table's data
 		for (int i = 0; i < driver.getResults().size(); i++) {
-			data[i][j] = driver.getResults().get(i).getWork_Id();
-			data[i][j + 1] = driver.getResults().get(i).getJob_name();
-			data[i][j + 2] = driver.getResults().get(i).getFname();
-			data[i][j + 3] = driver.getResults().get(i).getLname();
-			data[i][j + 4] = driver.getResults().get(i).getStreet();
-			data[i][j + 5] = driver.getResults().get(i).getCity();
-			data[i][j + 6] = driver.getResults().get(i).getState();
-			data[i][j + 7] = driver.getResults().get(i).getZip_code();
-			data[i][j + 8] = driver.getResults().get(i).getPhone_number();
-			data[i][j + 9] = driver.getResults().get(i).getMaterials();
-			data[i][j + 10] = driver.getResults().get(i).getDate();
-			data[i][j + 11] = driver.getResults().get(i).getHours();
-			data[i][j + 12] = driver.getResults().get(i).getStartTime();
-			data[i][j + 13] = driver.getResults().get(i).getEndTime();
-			data[i][j + 14] = driver.getResults().get(i).getNotes();
-			data[i][j + 15] = driver.getResults().get(i).getPDFs();
-			data[i][j + 16] = driver.getResults().get(i).getImages();
+			data[i][j] = driver.getResults().get(i).getJob_name();
+			data[i][j + 1] = driver.getResults().get(i).getFname();
+			data[i][j + 2] = driver.getResults().get(i).getLname();
+			data[i][j + 3] = driver.getResults().get(i).getStreet();
+			data[i][j + 4] = driver.getResults().get(i).getCity();
+			data[i][j + 5] = driver.getResults().get(i).getState();
+			data[i][j + 6] = driver.getResults().get(i).getZip_code();
+			data[i][j + 7] = driver.getResults().get(i).getPhone_number();
+			data[i][j + 8] = driver.getResults().get(i).getDate();
 		}
 
 		// builds the table
@@ -105,7 +97,7 @@ public class Search_GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String jobId = (String) table.getValueAt(table.getSelectedRow(), 0);
+				String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
 				new Removing_Driver(jobId);
 				dispose();
 				new Search_GUI(query, searchType);

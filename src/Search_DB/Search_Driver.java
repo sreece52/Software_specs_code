@@ -146,7 +146,7 @@ public class Search_Driver {
 	public void showAll() {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs order by work_id;");
+			String searchName = String.format("select * from jobs order by lname;");
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -175,7 +175,8 @@ public class Search_Driver {
 	public void searchFName(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where upper(fname) = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where upper(fname) = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -202,7 +203,8 @@ public class Search_Driver {
 	public void searchLName(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where upper(lname) = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where upper(lname) = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -228,7 +230,7 @@ public class Search_Driver {
 	public void searchID(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where id = '%s' order by work_id;", query);
+			String searchName = String.format("select * from jobs where id = '%s' order by lname;", query);
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -253,7 +255,8 @@ public class Search_Driver {
 	public void searchDate(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where upper(date) = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where upper(date) = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -280,7 +283,8 @@ public class Search_Driver {
 	public void searchStreet(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where upper(street) = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where upper(street) = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -307,7 +311,8 @@ public class Search_Driver {
 	public void searchZipCode(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where zip_code = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where zip_code = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -334,7 +339,7 @@ public class Search_Driver {
 	public void searchPhoneNum(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where phone_number = '%s' order by work_id;", query);
+			String searchName = String.format("select * from jobs where phone_number = '%s' order by lname;", query);
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -360,7 +365,8 @@ public class Search_Driver {
 	public void searchCity(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where upper(city) = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where upper(city) = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -386,7 +392,8 @@ public class Search_Driver {
 	public void searchState(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where upper(state) = '%s' order by work_id;", query.toUpperCase());
+			String searchName = String.format("select * from jobs where upper(state) = '%s' order by lname;",
+					query.toUpperCase());
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
