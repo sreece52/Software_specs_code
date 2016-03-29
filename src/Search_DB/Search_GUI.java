@@ -55,7 +55,6 @@ public class Search_GUI extends JFrame {
 
 		if (driver.getResults().size() == 0) {
 			JOptionPane.showMessageDialog(null,message,"No records found",2);
-			this.dispose();
 		}
 
 		System.out.println(driver.getResults().size());
