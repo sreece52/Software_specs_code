@@ -68,7 +68,13 @@ public class Removing_Driver {
 			System.out.println("SQL Exception..");
 			e.printStackTrace();
 		}
-		remove();
+
+		int reply = JOptionPane.showConfirmDialog(null,
+				"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
+				JOptionPane.YES_NO_OPTION);
+		if (reply == JOptionPane.YES_OPTION) {
+			remove();
+		}
 	}
 
 	public void remove() {
@@ -76,7 +82,7 @@ public class Removing_Driver {
 			statement = conn.createStatement();
 			String removingStatement = String.format("delete from jobs where work_id = '%s';", work_id);
 			statement.execute(removingStatement);
-			JOptionPane.showMessageDialog(null, "The entry has been removed from the data base","Remove", 1);
+			JOptionPane.showMessageDialog(null, "The entry has been removed from the data base", "Removed", 1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

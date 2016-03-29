@@ -31,20 +31,23 @@ public class ScriptGen {
 				"152-253-1815", "151-493-0446", "724-848-7580", "176-12-5588", "918-563-2370", "475-189-1432",
 				"281-992-0305", "705-484-9450", "375-562-6777", "378-567-9707", "689-220-2070", "818-199-6670",
 				"193-595-8057", "967-346-3841", "937-901-6001" };
-		String entry = "insert into jobs (job_id,fname,lname,street,city,state,"
-				+ "zip_code,date,phone_number) values ('%d','%s','%s','%s','%s'," + "'%s','%s','%s');";
+		String[] materials = { "Axe", "Hammer", "Shovel", "Plunger" };
+		double[] hours = { 1.0, 1.5, 2.0, 2.5 };
+		String[] job_name = { "Fix door", "Repair Ac", "Install Dyer", "Remove busted pipe" };
 
 		System.out.println("Beginning script generation.");
 		try (FileWriter output = new FileWriter(new File("createtable.sql"))) {
 			for (int i = 0; i < 1000; i++) {
 				int random = (int) Math.floor(Math.random() * 20);
+				int smallRandom = (int) Math.floor(Math.random() * 4);
 				System.out.println(random);
 				String insertStatement = String.format(
-						"insert into jobs(fname,lname,street,city,state,zip_code,"
-								+ "phone_num,date) "
-								+ "values('%s','%s','%s','%s','%s','%s','%s','%s');",
+						"insert into jobs(fname,lname,street,city,state,zip_code,phone_num,date,materials,hours,job_name,starttime,endtime,notes,pdfs,images,startam,endam) "
+								+ "values('%s', '%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s',);",
 						fnames[random], lnames[random], streets[random], cities[random], states[random],
-						zip_codes[random], phone_numbers[random], dates[random]);
+						zip_codes[random], phone_numbers[random], dates[random], materials[smallRandom],
+						hours[smallRandom], job_name[smallRandom], "12 : 00", "12 : 00", "Notes", "no file", "no files",
+						true, false);
 				output.write(insertStatement);
 				output.write(System.lineSeparator());
 

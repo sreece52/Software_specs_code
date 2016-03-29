@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,6 +26,7 @@ public class Search_GUI extends JFrame {
 	private JPanel btnPanel;
 	private JButton add;
 	private JButton edit;
+	private JLabel resultsLbl;
 	private JButton remove;
 	private static Search_Driver driver;
 	private JScrollPane contentPane;
@@ -44,9 +47,16 @@ public class Search_GUI extends JFrame {
 		this.setVisible(true);
 		this.query = query;
 		this.searchType = searchType;
-
+		this.setLocationRelativeTo(null);
 		// Object to start the searching
 		driver = new Search_Driver(query, searchType);
+
+		String message = String.format("No results found for %s = %s", searchType, query);
+
+		if (driver.getResults().size() == 0) {
+			JOptionPane.showMessageDialog(null,message,"No records found",2);
+			this.dispose();
+		}
 
 		System.out.println(driver.getResults().size());
 		// Creates the 2D object array of the same size of the table
@@ -122,11 +132,15 @@ public class Search_GUI extends JFrame {
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		this.add(contentPane);
-
+		String numResults = String.format("Numer of results: %s", driver.getResults().size()); 
+		resultsLbl = new JLabel(numResults);
+		
 		btnPanel = new JPanel();
 		btnPanel.add(add);
 		btnPanel.add(edit);
 		btnPanel.add(remove);
+		btnPanel.add(resultsLbl);
+		
 
 		this.add(btnPanel, BorderLayout.SOUTH);
 

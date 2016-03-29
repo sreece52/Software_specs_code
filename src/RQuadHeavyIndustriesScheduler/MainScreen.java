@@ -1,6 +1,9 @@
 package RQuadHeavyIndustriesScheduler;
 
 import java.awt.EventQueue;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,15 +11,21 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import Calendar.Calendar;
+import Calendar.JCalendar;
+import Calendar.JCalendarDialog;
 import Search_DB.Search_GUI;
 
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.SpringLayout;
 import java.awt.Font;
+import java.awt.Image;
 
 
 /**
@@ -56,15 +65,26 @@ public class MainScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setResizable(false);
+		setLocationRelativeTo(null);
+		
+		Image image = getImage();
 		
 		/*Button disposes current frame and creates Calendar frame*/
-		JButton calendarButton = new JButton("Calendar");
+		JButton calendarButton = new JButton(new ImageIcon(image));
 		calendarButton.setFont(new Font("Dialog", Font.BOLD, 14));
 		calendarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new Calendar();
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JCalendarDialog dialog = new JCalendarDialog();
+				dialog.setDialogTitle("HandyMan Calendar");
+				//dialog.setLocale(Locale.ENGLISH);
+				dialog.createDialog();
+				if(dialog.getReturnCode() == JCalendarDialog.OK_PRESSED)
+					dialog.dispose();
 			}
 		});
+		
 		
 		/*Layout manager for main screen*/
 		SpringLayout sl_contentPane = new SpringLayout();
@@ -131,5 +151,16 @@ public class MainScreen extends JFrame {
 			}
 		});
 		contentPane.add(btnExit);
+	}
+	
+	public static Image getImage() {
+		Image image = null;
+		try {
+			File pic = new File("Handyman Scheduler Logo 1.png");
+			image = ImageIO.read(pic).getScaledInstance(20, -20, 0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return image;
 	}
 }

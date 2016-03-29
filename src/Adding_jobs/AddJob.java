@@ -97,8 +97,8 @@ public class AddJob extends JFrame {
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-		setBounds(100, 100, 972, 1049);
+		this.setLocationRelativeTo(null);
+		setBounds(100, 100, 972, 945);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 127, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
 		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,

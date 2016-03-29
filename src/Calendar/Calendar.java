@@ -7,6 +7,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
+/**
+ * This class creates a calendar for the user to see scheduled jobs.
+ * This class has been deprecated. Please use JCalendar. 
+ * @author Matt Reilly
+ * 
+ */
+@Deprecated
 public class Calendar{
     static JLabel lblMonth, lblYear;
     static JButton btnPrev, btnNext;
