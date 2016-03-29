@@ -1,0 +1,1 @@
+The newdb.mv.db needs to be in the same working directory as the jar. it can be found in the database folder.
