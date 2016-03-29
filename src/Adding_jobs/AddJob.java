@@ -520,6 +520,7 @@ public class AddJob extends JFrame {
 		gbc_rdbtnAm_start.gridx = 4;
 		gbc_rdbtnAm_start.gridy = 13;
 		getContentPane().add(rdbtnAm_start, gbc_rdbtnAm_start);
+		rdbtnAm_start.setSelected(true);
 
 		rdbtnPm_start = new JRadioButton("P.M.");
 		rdbtnPm_start.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -553,6 +554,7 @@ public class AddJob extends JFrame {
 		gbc_rdbtnAm_end.gridx = 4;
 		gbc_rdbtnAm_end.gridy = 14;
 		getContentPane().add(rdbtnAm_end, gbc_rdbtnAm_end);
+		rdbtnAm_end.setSelected(true);
 
 		rdbtnPm_end = new JRadioButton("P.M.");
 		rdbtnPm_end.setFont(new Font("Tahoma", Font.PLAIN, 20));
