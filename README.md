@@ -7,7 +7,7 @@ too much about messing it up. I have a local copy on mutiple machines. (yay for 
 
 To the build the program in IDE (mainly eclipse similar logic should work for other IDEs):
 
-NOTE: I am including an executable in this repo so you guys can it. Just make sure the Database file is in the same working directory as the executable. Also, make sure github desktop client and eGit for eclipse are installed to use the code.
+NOTE: I am including an executable in this repo so you guys can use it. Just make sure the Database file is in the same working directory as the executable. Also, make sure github desktop client and eGit for eclipse are installed to use the code.
 	  
 1.) clone this repository somewhere on your computer.
 2.) Next, open eclipse (doesn't matter what workspace you choose).
