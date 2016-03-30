@@ -1,0 +1,26 @@
+#folders to ignore
+.settings/
+bin/
+target/
+.recommenders/
+.metadata/
+.mylyn/
+.plugins/
+contexts/
+.tasklistindex/
+
+#files to ignore
+*.lock
+*.log
+*.ini
+*.fdt
+*.fdx
+*.fnm
+*.frq
+*.nrm
+*.prx
+*.tii
+*.tis
+*.gen
+*.classpath
+*.project

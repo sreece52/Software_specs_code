@@ -1,4 +1,4 @@
-package RQuadHeavyIndustriesScheduler;
+package MainScreen;
 
 public class ReillyScheduler {
 	public static void main(String[] args){

@@ -1,4 +1,4 @@
-package RQuadHeavyIndustriesScheduler;
+package MainScreen;
 
 import java.awt.EventQueue;
 
