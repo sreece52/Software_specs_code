@@ -136,7 +136,7 @@ public class MainScreen extends JFrame {
 				new Search_GUI(searchField.getText(), searchFilters.getSelectedItem().toString());
 			}
 		});
-//		contentPane.add(searchButton);
+		contentPane.add(searchButton);
 		
 		/*Button to close program*/
 		JButton btnExit = new JButton("Exit");
