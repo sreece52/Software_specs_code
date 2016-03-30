@@ -7,16 +7,15 @@ too much about messing it up. I have a local copy on mutiple machines. (yay for 
 
 To the build the program in IDE (mainly eclipse similar logic should work for other IDEs):
 
-NOTE: I am including an executable in this repo so you guys can it. 
-	  Just make sure the Database file is in the same working directory as the executable.
-
+NOTE: I am including an executable in this repo so you guys can it. Just make sure the Database file is in the same working directory as the executable. Also, make sure github desktop client and eGit for eclipse are installed to use the code.
+	  
 1.) clone this repository somewhere on your computer.
-2.) In eclipse (Whatever IDE you are using) import the src code found in src
-		note: all the source code is broken up into packages. Keep it that way, please. Helps organize projects.
-3.) Convert the project into a maven project if you have not already. 
-4.) Import/copy_over the pom.xml found in the dependencies folder. (delete / replace the one maven creates)
-5.) Import the Handyman Scheduler logo found in resources.
-6.) Import the newDB.mv.db file in eclipse. This is needed for the program and H2 or what ever enigne you use can find it. 
+2.) Next, open eclipse (doesn't matter what workspace you choose).
+3.) Now, choose File -> import -> git projects from git and click next.
+4.) Choose exiting local repository and click next. Select this repository and click next.
+5.) Choose, import as general project and then select Spec_Project. Click finish.
+6.) Name the project and click finish.
+7.) Before you can start coding you need to convert this project into a maven project(should know how this is done lol). Leave the pom file in there it will handle any dependencies. Now you can start coding :)
 
 I believe that is it. Contact me if any of you have problems.
 
