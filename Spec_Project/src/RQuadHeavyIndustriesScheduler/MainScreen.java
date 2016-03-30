@@ -153,14 +153,14 @@ public class MainScreen extends JFrame {
 		contentPane.add(btnExit);
 	}
 	
-	public static Image getImage() {
-		Image image = null;
-		try {
-			File pic = new File("Handyman Scheduler Logo 1.png");
-			image = ImageIO.read(pic).getScaledInstance(20, -20, 0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return image;
-	}
+//	public static Image getImage() {
+//		Image image = null;
+//		try {
+//			File pic = new File("Handyman Scheduler Logo 1.png");
+//			image = ImageIO.read(pic).getScaledInstance(20, -20, 0);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return image;
+//	}
 }
