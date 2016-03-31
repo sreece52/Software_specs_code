@@ -357,14 +357,14 @@ public class JCalendar{
 
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-//          //draw only if returned arraylist is not empty
-//            if(!driver.getResults().isEmpty()){
-//	            g.drawOval(this.getWidth()/2-this.getWidth()/16, 
-//	            		this.getHeight()/2, this.getWidth()/8, this.getHeight()/5);
-//            }
-            //if(dayhasajob){
-            //g.drawOval()
-            //}
+          //draw only if returned arraylist is not empty
+            if(!driver.getResults().isEmpty()){
+	            g.drawOval(this.getWidth()/2-this.getWidth()/16, 
+	            		this.getHeight()/2, this.getWidth()/8, this.getHeight()/5);
+            }
+            if(dayhasajob){
+            g.drawOval()
+            }
         }
         public JLabel getDayLabel() {
             return dayLabel;
