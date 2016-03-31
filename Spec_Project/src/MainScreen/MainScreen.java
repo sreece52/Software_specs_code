@@ -67,10 +67,10 @@ public class MainScreen extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		
-		Image image = getImage();
+		//Image image = getImage();
 		
 		/*Button disposes current frame and creates Calendar frame*/
-		JButton calendarButton = new JButton(new ImageIcon(image));
+		JButton calendarButton = new JButton("Calendar");
 		calendarButton.setFont(new Font("Dialog", Font.BOLD, 14));
 		calendarButton.addActionListener(new ActionListener() {
 			
