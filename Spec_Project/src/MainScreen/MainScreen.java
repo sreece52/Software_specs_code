@@ -32,6 +32,7 @@ import java.awt.Image;
  * 
  * @author josh
  * @TODO Ask client for full name search compatibility
+ * some comment
  */
 public class MainScreen extends JFrame {
 
@@ -40,6 +41,7 @@ public class MainScreen extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * New commit
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
