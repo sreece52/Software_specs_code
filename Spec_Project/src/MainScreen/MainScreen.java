@@ -40,6 +40,7 @@ public class MainScreen extends JFrame {
 
 	/**
 	 * Launch the application.
+	 * New commit
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
