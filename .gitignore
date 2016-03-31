@@ -26,3 +26,5 @@ contexts/
 *.project
 *.mv.db
 *.trace.db
+*.db
+*.db
