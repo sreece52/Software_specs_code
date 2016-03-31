@@ -24,3 +24,5 @@ contexts/
 *.gen
 *.classpath
 *.project
+*.mv.db
+*.trace.db
