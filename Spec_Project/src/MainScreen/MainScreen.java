@@ -56,7 +56,6 @@ public class MainScreen extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * Here is my change
 	 */
 	public MainScreen() {
 		/*Set constraints for window*/
