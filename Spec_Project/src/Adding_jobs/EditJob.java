@@ -8,7 +8,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import RQuadHeavyIndustriesScheduler.MainScreen;
+import MainScreen.MainScreen;
 
 import java.awt.Color;
 import java.awt.Desktop;
