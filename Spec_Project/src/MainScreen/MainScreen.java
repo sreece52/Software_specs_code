@@ -32,6 +32,7 @@ import java.awt.Image;
  * 
  * @author josh
  * @TODO Ask client for full name search compatibility
+ * some comment
  */
 public class MainScreen extends JFrame {
 
