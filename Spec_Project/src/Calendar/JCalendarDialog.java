@@ -6,7 +6,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Calendar;
 
 import java.util.Locale;
@@ -39,7 +40,7 @@ public class JCalendarDialog extends JFrame {
 		this.locale = Locale.getDefault();
 		this.calendar = Calendar.getInstance();
 		this.dialogTitle = "Date Selector";
-		this.simpleDateFormat = "MMM/d/yyyy";
+		this.simpleDateFormat = "YYYY-MM-DD";
 		this.startOfWeek = Calendar.SUNDAY;
 	}
 
@@ -126,37 +127,33 @@ public class JCalendarDialog extends JFrame {
 	private class OKButtonActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			String s = jcalendar.getFormattedSelectedDate();
-
-			if (s.contains("Jan")) {
-				s = "1" + s.substring(3);
-			} else if (s.contains("Feb")) {
-				s = "2" + s.substring(3);
-			} else if (s.contains("Mar")) {
-				s = "3" + s.substring(3);
-			} else if (s.contains("Apr")) {
-				s = "4" + s.substring(3);
-			} else if (s.contains("May")) {
-				s = "5" + s.substring(3);
-			} else if (s.contains("Jun")) {
-				s = "6" + s.substring(3);
-			} else if (s.contains("Jul")) {
-				s = "7" + s.substring(3);
-			} else if (s.contains("Aug")) {
-				s = "8" + s.substring(3);
-			} else if (s.contains("Sep")) {
-				s = "9" + s.substring(3);
-			} else if (s.contains("Oct")) {
-				s = "10" + s.substring(3);
-			} else if (s.contains("Nov")) {
-				s = "11" + s.substring(3);
-			} else if (s.contains("Dec")) {
-				s = "12" + s.substring(3);
-			}
+			/*Build query date*/
+			String s = String.format("%d-%02d-%02d", 
+					jcalendar.getSelectedDate().get(Calendar.YEAR), 
+					jcalendar.getSelectedDate().get(Calendar.MONTH)+1,
+					jcalendar.getSelectedDate().get(Calendar.DAY_OF_MONTH));
+			
 			
 			System.out.println(s.trim());
 
-			new Search_GUI(s, "Date");
+			/*Create results window, and make front window*/
+			Search_GUI gui = new Search_GUI(s, "Date");
+			gui.toFront();
+			gui.requestFocus();
+			gui.setAlwaysOnTop(true); //prevent mainscreen from being on top
+			gui.addFocusListener(new FocusListener(){
+
+				public void focusGained(FocusEvent arg0) {
+					//do nothing
+				}
+
+				public void focusLost(FocusEvent arg0) {
+					/*Allow window to be sent to back when focus lost*/
+					gui.setAlwaysOnTop(false);
+					
+				}
+			});
+			
 			returnCode = OK_PRESSED;
 			dialog.dispose();
 		}
