@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import Search_DB.ImportJob;
 import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
 import Search_DB.Search_GUI;
@@ -18,6 +19,8 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextArea;
@@ -86,6 +89,9 @@ public class AddJob extends JFrame {
 	private JTextField job_name_txt;
 	private String query;
 	private String search;
+	private AddJob added = this;
+	private ImportJob importedJob;
+	private Jobs job;
 	// varibles needed to create a job object
 
 	/**
@@ -108,6 +114,38 @@ public class AddJob extends JFrame {
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
 		this.setVisible(true);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
+
+		NameSection();
+		AddressSection();
+		MaterialsAndNotesSection();
+		DateAndTimeSection();
+		PdfAndImagesSection();
+		CancelSaveSection();
+		IdAndImportSelction();
+
+	}
+
+	public AddJob(Jobs job, String query, String search) {
+		this.query = query;
+		this.search = search;
+		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
+		setTitle("Add Job");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		setBounds(100, 100, 972, 945);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 127, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
+		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
+				29, 35, 32, 49, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		getContentPane().setLayout(gridBagLayout);
+		this.setVisible(true);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
 
 		NameSection();
 		AddressSection();
@@ -139,7 +177,17 @@ public class AddJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
+		btnImportInformationFrom.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				importedJob = new ImportJob(added);
+			}
+		});
+	}
+
+	public void setJob(Jobs jobs) {
+		this.job = jobs;
 	}
 
 	/**
@@ -436,7 +484,7 @@ public class AddJob extends JFrame {
 		// Date text field
 		date_txt = new JTextField();
 		date_txt.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		date_txt.setText("mm/dd/yyyy");
+		date_txt.setText("yyyy-mm-dd");
 		GridBagConstraints gbc_date_txt = new GridBagConstraints();
 		gbc_date_txt.insets = new Insets(0, 0, 5, 5);
 		gbc_date_txt.fill = GridBagConstraints.HORIZONTAL;
@@ -750,12 +798,8 @@ public class AddJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				System.out.println("Cancel button pressed");
-				Test canceltest = new Test();
-				canceltest.setVisible(true);
-				dispose(); // addjob goes away without updating test
-
+				new Search_GUI(query, search);
+				dispose();
 			}
 		});
 
