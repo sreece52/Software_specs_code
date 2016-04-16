@@ -356,7 +356,7 @@ public class JCalendar{
 						calendar.get(Calendar.MONTH)+1,
 						Integer.parseInt(getDay()));
 	            Search_Driver driver = new Search_Driver(s, "Date");
-        
+	            System.out.println(driver.getResults().size());
 	            /*No results = empty results arraylist*/
 	            if(!driver.getResults().isEmpty()){
 	            	hasJob = true;

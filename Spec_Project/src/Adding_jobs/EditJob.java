@@ -15,6 +15,7 @@ import java.awt.Desktop;
 import java.awt.Font;
 
 import Search_DB.Editing_Driver;
+import Search_DB.ImportJob;
 import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
 import Search_DB.Search_GUI;
@@ -26,6 +27,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JTextArea;
@@ -97,6 +100,9 @@ public class EditJob extends JFrame {
 	private JButton btnOpenImage;
 	private String pdf;
 	private String image;
+	private ImportJob importedJob;
+	private EditJob job = this;
+	private Jobs jobs;
 
 	/**
 	 * Frame Created
@@ -124,6 +130,8 @@ public class EditJob extends JFrame {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
 		this.setVisible(true);
 		NameSection();
 		AddressSection();
@@ -155,7 +163,19 @@ public class EditJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
+		btnImportInformationFrom.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				importedJob = new ImportJob(job);
+			}
+		});
+	}
+
+
+	public void setJob(Jobs jobs) {
+		this.jobs = jobs;
+		
 	}
 
 	/**
@@ -461,7 +481,7 @@ public class EditJob extends JFrame {
 		// Date text field
 		date_txt = new JTextField();
 		date_txt.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		date_txt.setText("mm/dd/yyyy");
+		date_txt.setText("yyyy-mm-dd");
 		GridBagConstraints gbc_date_txt = new GridBagConstraints();
 		gbc_date_txt.insets = new Insets(0, 0, 5, 5);
 		gbc_date_txt.fill = GridBagConstraints.HORIZONTAL;
@@ -843,9 +863,7 @@ public class EditJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				ViewJob viewjob = new ViewJob();
-				viewjob.setVisible(true);
+				new Search_GUI(query, search);
 				dispose();
 			}
 		});
@@ -886,4 +904,28 @@ public class EditJob extends JFrame {
 		gbc_btnSave.gridy = 22;
 		getContentPane().add(btnSave, gbc_btnSave);
 	}
+
+	public void clear() {
+		job_name_txt.setText("");
+		fname_txt.setText("");
+		lname_txt.setText("");
+		street_txt.setText("");
+		city_txt.setText("");
+		state_txt.setText("");
+		zip_txt.setText("");
+		phone_txt.setText("");
+		street_txt.setText("");
+		city_txt.setText("");
+		state_txt.setText("");
+		zip_txt.setText("");
+		phone_txt.setText("");
+		materials_txt.setText("");
+		notes_txt.setText("");
+		pdf_txt.setText("");
+		images_txt.setText("");
+		end_txt.select(0);
+		hours_spinner.setValue(0);
+		startTime_txt.select(0);
+	}
+
 }

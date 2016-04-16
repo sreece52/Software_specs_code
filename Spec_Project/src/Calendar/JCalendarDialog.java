@@ -12,6 +12,7 @@ import java.util.Calendar;
 
 import java.util.Locale;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -42,6 +43,8 @@ public class JCalendarDialog extends JFrame {
 		this.dialogTitle = "Date Selector";
 		this.simpleDateFormat = "YYYY-MM-DD";
 		this.startOfWeek = Calendar.SUNDAY;
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
 	}
 
 	public void setStartOfWeek(int startOfWeek) {
@@ -127,33 +130,31 @@ public class JCalendarDialog extends JFrame {
 	private class OKButtonActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			/*Build query date*/
-			String s = String.format("%d-%02d-%02d", 
-					jcalendar.getSelectedDate().get(Calendar.YEAR), 
-					jcalendar.getSelectedDate().get(Calendar.MONTH)+1,
+			/* Build query date */
+			String s = String.format("%d-%02d-%02d", jcalendar.getSelectedDate().get(Calendar.YEAR),
+					jcalendar.getSelectedDate().get(Calendar.MONTH) + 1,
 					jcalendar.getSelectedDate().get(Calendar.DAY_OF_MONTH));
-			
-			
+
 			System.out.println(s.trim());
 
-			/*Create results window, and make front window*/
+			/* Create results window, and make front window */
 			Search_GUI gui = new Search_GUI(s, "Date");
 			gui.toFront();
 			gui.requestFocus();
-			gui.setAlwaysOnTop(true); //prevent mainscreen from being on top
-			gui.addFocusListener(new FocusListener(){
+			gui.setAlwaysOnTop(true); // prevent mainscreen from being on top
+			gui.addFocusListener(new FocusListener() {
 
 				public void focusGained(FocusEvent arg0) {
-					//do nothing
+					// do nothing
 				}
 
 				public void focusLost(FocusEvent arg0) {
-					/*Allow window to be sent to back when focus lost*/
+					/* Allow window to be sent to back when focus lost */
 					gui.setAlwaysOnTop(false);
-					
+
 				}
 			});
-			
+
 			returnCode = OK_PRESSED;
 			dialog.dispose();
 		}
