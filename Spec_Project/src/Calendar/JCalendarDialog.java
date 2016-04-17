@@ -8,8 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import java.util.Locale;
@@ -21,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Adding_jobs.AddJob;
-import MainScreen.ReillyScheduler;
 import Search_DB.Search_GUI;
 
 public class JCalendarDialog extends JFrame {
@@ -132,14 +129,6 @@ public class JCalendarDialog extends JFrame {
 	private class CancelButtonActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			try {
-				ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date() + ": Clicked calendar dialog cancel"));
-				ReillyScheduler.logger.write(System.lineSeparator());
-				ReillyScheduler.logger.flush();
-			} catch (IOException e) {
-				System.out.println("Logger failed");
-			}
 			returnCode = CANCEL_PRESSED;
 			dialog.dispose();
 		}
@@ -148,25 +137,13 @@ public class JCalendarDialog extends JFrame {
 	private class OKButtonActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			try {
-				ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date() + ": Clicked calendar dialog OK"));
-			} catch (IOException e) {
-				System.out.println("Logger failed");
-			}
 			/* Build query date */
 			String s = String.format("%d-%02d-%02d", 
 					jcalendar.getSelectedDate().get(Calendar.YEAR),
 					jcalendar.getSelectedDate().get(Calendar.MONTH) + 1,
 					jcalendar.getSelectedDate().get(Calendar.DAY_OF_MONTH));
 
-			try {
-				ReillyScheduler.logger.write(s.trim());
-				ReillyScheduler.logger.write(System.lineSeparator());
-				ReillyScheduler.logger.flush();
-			} catch (IOException e) {
-				System.out.println("Logger failed");
-			}
+			System.out.println(s.trim());
 
 			/* Create results window, and move it to front */
 			Search_GUI gui = new Search_GUI(s, "Date");
@@ -193,26 +170,13 @@ public class JCalendarDialog extends JFrame {
 	private class addButtonActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
-			try {
-				ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date() + ": Clicked calendar dialog add job"));
-			} catch (IOException e) {
-				System.out.println("Logger failed");
-			}
-			
 			/* Build query date */
 			String s = String.format("%d-%02d-%02d", 
 					jcalendar.getSelectedDate().get(Calendar.YEAR),
 					jcalendar.getSelectedDate().get(Calendar.MONTH) + 1,
 					jcalendar.getSelectedDate().get(Calendar.DAY_OF_MONTH));
 
-			try {
-				ReillyScheduler.logger.write(s.trim());
-				ReillyScheduler.logger.write(System.lineSeparator());
-				ReillyScheduler.logger.flush();
-			} catch (IOException e) {
-				System.out.println("Logger failed");
-			}
+			System.out.println(s.trim());
 
 			/* Create results window, and move it to front */
 			AddJob gui = new AddJob(s);

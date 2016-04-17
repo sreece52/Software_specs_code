@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import MainScreen.ReillyScheduler;
 import Search_DB.Search_Driver;
  
 
@@ -107,14 +105,6 @@ public class JCalendar{
         yearBackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-            	try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked year back"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException e) {
-					System.out.println("Logger failed");
-				}
                 calendar.add(Calendar.YEAR, -1);
                 updatePartControl();
             }
@@ -126,14 +116,6 @@ public class JCalendar{
         monthBackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-            	try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked month back"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException e) {
-					System.out.println("Logger failed");
-				}
                 calendar.add(Calendar.MONTH, -1);
                 updatePartControl();
             }
@@ -145,14 +127,6 @@ public class JCalendar{
         monthForwardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-            	try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked month forward"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException e) {
-					System.out.println("Logger failed");
-				}
                 calendar.add(Calendar.MONTH, 1);
                 updatePartControl();
             }
@@ -164,14 +138,6 @@ public class JCalendar{
         yearForwardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-            	try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked year forward"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException e) {
-					System.out.println("Logger failed");
-				}
                 calendar.add(Calendar.YEAR, 1);
                 updatePartControl();
             }
@@ -390,13 +356,7 @@ public class JCalendar{
 						calendar.get(Calendar.MONTH)+1,
 						Integer.parseInt(getDay()));
 	            Search_Driver driver = new Search_Driver(s, "Date");
-	            try {
-					ReillyScheduler.logger.write(driver.getResults().size());
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException e) {
-					System.out.println("Logger failed");
-				}
+	            System.out.println(driver.getResults().size());
 	            /*No results = empty results arraylist*/
 	            if(!driver.getResults().isEmpty()){
 	            	hasJob = true;

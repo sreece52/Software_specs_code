@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -20,8 +19,6 @@ import Adding_jobs.AddJob;
 import Adding_jobs.EditJob;
 import Adding_jobs.ViewJob;
 import Calendar.JCalendarDialog;
-import MainScreen.ReillyScheduler;
-
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -106,20 +103,12 @@ public class Search_GUI extends JFrame {
 		  
 		  
 		calendarButton.addActionListener(new ActionListener() {
-			
+
 			// when the button is clicked it creates a calendar dialog
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked Search_GUI Calendar open"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
 				JCalendarDialog dialog = new JCalendarDialog();
 				dialog.setDialogTitle("HandyMan Calendar");
+				// dialog.setLocale(Locale.ENGLISH);
 				dialog.createDialog();
 				if (dialog.getReturnCode() == JCalendarDialog.OK_PRESSED) {
 					dialog.dispose();
@@ -142,15 +131,7 @@ public class Search_GUI extends JFrame {
 			 * the refresh button
 			 */
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked Search_GUI add job"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
+				System.out.println("Add Pressed");
 				newAddJob = new AddJob();
 				refresh.setEnabled(true);
 				return;
@@ -168,15 +149,6 @@ public class Search_GUI extends JFrame {
 			 * form is populated of the result that was passed in
 			 */
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked Search_GUI view job"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
 				try {
 					if (driver.getResults().size() != 0) {
 						String workId = (String) table.getValueAt(table.getSelectedRow(), 0);
@@ -206,15 +178,7 @@ public class Search_GUI extends JFrame {
 			 * table
 			 */
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked Search_GUI remove job"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
+
 				try {
 
 					if (driver.getResults().size() != 0) {
@@ -264,15 +228,6 @@ public class Search_GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked Search_GUI edit job"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
-				try {
 					if (driver.getResults().size() != 0) {
 						editedJob = new EditJob(driver.getResults().get(table.getSelectedRow()));
 						refresh.setEnabled(true);
@@ -318,15 +273,6 @@ public class Search_GUI extends JFrame {
 		refresh.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked Search_GUI refresh"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
 				if (newAddJob.isNewJobAdd()) {
 					Search_Driver newJob = new Search_Driver("", "CURRENTID");
 					String workId = newJob.getResults().get(0).getWork_Id();
@@ -340,22 +286,10 @@ public class Search_GUI extends JFrame {
 					String phone = newJob.getResults().get(0).getPhone_number();
 					String date = newJob.getResults().get(0).getDate();
 					Object[] rowdata = { workId, jobName, fname, lname, street, city, state, zip, phone, date };
-					try {
-						ReillyScheduler.logger.write(model.getRowCount() + " before");
-						ReillyScheduler.logger.write(System.lineSeparator());
-						ReillyScheduler.logger.flush();
-					} catch (IOException e1) {
-						System.out.println("Logger failed");
-					}
+					System.out.println(model.getRowCount());
 					model.addRow(rowdata);
-					try{
-						ReillyScheduler.logger.write(model.getRowCount() + " after");
-						ReillyScheduler.logger.write(System.lineSeparator());
-						ReillyScheduler.logger.write(table.getRowCount());
-						ReillyScheduler.logger.write(System.lineSeparator());
-					} catch (IOException e1){
-						System.out.println("Logger failed");
-					}
+					System.out.println(model.getRowCount());
+					System.out.println(table.getRowCount());
 					String numResults = String.format("Numer of results: %s", model.getRowCount());
 					resultsLbl.setText(numResults);
 					repaint();
@@ -455,15 +389,6 @@ public class Search_GUI extends JFrame {
 			 * Searches the db
 			 */
 			public void actionPerformed(ActionEvent e) {
-				try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Initiated search from Search_GUI"));
-					ReillyScheduler.logger.write(System.lineSeparator());
-					ReillyScheduler.logger.flush();
-				} catch (IOException exc) {
-					System.out.println("Logger failed");
-				}
-				
 				remove(panel);
 				driver = new Search_Driver(valueTxt.getText(), searchFilters.getSelectedItem().toString());
 				panel.removeAll();
