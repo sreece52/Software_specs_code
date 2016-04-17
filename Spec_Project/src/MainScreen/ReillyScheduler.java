@@ -1,3 +1,8 @@
+/**
+ * Main class for R-Quad Heavy Industry's Handyman Scheduler.
+ * Begins program logic by opening main screen.
+ */
+
 package MainScreen;
 
 public class ReillyScheduler {

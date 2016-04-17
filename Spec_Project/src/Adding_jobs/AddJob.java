@@ -118,7 +118,11 @@ public class AddJob extends JFrame {
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+<<<<<<< HEAD
+		
+=======
 
+>>>>>>> origin/master
 		getContentPane().setLayout(gridBagLayout);
 		this.setVisible(true);
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
@@ -138,7 +142,10 @@ public class AddJob extends JFrame {
 		this.query = query;
 		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -150,18 +157,30 @@ public class AddJob extends JFrame {
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+<<<<<<< HEAD
+		
+		JScrollPane scroll = new JScrollPane();
+		getContentPane().add(scroll);
+		
+=======
 
 		JScrollPane scroll = new JScrollPane();
 		getContentPane().add(scroll);
 
+>>>>>>> origin/master
 		getContentPane().setLayout(gridBagLayout);
 		this.setVisible(true);
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 
 		JScrollPane scroller = new JScrollPane(this);
+<<<<<<< HEAD
+		this.getContentPane().add(scroller,  this);
+		
+=======
 		this.getContentPane().add(scroller, this);
 
+>>>>>>> origin/master
 		NameSection();
 		AddressSection();
 		MaterialsAndNotesSection();
@@ -182,6 +201,8 @@ public class AddJob extends JFrame {
 	 * 
 	 */
 	public void IdAndImportSelction() {
+	
+		
 
 		// Import button
 		btnImportInformationFrom = new JButton("Import Information from Existing Job");
@@ -192,6 +213,7 @@ public class AddJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
+<<<<<<< HEAD
 		
 				// "Add Image" button and actionlistener
 				btnAddImage = new JButton("Add Image");
@@ -226,6 +248,58 @@ public class AddJob extends JFrame {
 								}
 							}
 						});
+=======
+<<<<<<< HEAD
+						
+								// Cancel Button and Actionlistener
+								btnCancel = new JButton("Cancel");
+								btnCancel.setForeground(Color.RED);
+								btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+								gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
+								gbc_btnCancel.gridwidth = 2;
+								gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
+								gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+								gbc_btnCancel.gridx = 3;
+								gbc_btnCancel.gridy = 21;
+								getContentPane().add(btnCancel, gbc_btnCancel);
+								btnCancel.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										new Search_GUI(query, search);
+										dispose();
+									}
+								});
+						
+								// Save button and actionlistener
+								btnSave = new JButton("Save");
+								btnSave.setForeground(Color.BLUE);
+								btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								
+										btnSave.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+								
+												Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
+														street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
+														phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
+														hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
+														notes_txt.getText(), pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
+														rdbtnAm_end.isSelected());
+												System.out.println("save button pressed");
+												// disposes the current window
+												new Inserting_Driver(newJob);
+												dispose();
+												new Search_GUI(query, search);
+											}
+										});
+										GridBagConstraints gbc_btnSave = new GridBagConstraints();
+										gbc_btnSave.insets = new Insets(0, 0, 5, 5);
+										gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+										gbc_btnSave.anchor = GridBagConstraints.SOUTH;
+										gbc_btnSave.gridx = 5;
+										gbc_btnSave.gridy = 21;
+										getContentPane().add(btnSave, gbc_btnSave);
+=======
+>>>>>>> origin/master
 
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
@@ -276,6 +350,7 @@ public class AddJob extends JFrame {
 		gbc_btnSave.gridx = 5;
 		gbc_btnSave.gridy = 21;
 		getContentPane().add(btnSave, gbc_btnSave);
+>>>>>>> origin/master
 		btnImportInformationFrom.addActionListener(new ActionListener() {
 
 			@Override
@@ -876,8 +951,64 @@ public class AddJob extends JFrame {
 	 * 
 	 */
 	public void CancelSaveSection() {
+	}
 
+<<<<<<< HEAD
 		
+=======
+<<<<<<< HEAD
+}
+=======
+		// Cancel Button and Actionlistener
+		btnCancel = new JButton("Cancel");
+		btnCancel.setForeground(Color.RED);
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancel.gridwidth = 2;
+		gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
+		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancel.gridx = 0;
+		gbc_btnCancel.gridy = 22;
+		getContentPane().add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+		// Save button and actionlistener
+		btnSave = new JButton("Save");
+		btnSave.setForeground(Color.BLUE);
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 33));
+>>>>>>> origin/master
+
+
+<<<<<<< HEAD
+
+=======
+				Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
+						street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
+						phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
+						hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
+						notes_txt.getText(), pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
+						rdbtnAm_end.isSelected());
+				System.out.println("save button pressed");
+				// disposes the current window
+				new Inserting_Driver(newJob);
+				newJobAdd = true;
+				dispose();
+
+			}
+		});
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSave.gridwidth = 3;
+		gbc_btnSave.anchor = GridBagConstraints.SOUTH;
+		gbc_btnSave.gridx = 7;
+		gbc_btnSave.gridy = 22;
+		getContentPane().add(btnSave, gbc_btnSave);
+>>>>>>> origin/master
 
 		
 	}
@@ -890,3 +1021,4 @@ public class AddJob extends JFrame {
 		this.newJobAdd = newJobAdd;
 	}
 }
+>>>>>>> origin/master

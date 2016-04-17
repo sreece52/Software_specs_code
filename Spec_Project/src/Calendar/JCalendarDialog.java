@@ -131,13 +131,14 @@ public class JCalendarDialog extends JFrame {
 
 		public void actionPerformed(ActionEvent event) {
 			/* Build query date */
-			String s = String.format("%d-%02d-%02d", jcalendar.getSelectedDate().get(Calendar.YEAR),
+			String s = String.format("%d-%02d-%02d", 
+					jcalendar.getSelectedDate().get(Calendar.YEAR),
 					jcalendar.getSelectedDate().get(Calendar.MONTH) + 1,
 					jcalendar.getSelectedDate().get(Calendar.DAY_OF_MONTH));
 
 			System.out.println(s.trim());
 
-			/* Create results window, and make front window */
+			/* Create results window, and move it to front */
 			Search_GUI gui = new Search_GUI(s, "Date");
 			gui.toFront();
 			gui.requestFocus();
