@@ -70,6 +70,7 @@ public class AddNotes extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("You pressed SaveNotes");
 				notes = txtrNmn.getText();
+				
 				dispose();		
 			}
 		});
@@ -83,6 +84,7 @@ public class AddNotes extends JFrame {
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		txtrNmn = new JTextArea();
+		txtrNmn.setText(" ");
 		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 12));
 	
 		
@@ -97,13 +99,6 @@ public class AddNotes extends JFrame {
 		getContentPane().add(btnSaveAddNotes, gbc_btnSaveAddNotes);
 
 		
-	}
-	public JTextArea getTxtrNmn() {
-		return txtrNmn;
-	}
-	
-	public void setTxtrNmn(JTextArea txtrNmn) {
-		this.txtrNmn = txtrNmn;
 	}
 
 	public String getNotes() {
