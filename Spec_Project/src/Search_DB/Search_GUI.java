@@ -55,6 +55,8 @@ public class Search_GUI extends JFrame {
 	private JPanel searchPanel;
 	private JTextField valueTxt;
 	private JButton search;
+	private int selectedRow;
+	private DefaultTableModel model;
 
 	/**
 	 * Create the frame.
@@ -97,8 +99,11 @@ public class Search_GUI extends JFrame {
 				dialog.setDialogTitle("HandyMan Calendar");
 				// dialog.setLocale(Locale.ENGLISH);
 				dialog.createDialog();
-				if (dialog.getReturnCode() == JCalendarDialog.OK_PRESSED)
+				if (dialog.getReturnCode() == JCalendarDialog.OK_PRESSED) {
 					dialog.dispose();
+					dispose();
+				}
+				return;
 			}
 		});
 
@@ -112,7 +117,8 @@ public class Search_GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add Pressed");
 				new AddJob(query, searchType);
-				dispose();
+				
+				return;
 			}
 		});
 
@@ -123,14 +129,13 @@ public class Search_GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (driver.getResults().size() != 0) {
-						new ViewJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+						new ViewJob(driver.getResults().get(table.getSelectedRow()), query, query);
 					}
-					dispose();
-
 				} catch (Exception table) {
 					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
 				}
 
+				return;
 			}
 		});
 
@@ -152,9 +157,12 @@ public class Search_GUI extends JFrame {
 								JOptionPane.YES_NO_OPTION);
 						if (reply == JOptionPane.YES_OPTION) {
 							new Removing_Driver(jobId);
-							((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
-							table.repaint();
-
+							model.removeRow(selectedRow);
+							String numResults = String.format("Numer of results: %s", model.getRowCount());
+							resultsLbl.setText(numResults);
+							repaint();
+							revalidate();
+							return;
 						} else {
 							return;
 						}
@@ -222,15 +230,17 @@ public class Search_GUI extends JFrame {
 			data[i][j + 8] = driver.getResults().get(i).getDate();
 		}
 
-
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null), "Result table",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(10, 63, 714, 206);
 		getContentPane().add(panel);
 
+		model = new DefaultTableModel(data, columnNames);
+
 		// builds the table
-		table = new JTable(data, columnNames);
+		table = new JTable(model);
+		table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 		table.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(driver.getResults().get(table.getSelectedRow()).toString());
@@ -238,6 +248,14 @@ public class Search_GUI extends JFrame {
 			}
 		});
 		panel.setLayout(null);
+
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				selectedRow = table.getSelectedRow();
+				System.out.println(selectedRow);
+			}
+		});
 
 		// Here I attach the table to a JScrollPane
 		contentPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -274,12 +292,13 @@ public class Search_GUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				remove(panel);
-				driver = new Search_Driver(valueTxt.getText(),
-						searchFilters.getSelectedItem().toString());
+				driver = new Search_Driver(valueTxt.getText(), searchFilters.getSelectedItem().toString());
 				panel.removeAll();
 				repaint();
 				revalidate();
 				buildtable();
+				String numResults = String.format("Numer of results: %s", driver.getResults().size());
+				resultsLbl.setText(numResults);
 			}
 		});
 		search.setBounds(245, 12, 89, 23);

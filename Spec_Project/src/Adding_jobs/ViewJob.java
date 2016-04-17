@@ -816,8 +816,6 @@ public class ViewJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				new Search_GUI(query, searchType);
 				dispose();
 			}
 		});
@@ -831,8 +829,8 @@ public class ViewJob extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("save button pressed");
 
-				// EditJob editjob = new EditJob();
-				// editjob.setVisible(true);
+				EditJob editjob = new EditJob(jobs, query, searchType);
+				editjob.setVisible(true);
 				dispose();
 			}
 		});
