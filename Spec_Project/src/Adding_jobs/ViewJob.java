@@ -501,7 +501,7 @@ public class ViewJob extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				// opens the View Notes window
-				ViewNotes editjob = new ViewNotes();
+				ViewNotes editjob = new ViewNotes(jobs.getNotes());
 				editjob.setVisible(true);
 
 			}
