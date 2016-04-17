@@ -88,7 +88,7 @@ public class AddNotes extends JFrame {
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		txtrNmn = new JTextArea();
-		txtrNmn.setText(" ");
+		txtrNmn.setText("");
 		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 12));
 	
 		
