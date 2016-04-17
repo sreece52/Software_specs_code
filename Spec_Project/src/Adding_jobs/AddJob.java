@@ -866,6 +866,7 @@ public class AddJob extends JFrame {
                         .format(new java.util.Date()) + 
                         ": AddJob -> clicked cancel, Frame disposed");
 				dispose();
+				
 			}
 		});
 

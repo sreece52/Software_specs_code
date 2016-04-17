@@ -27,6 +27,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
@@ -165,6 +166,9 @@ public class ViewJob extends JFrame {
 				try {
 					File file = new File(jobs.getImages());
 					Desktop.getDesktop().open(file);
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                        .format(new java.util.Date()) + 
+	                        ": ViewJob -> User clicked on view image");
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
@@ -195,6 +199,9 @@ public class ViewJob extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the Cancel button");
 			}
 		});
 
@@ -211,6 +218,9 @@ public class ViewJob extends JFrame {
 				EditJob editjob = new EditJob(jobs);
 				editjob.setVisible(true);
 				dispose();
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the Save button");
 			}
 		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -503,6 +513,9 @@ public class ViewJob extends JFrame {
 				// opens the View Notes window
 				ViewNotes editjob = new ViewNotes(jobs.getNotes());
 				editjob.setVisible(true);
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the View Notes button");
 
 			}
 		});
@@ -804,6 +817,9 @@ public class ViewJob extends JFrame {
 					pdf.setText(filename);
 
 				}
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User selected the add PDF button");
 			}
 		});
 		
@@ -841,6 +857,9 @@ public class ViewJob extends JFrame {
 				try {
 					File file = new File(jobs.getPDFs());
 					Desktop.getDesktop().open(file);
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                        .format(new java.util.Date()) + 
+	                        ": ViewJob -> User clicked on the view PDF button");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
@@ -887,6 +906,9 @@ public class ViewJob extends JFrame {
 					images.setText(filename);
 
 				}
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the add Image button");
 			}
 		});
 
