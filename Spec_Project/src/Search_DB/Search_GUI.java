@@ -3,7 +3,6 @@ package Search_DB;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,17 +15,17 @@ import Adding_jobs.AddJob;
 import Adding_jobs.EditJob;
 import Adding_jobs.ViewJob;
 import Calendar.JCalendarDialog;
-
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
-
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 /**
+ * This class builds a JFrame that shows the search results of a given query
+ * 
  * @author Shawn Reece Date: 2/9/2016
  */
 @SuppressWarnings("serial")
@@ -63,19 +62,22 @@ public class Search_GUI extends JFrame {
 		super("Search Results");
 		setBounds(100, 100, 750, 361);
 		this.setVisible(true);
-		this.query = query;
-		this.searchType = searchType;
+		this.setQuery(query);
+		this.setSearchType(searchType);
 		this.setLocationRelativeTo(null);
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 		// Object to start the searching
 		driver = new Search_Driver(query, searchType);
 		this.setResizable(false);
+
+		/* call the methods to add the components to the frame */
 		initSearchPanel();
 		initRefresh();
 		buildtable();
 		initButtonPanel();
 
+		// if there are no results prompt the use
 		if (driver.getResults().size() == 0) {
 			String message = String.format("No results");
 			JOptionPane.showMessageDialog(null, message, "No records found", 2);
@@ -87,10 +89,11 @@ public class Search_GUI extends JFrame {
 
 	public void initButtonPanel() {
 
+		// Creates a calendar button
 		JButton calendarButton = new JButton("Calendar");
 		calendarButton.addActionListener(new ActionListener() {
 
-			@Override
+			// when the button is clicked it creates a calendar dialog
 			public void actionPerformed(ActionEvent e) {
 				JCalendarDialog dialog = new JCalendarDialog();
 				dialog.setDialogTitle("HandyMan Calendar");
@@ -110,6 +113,10 @@ public class Search_GUI extends JFrame {
 		add = new JButton("Add a Job");
 		add.addActionListener(new ActionListener() {
 			@Override
+			/**
+			 * When the user presses save, A add job form is created and enables
+			 * the refresh button
+			 */
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add Pressed");
 				newAddJob = new AddJob();
@@ -122,6 +129,10 @@ public class Search_GUI extends JFrame {
 		view.addActionListener(new ActionListener() {
 
 			@Override
+			/**
+			 * When the user presses view job, a view form is created and the
+			 * form is populated of the result that was passed in
+			 */
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (driver.getResults().size() != 0) {
@@ -144,17 +155,30 @@ public class Search_GUI extends JFrame {
 		remove.addActionListener(new ActionListener() {
 
 			@Override
+			/**
+			 * When the user presses remove job the program will find the
+			 * selected row in the db and remove from the db and update the
+			 * table
+			 */
 			public void actionPerformed(ActionEvent e) {
 
 				try {
 
 					if (driver.getResults().size() != 0) {
 
+						// holds the value of the row
 						String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
-						System.out.println(table.getSelectedRow());
+
+						// asks the user if are sure they want to delete the
+						// record
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
 								JOptionPane.YES_NO_OPTION);
+
+						/*
+						 * If yes the removing of the record from the db will be
+						 * invoked
+						 */
 						if (reply == JOptionPane.YES_OPTION) {
 							new Removing_Driver(jobId);
 							model.removeRow(table.getSelectedRow());
@@ -197,14 +221,18 @@ public class Search_GUI extends JFrame {
 			}
 		});
 
+		// This label holds the number of results
 		getContentPane().setLayout(null);
 		String numResults = String.format("Number of results: %s", driver.getResults().size());
 		resultsLbl = new JLabel(numResults);
 
+		// The button panel to hold all the buttons
 		btnPanel = new JPanel();
 		btnPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnPanel.setBounds(10, 280, 714, 41);
 		btnPanel.add(calendarButton);
+
+		// add buttons to panel and panel to the frame
 		btnPanel.add(add);
 		btnPanel.add(view);
 		btnPanel.add(edit);
@@ -214,11 +242,13 @@ public class Search_GUI extends JFrame {
 	}
 
 	public void initRefresh() {
+		// panel to hold the refresh button
 		refreshPanel = new JPanel();
 		refreshPanel.setBounds(10, 11, 105, 41);
 		getContentPane().add(refreshPanel);
 		refreshPanel.setLayout(new BorderLayout(0, 0));
 
+		// button that refreshes the table
 		refresh = new JButton("refresh");
 		refresh.setEnabled(false);
 		refresh.addActionListener(new ActionListener() {
@@ -246,20 +276,22 @@ public class Search_GUI extends JFrame {
 					repaint();
 					revalidate();
 					refresh.setEnabled(false);
-				}
-				else if(editedJob.isEdited()){
+				} else if (editedJob.isEdited()) {
 					System.out.println("Todo add code to edit the table");
-				}
-				else {
+				} else {
 					refresh.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "No new updates");
 				}
 			}
 		});
 
+		// adds the button to the refresh panel
 		refreshPanel.add(refresh);
 	}
 
+	/**
+	 * This method builds the table where the results of the search are held
+	 */
 	public void buildtable() {
 		Object[][] data = new Object[driver.getResults().size()][columnNames.length];
 		int j = 0;
@@ -299,18 +331,24 @@ public class Search_GUI extends JFrame {
 
 	}
 
+	/**
+	 * This builds search panel
+	 */
 	public void initSearchPanel() {
+		// panel to hold the search button
 		searchPanel = new JPanel();
 		searchPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		searchPanel.setBounds(380, 11, 344, 46);
 		getContentPane().add(searchPanel);
 		searchPanel.setLayout(null);
 
+		// makes a text field
 		valueTxt = new JTextField();
 		valueTxt.setBounds(133, 11, 102, 25);
 		searchPanel.add(valueTxt);
 		valueTxt.setColumns(10);
 
+		// combo box to hold the search filters
 		JComboBox<String> searchFilters = new JComboBox<String>();
 		searchFilters.addItem("First Name");
 		searchFilters.addItem("Last Name");
@@ -320,10 +358,14 @@ public class Search_GUI extends JFrame {
 		searchFilters.setBounds(10, 13, 113, 20);
 		searchPanel.add(searchFilters);
 
+		// search button
 		search = new JButton("Search");
 		search.addActionListener(new ActionListener() {
 
 			@Override
+			/**
+			 * Searches the db
+			 */
 			public void actionPerformed(ActionEvent e) {
 				remove(panel);
 				driver = new Search_Driver(valueTxt.getText(), searchFilters.getSelectedItem().toString());
@@ -337,5 +379,23 @@ public class Search_GUI extends JFrame {
 		});
 		search.setBounds(245, 12, 89, 23);
 		searchPanel.add(search);
+	}
+
+	////////////////////////////// Getters and Setters//////////////////////////
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
 	}
 }
