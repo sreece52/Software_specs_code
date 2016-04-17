@@ -52,9 +52,9 @@ public class Search_GUI extends JFrame {
 	private JButton refresh;
 	private AddJob newAddJob;
 	private EditJob editedJob;
-
+ 
 	/**
-	 * Create the frame.
+	 * Create the frame. swag
 	 */
 	public Search_GUI(String query, String searchType) {
 
