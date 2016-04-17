@@ -37,6 +37,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
@@ -164,26 +165,30 @@ public class EditJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
-		
-				btnOpenImage = new JButton("Open Image");
-				btnOpenImage.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							File file = new File(image);
-							Desktop.getDesktop().open(file);
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-									"File not Found", 2);
-						}
-					}
-				});
-				btnOpenImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_btnOpenImage = new GridBagConstraints();
-				gbc_btnOpenImage.insets = new Insets(0, 0, 5, 5);
-				gbc_btnOpenImage.gridx = 5;
-				gbc_btnOpenImage.gridy = 19;
-				getContentPane().add(btnOpenImage, gbc_btnOpenImage);
+
+		btnOpenImage = new JButton("Open Image");
+		btnOpenImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> clicked open image");
+				try {
+					File file = new File(image);
+					Desktop.getDesktop().open(file);
+				} catch (Exception e1) {
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+							+ ": EditJob -> Excpetion stacktrace");
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
+							"File not Found", 2);
+				}
+			}
+		});
+		btnOpenImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnOpenImage = new GridBagConstraints();
+		gbc_btnOpenImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnOpenImage.gridx = 5;
+		gbc_btnOpenImage.gridy = 19;
+		getContentPane().add(btnOpenImage, gbc_btnOpenImage);
 
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
@@ -212,16 +217,18 @@ public class EditJob extends JFrame {
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> clicked save adding record to database..");
 				String notes;
 				if (note == null) {
 					notes = "";
 				} else {
 					notes = note.getNotes();
 				}
-				
+
 				/* Temporary calendar for validation purposes */
 				Calendar temp = Calendar.getInstance();
-				
+
 				System.out.println("save button pressed");
 				if (date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
 					/* Prevent user from entering invalid months */
@@ -257,10 +264,10 @@ public class EditJob extends JFrame {
 									dispose();
 								}
 							}
-						} else { //Day incorrect
+						} else { // Day incorrect
 							JOptionPane.showMessageDialog(null, "Day of month must exist", "Incorrect Day Format", 2);
 						}
-					} else { //Month incorrect
+					} else { // Month incorrect
 						JOptionPane.showMessageDialog(null, "Month must be 01 - 12", "Incorrect Month Format", 2);
 					}
 				} else {
@@ -280,6 +287,9 @@ public class EditJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				// logging action
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> clicked importing job");
 				importedJob = new ImportJob(edit);
 			}
 		});
@@ -795,130 +805,141 @@ public class EditJob extends JFrame {
 	 * 
 	 */
 	public void PdfAndImagesSection() {
-		
-				// button for Add notes and action listener
-				btnViewNotesIn = new JButton("Edit Notes in New Window");
-				btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				btnViewNotesIn.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						// opens the Edit Notes window
-						note = new EditNotes(editedJob.getNotes());
-						note.setVisible(true);
 
-					}
-				});
-				GridBagConstraints gbc_btnViewNotesIn = new GridBagConstraints();
-				gbc_btnViewNotesIn.insets = new Insets(0, 0, 5, 5);
-				gbc_btnViewNotesIn.gridwidth = 3;
-				gbc_btnViewNotesIn.gridx = 2;
-				gbc_btnViewNotesIn.gridy = 15;
-				getContentPane().add(btnViewNotesIn, gbc_btnViewNotesIn);
-		
-				lblPdf = new JLabel("PDF:");
-				lblPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_lblPdf = new GridBagConstraints();
-				gbc_lblPdf.anchor = GridBagConstraints.EAST;
-				gbc_lblPdf.insets = new Insets(0, 0, 5, 5);
-				gbc_lblPdf.gridwidth = 2;
-				gbc_lblPdf.gridx = 0;
-				gbc_lblPdf.gridy = 16;
-				getContentPane().add(lblPdf, gbc_lblPdf);
-		
-				// PDF JTextField that displays the saved PDF
-				pdf_txt = new JTextField();
-				pdf_txt.setEditable(false);
-				pdf_txt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				pdf_txt.setText("No PDFs Added");
-				GridBagConstraints gbc_pdf_txt = new GridBagConstraints();
-				gbc_pdf_txt.fill = GridBagConstraints.HORIZONTAL;
-				gbc_pdf_txt.insets = new Insets(0, 0, 5, 0);
-				gbc_pdf_txt.gridwidth = 7;
-				gbc_pdf_txt.gridx = 2;
-				gbc_pdf_txt.gridy = 16;
-				getContentPane().add(pdf_txt, gbc_pdf_txt);
-				pdf_txt.setColumns(10);
-				pdf_txt.setText(editedJob.getPDFs());
-		
-				// "Add PDF" button and action listener
-				btnAddPdf = new JButton("Add PDF");
-				btnAddPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_btnAddPdf = new GridBagConstraints();
-				gbc_btnAddPdf.anchor = GridBagConstraints.EAST;
-				gbc_btnAddPdf.insets = new Insets(0, 0, 5, 5);
-				gbc_btnAddPdf.gridwidth = 2;
-				gbc_btnAddPdf.gridx = 2;
-				gbc_btnAddPdf.gridy = 17;
-				getContentPane().add(btnAddPdf, gbc_btnAddPdf);
-				
-						btnAddPdf.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								System.out.println("Add PDF button pressed");
-				
-								FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
-								fd.setDirectory("C:\\");
-								fd.setFile("*.pdf");
-								fd.setVisible(true);
-								filename = fd.getDirectory() + fd.getFile();
-								pdf = fd.getDirectory() + fd.getFile();
-								if (filename == null)
-									System.out.println("You cancelled the choice");
-								else {
-									System.out.println("You chose " + filename);
-				
-								}
-								if (filename != null) {
-									System.out.println(filename);
-									pdf_txt.setText(filename);
-				
-								}
-							}
-						});
-		
-				btnOpenPdf = new JButton("Open PDF");
-				btnOpenPdf.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
+		// button for Add notes and action listener
+		btnViewNotesIn = new JButton("Edit Notes in New Window");
+		btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnViewNotesIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// logging event
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> clicked view notes");
+				// opens the Edit Notes window
+				note = new EditNotes(editedJob.getNotes());
+				note.setVisible(true);
 
-						try {
-							File file = new File(pdf);
-							Desktop.getDesktop().open(file);
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-									"File not Found", 2);
-						}
-					}
-				});
-				btnOpenPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_btnOpenPdf = new GridBagConstraints();
-				gbc_btnOpenPdf.insets = new Insets(0, 0, 5, 5);
-				gbc_btnOpenPdf.gridx = 5;
-				gbc_btnOpenPdf.gridy = 17;
-				getContentPane().add(btnOpenPdf, gbc_btnOpenPdf);
-		
-				lblImages = new JLabel("Images:");
-				lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_lblImages = new GridBagConstraints();
-				gbc_lblImages.anchor = GridBagConstraints.EAST;
-				gbc_lblImages.insets = new Insets(0, 0, 5, 5);
-				gbc_lblImages.gridwidth = 2;
-				gbc_lblImages.gridx = 0;
-				gbc_lblImages.gridy = 18;
-				getContentPane().add(lblImages, gbc_lblImages);
-		
-				// Images JTextField
-				images_txt = new JTextField();
-				images_txt.setEditable(false);
-				images_txt.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				images_txt.setText("No Images Added");
-				GridBagConstraints gbc_images_txt = new GridBagConstraints();
-				gbc_images_txt.fill = GridBagConstraints.HORIZONTAL;
-				gbc_images_txt.insets = new Insets(0, 0, 5, 0);
-				gbc_images_txt.gridwidth = 7;
-				gbc_images_txt.gridx = 2;
-				gbc_images_txt.gridy = 18;
-				getContentPane().add(images_txt, gbc_images_txt);
-				images_txt.setColumns(10);
-				images_txt.setText(editedJob.getImages());
+			}
+		});
+		GridBagConstraints gbc_btnViewNotesIn = new GridBagConstraints();
+		gbc_btnViewNotesIn.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewNotesIn.gridwidth = 3;
+		gbc_btnViewNotesIn.gridx = 2;
+		gbc_btnViewNotesIn.gridy = 15;
+		getContentPane().add(btnViewNotesIn, gbc_btnViewNotesIn);
+
+		lblPdf = new JLabel("PDF:");
+		lblPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblPdf = new GridBagConstraints();
+		gbc_lblPdf.anchor = GridBagConstraints.EAST;
+		gbc_lblPdf.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPdf.gridwidth = 2;
+		gbc_lblPdf.gridx = 0;
+		gbc_lblPdf.gridy = 16;
+		getContentPane().add(lblPdf, gbc_lblPdf);
+
+		// PDF JTextField that displays the saved PDF
+		pdf_txt = new JTextField();
+		pdf_txt.setEditable(false);
+		pdf_txt.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		pdf_txt.setText("No PDFs Added");
+		GridBagConstraints gbc_pdf_txt = new GridBagConstraints();
+		gbc_pdf_txt.fill = GridBagConstraints.HORIZONTAL;
+		gbc_pdf_txt.insets = new Insets(0, 0, 5, 0);
+		gbc_pdf_txt.gridwidth = 7;
+		gbc_pdf_txt.gridx = 2;
+		gbc_pdf_txt.gridy = 16;
+		getContentPane().add(pdf_txt, gbc_pdf_txt);
+		pdf_txt.setColumns(10);
+		pdf_txt.setText(editedJob.getPDFs());
+
+		// "Add PDF" button and action listener
+		btnAddPdf = new JButton("Add PDF");
+		btnAddPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnAddPdf = new GridBagConstraints();
+		gbc_btnAddPdf.anchor = GridBagConstraints.EAST;
+		gbc_btnAddPdf.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAddPdf.gridwidth = 2;
+		gbc_btnAddPdf.gridx = 2;
+		gbc_btnAddPdf.gridy = 17;
+		getContentPane().add(btnAddPdf, gbc_btnAddPdf);
+
+		btnAddPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//logging event
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> clicked add pdf");
+
+				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
+				fd.setDirectory("C:\\");
+				fd.setFile("*.pdf");
+				fd.setVisible(true);
+				filename = fd.getDirectory() + fd.getFile();
+				pdf = fd.getDirectory() + fd.getFile();
+				if (filename == null)
+					System.out.println("You cancelled the choice");
+				else {
+					System.out.println("You chose " + filename);
+
+				}
+				if (filename != null) {
+					System.out.println(filename);
+					pdf_txt.setText(filename);
+
+				}
+			}
+		});
+
+		btnOpenPdf = new JButton("Open PDF");
+		btnOpenPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				//logging event
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> clicker open pdf");
+
+				try {
+					File file = new File(pdf);
+					Desktop.getDesktop().open(file);
+				} catch (Exception e) {
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+							+ ": EditJob -> exception stack track:");
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
+							"File not Found", 2);
+				}
+			}
+		});
+		btnOpenPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnOpenPdf = new GridBagConstraints();
+		gbc_btnOpenPdf.insets = new Insets(0, 0, 5, 5);
+		gbc_btnOpenPdf.gridx = 5;
+		gbc_btnOpenPdf.gridy = 17;
+		getContentPane().add(btnOpenPdf, gbc_btnOpenPdf);
+
+		lblImages = new JLabel("Images:");
+		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblImages = new GridBagConstraints();
+		gbc_lblImages.anchor = GridBagConstraints.EAST;
+		gbc_lblImages.insets = new Insets(0, 0, 5, 5);
+		gbc_lblImages.gridwidth = 2;
+		gbc_lblImages.gridx = 0;
+		gbc_lblImages.gridy = 18;
+		getContentPane().add(lblImages, gbc_lblImages);
+
+		// Images JTextField
+		images_txt = new JTextField();
+		images_txt.setEditable(false);
+		images_txt.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		images_txt.setText("No Images Added");
+		GridBagConstraints gbc_images_txt = new GridBagConstraints();
+		gbc_images_txt.fill = GridBagConstraints.HORIZONTAL;
+		gbc_images_txt.insets = new Insets(0, 0, 5, 0);
+		gbc_images_txt.gridwidth = 7;
+		gbc_images_txt.gridx = 2;
+		gbc_images_txt.gridy = 18;
+		getContentPane().add(images_txt, gbc_images_txt);
+		images_txt.setColumns(10);
+		images_txt.setText(editedJob.getImages());
 
 	}
 
@@ -929,41 +950,45 @@ public class EditJob extends JFrame {
 	 * 
 	 */
 	public void CancelSaveSection() {
-		
-				// "Add Image" button and actionlistener
-				btnAddImage = new JButton("Add Image");
-				btnAddImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_btnAddImage = new GridBagConstraints();
-				gbc_btnAddImage.anchor = GridBagConstraints.EAST;
-				gbc_btnAddImage.insets = new Insets(0, 0, 5, 5);
-				gbc_btnAddImage.gridwidth = 2;
-				gbc_btnAddImage.gridx = 2;
-				gbc_btnAddImage.gridy = 19;
-				getContentPane().add(btnAddImage, gbc_btnAddImage);
+
+		// "Add Image" button and actionlistener
+		btnAddImage = new JButton("Add Image");
+		btnAddImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnAddImage = new GridBagConstraints();
+		gbc_btnAddImage.anchor = GridBagConstraints.EAST;
+		gbc_btnAddImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAddImage.gridwidth = 2;
+		gbc_btnAddImage.gridx = 2;
+		gbc_btnAddImage.gridy = 19;
+		getContentPane().add(btnAddImage, gbc_btnAddImage);
+
+		btnAddImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//logging event
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": EditJob -> Clicked add Image");
 				
-						btnAddImage.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								System.out.println("Add Image button pressed");
 				
-								FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
-								fd.setDirectory("C:\\");
-								fd.setFile("*.jpg");
-								fd.setVisible(true);
-								filename = fd.getDirectory() + fd.getFile();
-								image = fd.getDirectory() + fd.getFile();
-								if (filename == null)
-									System.out.println("You cancelled the choice");
-								else {
-									System.out.println("You chose " + filename);
-				
-								}
-								if (filename != null) {
-									System.out.println(filename);
-									images_txt.setText(filename);
-				
-								}
-							}
-						});
+				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
+				fd.setDirectory("C:\\");
+				fd.setFile("*.jpg");
+				fd.setVisible(true);
+				filename = fd.getDirectory() + fd.getFile();
+				image = fd.getDirectory() + fd.getFile();
+				if (filename == null)
+					System.out.println("You cancelled the choice");
+				else {
+					System.out.println("You chose " + filename);
+
+				}
+				if (filename != null) {
+					System.out.println(filename);
+					images_txt.setText(filename);
+
+				}
+			}
+		});
 	}
 
 	public void clear() {
@@ -981,7 +1006,7 @@ public class EditJob extends JFrame {
 		zip_txt.setText("");
 		phone_txt.setText("");
 		materials_txt.setText("");
-	//	notes_txt.setText("");
+		// notes_txt.setText("");
 		pdf_txt.setText("");
 		images_txt.setText("");
 		end_txt.select(0);

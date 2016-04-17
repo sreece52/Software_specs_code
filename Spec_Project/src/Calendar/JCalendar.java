@@ -9,9 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -107,6 +104,9 @@ public class JCalendar{
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.YEAR, -1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go back a year");
             }
         });
         buttonPanel.add(yearBackButton);
@@ -118,6 +118,9 @@ public class JCalendar{
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.MONTH, -1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go back a month");
             }
         });
         buttonPanel.add(monthBackButton);
@@ -129,6 +132,9 @@ public class JCalendar{
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.MONTH, 1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go forward a month");
             }
         });
         buttonPanel.add(monthForwardButton);
@@ -140,6 +146,9 @@ public class JCalendar{
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.YEAR, 1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go forward a year");
             }
         });
         buttonPanel.add(yearForwardButton);
@@ -311,6 +320,9 @@ public class JCalendar{
                     getSelectedDate(s);
                 }
             }
+            System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendar -> User clicked his mouse");
         }
  
         private void getSelectedDate(String s) {

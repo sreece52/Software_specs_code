@@ -17,6 +17,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -72,7 +73,9 @@ public class EditNotes extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("You pressed SaveNotes");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": EditNotes -> Clicked save");
 				
 				notes = txtrNmn.getText();
 				

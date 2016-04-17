@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import java.util.Locale;
@@ -131,6 +132,9 @@ public class JCalendarDialog extends JFrame {
 		public void actionPerformed(ActionEvent event) {
 			returnCode = CANCEL_PRESSED;
 			dialog.dispose();
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendarDialog -> User clicked on the cancel button");
 		}
 	}
 
@@ -165,6 +169,9 @@ public class JCalendarDialog extends JFrame {
 
 			returnCode = OK_PRESSED;
 			dialog.dispose();
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendarDialog -> User clicked on the OK button");
 		}
 	}
 	private class addButtonActionListener implements ActionListener {
@@ -198,6 +205,9 @@ public class JCalendarDialog extends JFrame {
 
 			returnCode = OK_PRESSED;
 			dialog.dispose();
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendarDialog -> User clicked on the addJob Button");
 		}
 	}
 }
