@@ -870,18 +870,25 @@ public class AddJob extends JFrame {
 				} else {
 					notes = note.getNotes();
 				}
-
-				Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
-						street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
-						phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-						hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
-						notes, pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
-						rdbtnAm_end.isSelected());
-				System.out.println("save button pressed");
-				// disposes the current window
-				new Inserting_Driver(newJob);
-				newJobAdd = true;
-				dispose();
+				
+				if(date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")){
+					Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
+							street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
+							phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
+							hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
+							notes, pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
+							rdbtnAm_end.isSelected());
+					System.out.println("save button pressed");
+					// disposes the current window
+					new Inserting_Driver(newJob);
+					newJobAdd = true;
+					dispose();
+				}
+				else{ //invalid date
+					JOptionPane.showMessageDialog(null,
+							"Date field must have format YYYY-MM-DD", 
+							"Incorrect Date Format", 2);
+				}
 			}
 		});
 	}
