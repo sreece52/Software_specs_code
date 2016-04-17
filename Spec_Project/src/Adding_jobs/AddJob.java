@@ -109,7 +109,7 @@ public class AddJob extends JFrame {
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public AddJob(String date){
+	public AddJob(String date) {
 		this.query = query;
 		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -137,10 +137,11 @@ public class AddJob extends JFrame {
 		PdfAndImagesSection();
 		CancelSaveSection();
 		IdAndImportSelction();
-		
+
 		date_txt.setText(date);
-		
+
 	}
+
 	public AddJob() {
 		this.query = query;
 		this.search = search;
@@ -170,13 +171,12 @@ public class AddJob extends JFrame {
 		CancelSaveSection();
 		IdAndImportSelction();
 
-		
-		
 	}
 
 	@Deprecated
 	/**
 	 * In process of removal
+	 * 
 	 * @param job
 	 * @param query
 	 * @param search
@@ -777,7 +777,7 @@ public class AddJob extends JFrame {
 		btnViewNotesIn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				JOptionPane.showMessageDialog(null, "Hello");
+
 				note = new AddNotes();
 				note.setVisible(true);
 
@@ -915,24 +915,20 @@ public class AddJob extends JFrame {
 				} else {
 					notes = note.getNotes();
 				}
-				
-				/*Temporary calendar for validation purposes*/
+
+				/* Temporary calendar for validation purposes */
 				Calendar temp = Calendar.getInstance();
-				
-						
-				if(date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
-					
-					/*Prevent user from entering invalid months*/
-					if(Integer.parseInt(date_txt.getText().substring(5, 7)) <=
-							temp.getActualMaximum(Calendar.MONTH)){
-						temp.set(Calendar.MONTH, 
-								Integer.parseInt(date_txt.getText().substring(5, 7)));
-						
-						/*Determine num of days in month*/
+
+				if (date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
+
+					/* Prevent user from entering invalid months */
+					if (Integer.parseInt(date_txt.getText().substring(5, 7)) <= temp.getActualMaximum(Calendar.MONTH)) {
+						temp.set(Calendar.MONTH, Integer.parseInt(date_txt.getText().substring(5, 7)));
+
+						/* Determine num of days in month */
 						int maxMonthDays = temp.getActualMaximum(Calendar.DAY_OF_MONTH);
-						if(Integer.parseInt(date_txt.getText().substring(8)) <=
-								maxMonthDays){
-							/*Date is confirmed correct so add job*/
+						if (Integer.parseInt(date_txt.getText().substring(8)) <= maxMonthDays) {
+							/* Date is confirmed correct so add job */
 							Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(),
 									lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
 									zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
@@ -940,37 +936,31 @@ public class AddJob extends JFrame {
 									end_txt.getSelectedItem(), notes, pdf_file_txt.getText(), image_txt.getText(),
 									rdbtnAm_start.isSelected(), rdbtnAm_end.isSelected());
 							System.out.println("save button pressed");
-							
-							/*Checks for invalid leap years*/
-							boolean exceptionThrown=false;
-							try{
+
+							/* Checks for invalid leap years */
+							boolean exceptionThrown = false;
+							try {
 								new Inserting_Driver(newJob);
-							} catch(SQLException sqle){
-								JOptionPane.showMessageDialog(null, 
-										"Invalid Date", "Leap Year", 2);
-								exceptionThrown=true;
+							} catch (SQLException sqle) {
+								JOptionPane.showMessageDialog(null, "Invalid Date", "Leap Year", 2);
+								exceptionThrown = true;
 							}
-							if(!exceptionThrown){
+							if (!exceptionThrown) {
 								newJobAdd = true;
 								dispose();
 							}
-							
-						} //end day conditional
-						else{ //Day of month is invalid
-							JOptionPane.showMessageDialog(null,
-									"Day of month must exist", 
-									"Incorrect Day Format", 2);
+
+						} // end day conditional
+						else { // Day of month is invalid
+							JOptionPane.showMessageDialog(null, "Day of month must exist", "Incorrect Day Format", 2);
 						}
-					} //end month conditional
-					else{ //Month not between 01 and 12
-						JOptionPane.showMessageDialog(null,
-								"Month must be 01 - 12", 
-								"Incorrect Month Format", 2);
+					} // end month conditional
+					else { // Month not between 01 and 12
+						JOptionPane.showMessageDialog(null, "Month must be 01 - 12", "Incorrect Month Format", 2);
 					}
-				} //end format conditional
-				else{ //invalid date
-					JOptionPane.showMessageDialog(null,
-							"Date field must have format YYYY-MM-DD", 
+				} // end format conditional
+				else { // invalid date
+					JOptionPane.showMessageDialog(null, "Date field must have format YYYY-MM-DD",
 							"Incorrect Date Format", 2);
 				}
 			}
