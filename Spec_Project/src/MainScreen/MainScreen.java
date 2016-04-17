@@ -32,6 +32,7 @@ import javax.swing.border.MatteBorder;
 import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -64,7 +65,7 @@ public class MainScreen extends JFrame {
 	public MainScreen() {
 		/*Set constraints for window*/
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 320);
+		setBounds(100, 100, 300, 368);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,7 +91,7 @@ public class MainScreen extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.setBounds(97, 11, 83, 76);
+		panel.setBounds(103, 61, 83, 76);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		JButton calendarButton = new JButton(new ImageIcon(((new ImageIcon(
@@ -103,7 +104,7 @@ public class MainScreen extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_1.setBounds(10, 98, 269, 96);
+		panel_1.setBounds(10, 153, 269, 96);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		final JTextField searchField = new JTextField("Search");
@@ -117,7 +118,7 @@ public class MainScreen extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_2.setBounds(10, 205, 269, 47);
+		panel_2.setBounds(10, 265, 269, 47);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		JButton searchButton = new JButton("Search");
@@ -128,6 +129,12 @@ public class MainScreen extends JFrame {
 		btnExit.setBounds(140, 11, 124, 27);
 		panel_2.add(btnExit);
 		btnExit.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		JLabel lblHandymanScheduler = new JLabel("Handyman Scheduler");
+		lblHandymanScheduler.setForeground(new Color(0, 139, 139));
+		lblHandymanScheduler.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblHandymanScheduler.setBounds(46, 16, 200, 28);
+		contentPane.add(lblHandymanScheduler);
 		btnExit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				System.exit(0); //0 denotes normal exit
