@@ -191,23 +191,27 @@ public class EditJob extends JFrame {
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("save button pressed");
+				if (date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
+					int reply = JOptionPane.showConfirmDialog(null,
+							"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
+							JOptionPane.YES_NO_OPTION);
+					if (reply == JOptionPane.YES_OPTION) {
 
-				int reply = JOptionPane.showConfirmDialog(null,
-						"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
-						JOptionPane.YES_NO_OPTION);
-				if (reply == JOptionPane.YES_OPTION) {
+						Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(), fname_txt.getText(),
+								lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
+								zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
+								hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
+								end_txt.getSelectedItem(), notes_txt.getText(), pdf_txt.getText(), images_txt.getText(),
+								rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
 
-					Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(), fname_txt.getText(),
-							lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
-							zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-							hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
-							end_txt.getSelectedItem(), notes_txt.getText(), pdf_txt.getText(), images_txt.getText(),
-							rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
-
-					// disposes the current window
-					new Editing_Driver(newJob);
-					isEdited = true;
-					dispose();
+						// disposes the current window
+						new Editing_Driver(newJob);
+						isEdited = true;
+						dispose();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Date does not match required format YYYY-MM-DD",
+							"Invalid Format", 1);
 				}
 			}
 		});
