@@ -31,7 +31,6 @@ public class Jobs {
 	private String notes;
 	private String PDFs;
 	private String images;
-	private int testInt;
 
 	/**
 	 * This is the constructor that assigns all the fields values all the

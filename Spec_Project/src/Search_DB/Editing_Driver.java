@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -90,6 +91,12 @@ public class Editing_Driver {
 					job.getZip_code(), job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
 					job.getStartTime(), job.getEndTime(), job.getNotes(),
 					job.getPDFs(), job.getImages(), job.isStartTimeAm(), job.isEndTimeAm(),job.getWork_Id());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Editing_Driver -> Sent query " + insertStatement);
+			
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The database has been successfully updated", "Edit", 1);
 		} catch (NullPointerException npe) {
