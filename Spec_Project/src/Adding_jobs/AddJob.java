@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import org.h2.jdbc.JdbcSQLException;
+
 import Search_DB.ImportJob;
 import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
@@ -28,6 +30,9 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.BorderLayout;
 import java.awt.Choice;
@@ -104,7 +109,38 @@ public class AddJob extends JFrame {
 	 * 
 	 * @wbp.parser.constructor
 	 */
+	public AddJob(String date){
+		this.query = query;
+		this.search = search;
+		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		setTitle("Add Job");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		setBounds(100, 100, 779, 739);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 82, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
+		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
+				29, 35, 32, 49, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 
+		getContentPane().setLayout(gridBagLayout);
+		this.setVisible(true);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
+
+		NameSection();
+		AddressSection();
+		MaterialsAndNotesSection();
+		DateAndTimeSection();
+		PdfAndImagesSection();
+		CancelSaveSection();
+		IdAndImportSelction();
+		
+		date_txt.setText(date);
+		
+	}
 	public AddJob() {
 		this.query = query;
 		this.search = search;
@@ -134,8 +170,17 @@ public class AddJob extends JFrame {
 		CancelSaveSection();
 		IdAndImportSelction();
 
+		
+		
 	}
 
+	@Deprecated
+	/**
+	 * In process of removal
+	 * @param job
+	 * @param query
+	 * @param search
+	 */
 	public AddJob(Jobs job, String query, String search) {
 		this.query = query;
 		this.search = search;
@@ -871,19 +916,58 @@ public class AddJob extends JFrame {
 					notes = note.getNotes();
 				}
 				
-				if(date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")){
-					Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
-							street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
-							phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-							hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
-							notes, pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
-							rdbtnAm_end.isSelected());
-					System.out.println("save button pressed");
-					// disposes the current window
-					new Inserting_Driver(newJob);
-					newJobAdd = true;
-					dispose();
-				}
+				/*Temporary calendar for validation purposes*/
+				Calendar temp = Calendar.getInstance();
+				
+						
+				if(date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
+					
+					/*Prevent user from entering invalid months*/
+					if(Integer.parseInt(date_txt.getText().substring(5, 7)) <=
+							temp.getActualMaximum(Calendar.MONTH)){
+						temp.set(Calendar.MONTH, 
+								Integer.parseInt(date_txt.getText().substring(5, 7)));
+						
+						/*Determine num of days in month*/
+						int maxMonthDays = temp.getActualMaximum(Calendar.DAY_OF_MONTH);
+						if(Integer.parseInt(date_txt.getText().substring(8)) <=
+								maxMonthDays){
+							/*Date is confirmed correct so add job*/
+							Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(),
+									lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
+									zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
+									hours_spinner.getValue().toString(), start_txt.getSelectedItem(),
+									end_txt.getSelectedItem(), notes, pdf_file_txt.getText(), image_txt.getText(),
+									rdbtnAm_start.isSelected(), rdbtnAm_end.isSelected());
+							System.out.println("save button pressed");
+							
+							/*Checks for invalid leap years*/
+							boolean exceptionThrown=false;
+							try{
+								new Inserting_Driver(newJob);
+							} catch(SQLException sqle){
+								JOptionPane.showMessageDialog(null, 
+										"Invalid Date", "Leap Year", 2);
+								exceptionThrown=true;
+							}
+							if(!exceptionThrown){
+								newJobAdd = true;
+								dispose();
+							}
+							
+						} //end day conditional
+						else{ //Day of month is invalid
+							JOptionPane.showMessageDialog(null,
+									"Day of month must exist", 
+									"Incorrect Day Format", 2);
+						}
+					} //end month conditional
+					else{ //Month not between 01 and 12
+						JOptionPane.showMessageDialog(null,
+								"Month must be 01 - 12", 
+								"Incorrect Month Format", 2);
+					}
+				} //end format conditional
 				else{ //invalid date
 					JOptionPane.showMessageDialog(null,
 							"Date field must have format YYYY-MM-DD", 
