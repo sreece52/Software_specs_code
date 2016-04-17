@@ -120,6 +120,16 @@ public class Search_Driver {
 		case "DATE":
 			searchDate(query);
 			break;
+		
+		//Internal use only 
+		case "WORKID":
+			searchWorkID(query);
+			break;
+			
+		//Internal use only 	
+		case "CURRENTID":
+			searchCurrentId();
+			break;
 
 		default:
 			System.out.println("Here");
@@ -127,6 +137,10 @@ public class Search_Driver {
 			break;
 		}
 	}
+
+	
+
+
 
 	/**
 	 * This method is used to close the connection to the database
@@ -139,7 +153,58 @@ public class Search_Driver {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * this method is for internal use only. User will not be able to search this for the program's screens
+	 * @param query2
+	 */
+	private void searchCurrentId() {
+		try {
+			statement = conn.createStatement();
+			String searchName = "select * from jobs where work_id = (select max(work_id) from jobs);";
+			results = statement.executeQuery(searchName);
+			while (results.next()) {
+				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
+						results.getString(5), results.getString(6), results.getString(7), results.getString(8),
+						results.getString(9), results.getString(10), results.getString(11), results.getString(12),
+						results.getString(13), results.getString(14), results.getString(15), results.getString(16),
+						results.getString(17), results.getBoolean(18), results.getBoolean(19));
 
+				searchResults.add(job);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("Error: Connection to database was not established!");
+		}
+	}
+
+	/**
+	 * this method is for internal use only. User will not be able to search this for the program's screens
+	 * @param query
+	 */
+	private void searchWorkID(String query) {
+		try {
+			statement = conn.createStatement();
+			String searchName = String.format("select * from jobs where work_id = '%s' ;",query);
+			results = statement.executeQuery(searchName);
+			while (results.next()) {
+				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
+						results.getString(5), results.getString(6), results.getString(7), results.getString(8),
+						results.getString(9), results.getString(10), results.getString(11), results.getString(12),
+						results.getString(13), results.getString(14), results.getString(15), results.getString(16),
+						results.getString(17), results.getBoolean(18), results.getBoolean(19));
+
+				searchResults.add(job);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("Error: Connection to database was not established!");
+		}
+	}
+	
 	/**
 	 * Shows all data in the table
 	 */
