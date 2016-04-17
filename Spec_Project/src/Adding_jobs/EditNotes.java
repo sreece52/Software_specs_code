@@ -37,11 +37,13 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EditNotes extends JFrame implements MouseListener{
+public class EditNotes extends JFrame {
 	private JTextField textField;
 	static EditNotes frame;
 	int row;
-	static String noteText;
+	private JTextArea txtrNmn;
+	private JScrollPane scrollPane;
+	private String notes;
 
 	/**
 	 * Create the frame.
@@ -64,9 +66,23 @@ public class EditNotes extends JFrame implements MouseListener{
 		getContentPane().setLayout(gridBagLayout);
 		
 		JButton btnSaveEditNotes = new JButton("Save Notes");
-		btnSaveEditNotes.addMouseListener(this);
+		btnSaveEditNotes.addMouseListener(new MouseAdapter() {
+
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("You pressed SaveNotes");
+				
+				notes = txtrNmn.getText();
+				
+				dispose();		
+			}
+
+			
+		});
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -74,11 +90,10 @@ public class EditNotes extends JFrame implements MouseListener{
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		JTextArea txtrNmn = new JTextArea();
+		txtrNmn = new JTextArea();
 		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 17));
 		txtrNmn.setText(string);
-		noteText = txtrNmn.getText();
-		System.out.println(noteText);
+
 		scrollPane.setViewportView(txtrNmn);
 		btnSaveEditNotes.setForeground(Color.white);
 		btnSaveEditNotes.setBackground(new Color(0, 102, 206));
@@ -93,49 +108,12 @@ public class EditNotes extends JFrame implements MouseListener{
 	/**
 	 * Launch the application.
 	 */
-
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("You pressed SaveNotes");
-		
-	//	EditJob edit = new EditJob(row);
-	//	edit.setVisible(true);
-		dispose();
-		
-		
+	public String getNotes() {
+		return notes;
 	}
 
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-	
-	}
-
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
