@@ -37,8 +37,9 @@ public class Inserting_Driver {
 	 *            is the value enter to be searched for, of type string
 	 * @param s
 	 *            is the column we want to search through, of type string
+	 * @throws SQLException 
 	 */
-	public Inserting_Driver(Jobs job) {
+	public Inserting_Driver(Jobs job) throws SQLException {
 		this.job = job;
 		/*
 		 * the next 3 lines hold the credentials needed to access the db
@@ -72,8 +73,9 @@ public class Inserting_Driver {
 	/**
 	 * This method will create the sql statement to insert the new job into the
 	 * db
+	 * @throws SQLException 
 	 */
-	public void insert() {
+	public void insert() throws SQLException {
 		try {
 			statement = conn.createStatement();
 			System.out.println(job.getImages());
@@ -88,9 +90,6 @@ public class Inserting_Driver {
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The record has been added to the database", "Inserting", 1);
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (NullPointerException npe) {
 			System.out.println("Error: Connection to database was not established!");
 		}
