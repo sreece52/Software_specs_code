@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import MainScreen.ReillyScheduler;
+
 /**
  * This class handles the search queries the results of the search is stored in
  * an arrayList of type JOBS
@@ -169,8 +171,7 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (NullPointerException npe) {
 			System.out.println("Error: Connection to database was not established!");
 		}
