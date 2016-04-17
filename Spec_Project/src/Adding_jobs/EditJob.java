@@ -48,6 +48,7 @@ import javax.swing.JRadioButton;
  */
 
 public class EditJob extends JFrame {
+	private EditNotes note;
 	private JTextField fname_txt;
 	private JLabel lblFirstName;
 	private JLabel lblLastName;
@@ -209,6 +210,13 @@ public class EditJob extends JFrame {
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String notes;
+				if (note == null) {
+					notes = "";
+				} else {
+					notes = note.getNotes();
+				}
+				
 				System.out.println("save button pressed");
 				if (date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
 					int reply = JOptionPane.showConfirmDialog(null,
@@ -220,7 +228,7 @@ public class EditJob extends JFrame {
 								lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
 								zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
 								hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
-								end_txt.getSelectedItem(), notes_txt.getText(), pdf_txt.getText(), images_txt.getText(),
+								end_txt.getSelectedItem(), notes , pdf_txt.getText(), images_txt.getText(),
 								rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
 
 						// disposes the current window
@@ -766,9 +774,8 @@ public class EditJob extends JFrame {
 				btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				btnViewNotesIn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						String string = "ap ";
 						// opens the Edit Notes window
-						EditNotes note = new EditNotes(editedJob.getNotes());
+						note = new EditNotes(editedJob.getNotes());
 						note.setVisible(true);
 
 					}
@@ -947,7 +954,7 @@ public class EditJob extends JFrame {
 		zip_txt.setText("");
 		phone_txt.setText("");
 		materials_txt.setText("");
-		notes_txt.setText("");
+	//	notes_txt.setText("");
 		pdf_txt.setText("");
 		images_txt.setText("");
 		end_txt.select(0);
