@@ -78,10 +78,7 @@ public class Search_Driver {
 
 	/**
 	 * This method functions as relay to move the search to the appropriate SQL
-	 * query This is used more for housing keeping. Didn't want all the code in
-	 * one method DO NOT CALL THIS METHOD FROM OUTSIDE OF THE CLASS (Matt or
-	 * Julia). Its private so that shouldn't happen but you never know with
-	 * matt...
+	 * query This is used more for house keeping.
 	 */
 	private void sendQuery() {
 		switch (searchType.toUpperCase()) {
