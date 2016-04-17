@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -19,6 +21,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+
+import Search_DB.Search_Driver;
  
 
 public class JCalendar{
@@ -49,7 +53,7 @@ public class JCalendar{
         this.calendar = Calendar.getInstance();
         this.locale = Locale.getDefault();
         this.startOfWeek = Calendar.SUNDAY;
-        this.dateFormat = new SimpleDateFormat("MMM/d/yyyy");
+        this.dateFormat = new SimpleDateFormat("YYYY-MM-DD");
  
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -322,10 +326,9 @@ public class JCalendar{
     private class DayPanel extends JPanel {
  
 		private static final long serialVersionUID = 1L;
-
 		private JCalendarDay jcalendarDay;
- 
         private JLabel dayLabel;
+        private boolean hasJob = false;
  
         public void setJCalendarDay(JCalendarDay jcalendarDay) {
             this.jcalendarDay = jcalendarDay;
@@ -339,9 +342,27 @@ public class JCalendar{
             dayLabel = new JLabel(getDay());
             dayLabel.setForeground(Color.BLUE);
             add(dayLabel);
+            
+            /*Call update to check each day for jobs*/
+            updatePartControl();
         }
  
         public void updatePartControl() {
+        	/*Check if there is a job for the day and set flag accordingly*/
+        	hasJob = false; //reset flag for month changes
+        	if(!getDay().equals(" ")){
+	            String s = String.format("%d-%02d-%02d", 
+						calendar.get(Calendar.YEAR), 
+						calendar.get(Calendar.MONTH)+1,
+						Integer.parseInt(getDay()));
+	            Search_Driver driver = new Search_Driver(s, "Date");
+	            System.out.println(driver.getResults().size());
+	            /*No results = empty results arraylist*/
+	            if(!driver.getResults().isEmpty()){
+	            	hasJob = true;
+	            }
+        	}
+        	
             setBackground(jcalendarDay.getColor());
             dayLabel.setText(getDay());
             repaint();
@@ -357,15 +378,12 @@ public class JCalendar{
 
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-//            Search_DB.Search_Driver driver = new Search_DB.Search_Driver(q, s);
-//          //draw only if returned arraylist is not empty
-//            if(!driver.getResults().isEmpty()){
-//	            g.drawOval(this.getWidth()/2-this.getWidth()/16, 
-//	            		this.getHeight()/2, this.getWidth()/8, this.getHeight()/5);
-//            }
-            //if(dayhasajob){
-            //g.drawOval()
-            //}
+            /*Draw marker on the days that have jobs*/
+            if(hasJob){
+			    g.fillOval(this.getWidth()/2-this.getWidth()/16, 
+			    		this.getHeight()/2, this.getWidth()/8, this.getHeight()/5);
+            }
+            
         }
         public JLabel getDayLabel() {
             return dayLabel;
