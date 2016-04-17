@@ -898,6 +898,7 @@ public class AddJob extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				
 			}
 		});
 
