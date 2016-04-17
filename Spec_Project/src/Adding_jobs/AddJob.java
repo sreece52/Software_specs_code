@@ -31,6 +31,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
@@ -173,52 +174,6 @@ public class AddJob extends JFrame {
 
 	}
 
-	@Deprecated
-	/**
-	 * In process of removal
-	 * 
-	 * @param job
-	 * @param query
-	 * @param search
-	 */
-	public AddJob(Jobs job, String query, String search) {
-		this.query = query;
-		this.search = search;
-		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		setTitle("Add Job");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLocationRelativeTo(null);
-		setBounds(100, 100, 972, 945);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 127, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
-		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
-				29, 35, 32, 49, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-
-		JScrollPane scroll = new JScrollPane();
-		getContentPane().add(scroll);
-
-		getContentPane().setLayout(gridBagLayout);
-		this.setVisible(true);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
-		this.setIconImage(img.getImage());
-
-		JScrollPane scroller = new JScrollPane(this);
-
-		this.getContentPane().add(scroller, this);
-
-		NameSection();
-		AddressSection();
-		MaterialsAndNotesSection();
-		DateAndTimeSection();
-		PdfAndImagesSection();
-		CancelSaveSection();
-		IdAndImportSelction();
-
-	}
 
 	/**
 	 * This method sets up the JLables, Jtextfields, and Jbutton for Work ID and
@@ -254,7 +209,9 @@ public class AddJob extends JFrame {
 
 		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Add Image button pressed");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": AddJob -> clicked add image..");
 
 				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
 				fd.setDirectory("C:\\");
@@ -287,6 +244,9 @@ public class AddJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": AddJob -> clicked inport information");
 				importedJob = new ImportJob(added);
 			}
 		});
@@ -777,6 +737,9 @@ public class AddJob extends JFrame {
 		btnViewNotesIn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": AddJob -> clicked add notes");
 
 				note = new AddNotes();
 				note.setVisible(true);
@@ -827,7 +790,9 @@ public class AddJob extends JFrame {
 
 		btnAddPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Add PDF button pressed");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": className -> Add Pdf clicked");
 
 				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
 				fd.setDirectory("C:\\");
@@ -897,6 +862,9 @@ public class AddJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": AddJob -> clicked cancel, Frame disposed");
 				dispose();
 				
 			}
@@ -910,6 +878,9 @@ public class AddJob extends JFrame {
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": AddJob -> clicked save, adding record to database");
 				String notes;
 				if (note == null) {
 					notes = "";

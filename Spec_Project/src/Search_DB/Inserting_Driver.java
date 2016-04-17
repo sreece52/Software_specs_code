@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -87,6 +88,12 @@ public class Inserting_Driver {
 					job.getZip_code(), job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
 					job.getStartTime(), job.getEndTime(), job.getNotes(), job.getPDFs(), job.getImages(),
 					job.isStartTimeAm(), job.isEndTimeAm());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Inserting_Driver -> Sent query " + insertStatement);
+			
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The record has been added to the database", "Inserting", 1);
 

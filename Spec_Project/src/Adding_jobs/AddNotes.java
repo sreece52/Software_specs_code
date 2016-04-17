@@ -1,41 +1,19 @@
 package Adding_jobs;
 
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-
 import java.awt.Color;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.JLabel;
+import java.text.SimpleDateFormat;
 import java.awt.GridBagLayout;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
 import javax.swing.JTextArea;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
-import javax.swing.GroupLayout.Alignment;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class AddNotes extends JFrame {
 	private JTextField textField;
@@ -72,7 +50,9 @@ public class AddNotes extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("You pressed SaveNotes");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": AddNotes -> clicked save.");
 				notes = txtrNmn.getText();
 				
 				dispose();		
