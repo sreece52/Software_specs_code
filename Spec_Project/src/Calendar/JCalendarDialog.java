@@ -92,7 +92,7 @@ public class JCalendarDialog extends JFrame {
 		addButton.addActionListener(new addButtonActionListener());
 		buttonPanel.add(addButton);
 		
-		JButton okButton = new JButton("Look at Jobs");
+		JButton okButton = new JButton("View");
 		okButton.addActionListener(new OKButtonActionListener());
 		buttonPanel.add(okButton);
 
@@ -109,6 +109,8 @@ public class JCalendarDialog extends JFrame {
 		dialog.setSize(new Dimension(700, 550));
 		dialog.setLocationRelativeTo(frame);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
+		ImageIcon img = new ImageIcon("Handyman Scheduler logo 1.png");
+		dialog.setIconImage(img.getImage());
 		dialog.setVisible(true);
 	}
 
