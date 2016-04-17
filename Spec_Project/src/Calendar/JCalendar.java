@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import MainScreen.ReillyScheduler;
 import Search_DB.Search_Driver;
  
 
@@ -107,12 +105,6 @@ public class JCalendar{
         yearBackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-            	try {
-					ReillyScheduler.logger.write(new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date() + ": Clicked year back"));
-				} catch (IOException e) {
-					System.out.println("Logger failed");
-				}
                 calendar.add(Calendar.YEAR, -1);
                 updatePartControl();
             }
