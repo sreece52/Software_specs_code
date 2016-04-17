@@ -49,21 +49,17 @@ public class Search_GUI extends JFrame {
 	private JButton view;
 	String[] columnNames = { "Work ID", "Job Name", "First Name", "Last Name", "Street", "City", "State", "Zip Code",
 			"Phone Number", "Date" };
-
 	private String query;
 	private String searchType;
 	private JPanel panel;
 	private JPanel searchPanel;
 	private JTextField valueTxt;
 	private JButton search;
-	private int selectedRow;
 	private DefaultTableModel model;
-
 	private JPanel refreshPanel;
 	private JButton refresh;
 	private AddJob newAddJob;
-
-
+	private EditJob editedJob;
 
 	/**
 	 * Create the frame.
@@ -160,14 +156,15 @@ public class Search_GUI extends JFrame {
 				try {
 
 					if (driver.getResults().size() != 0) {
-						String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
+
+						String jobId = driver.getResults().get(table.getSelectedRow() + 1).getWork_Id();
 						System.out.println(table.getSelectedRow());
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
 								JOptionPane.YES_NO_OPTION);
 						if (reply == JOptionPane.YES_OPTION) {
 							new Removing_Driver(jobId);
-							model.removeRow(selectedRow);
+							model.removeRow(table.getSelectedRow());
 							String numResults = String.format("Numer of results: %s", model.getRowCount());
 							resultsLbl.setText(numResults);
 							repaint();
@@ -192,12 +189,12 @@ public class Search_GUI extends JFrame {
 		 */
 		edit = new JButton("Edit Job");
 		edit.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (driver.getResults().size() != 0) {
-						new EditJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+						editedJob = new EditJob(driver.getResults().get(table.getSelectedRow()));
+						refresh.setEnabled(true);
 					}
 					dispose();
 				} catch (Exception table) {
@@ -256,7 +253,11 @@ public class Search_GUI extends JFrame {
 					repaint();
 					revalidate();
 					refresh.setEnabled(false);
-				} else {
+				}
+				else if(editedJob.isEdited()){
+					System.out.println("Todo add code to edit the table");
+				}
+				else {
 					refresh.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "No new updates");
 				}
@@ -296,7 +297,6 @@ public class Search_GUI extends JFrame {
 		table = new JTable(model);
 		table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 		panel.setLayout(null);
-
 
 		// Here I attach the table to a JScrollPane
 		contentPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,

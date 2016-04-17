@@ -179,7 +179,7 @@ public class ViewJob extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("save button pressed");
 
-				EditJob editjob = new EditJob(jobs, query, searchType);
+				EditJob editjob = new EditJob(jobs);
 				editjob.setVisible(true);
 				dispose();
 			}
