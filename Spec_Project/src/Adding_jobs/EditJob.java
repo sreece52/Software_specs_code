@@ -101,8 +101,8 @@ public class EditJob extends JFrame {
 	private String pdf;
 	private String image;
 	private ImportJob importedJob;
-	private EditJob job = this;
-	private Jobs jobs;
+	private EditJob edit = this;
+	private Jobs job;
 
 	/**
 	 * Frame Created
@@ -167,15 +167,52 @@ public class EditJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				importedJob = new ImportJob(job);
+				importedJob = new ImportJob(edit);
 			}
 		});
 	}
 
-
 	public void setJob(Jobs jobs) {
-		this.jobs = jobs;
-		
+		this.job = jobs;
+		setDocText();
+		repaint();
+		revalidate();
+	}
+
+	private void setDocText() {
+		job_name_txt.setText(job.getJob_name());
+		fname_txt.setText(job.getFname());
+		lname_txt.setText(job.getLname());
+		street_txt.setText(job.getStreet());
+		state_txt.setText(job.getState());
+		city_txt.setText(job.getCity());
+		zip_txt.setText(job.getZip_code());
+		phone_txt.setText(job.getPhone_number());
+		pdf_txt.setText(job.getPDFs());
+		images_txt.setText(job.getImages());
+		materials_txt.setText(job.getMaterials());
+		date_txt.setText(job.getDate());
+		hours_spinner.setValue(new Double(Double.parseDouble(job.getHours())));
+		for (int i = 0; i < 48; i++) {
+			if (startTime_txt.getItem(i).equals(job.getStartTime()))
+				startTime_txt.select(i);
+		}
+		for (int i = 0; i < 48; i++) {
+			if (end_txt.getItem(i).equals(job.getStartTime()))
+				end_txt.select(i);
+		}
+		if (job.isStartTimeAm()) {
+			rdbtnAmStart.setSelected(true);
+		} else {
+			rdbtnPmStart.setSelected(true);
+		}
+
+		if (job.isEndTimeAm()) {
+			rdbtnAmEnd.setSelected(true);
+		} else {
+			rdbtnPmEnd.setSelected(true);
+		}
+
 	}
 
 	/**

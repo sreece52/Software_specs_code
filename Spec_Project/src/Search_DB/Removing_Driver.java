@@ -69,12 +69,8 @@ public class Removing_Driver {
 			e.printStackTrace();
 		}
 
-		int reply = JOptionPane.showConfirmDialog(null,
-				"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
-				JOptionPane.YES_NO_OPTION);
-		if (reply == JOptionPane.YES_OPTION) {
-			remove();
-		}
+		remove();
+		
 	}
 
 	public void remove() {
