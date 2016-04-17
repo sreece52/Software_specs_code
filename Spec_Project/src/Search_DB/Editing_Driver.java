@@ -40,8 +40,9 @@ public class Editing_Driver {
 	 *            is the value enter to be searched for, of type string
 	 * @param s
 	 *            is the column we want to search through, of type string
+	 * @throws SQLException 
 	 */
-	public Editing_Driver(Jobs job) {
+	public Editing_Driver(Jobs job) throws SQLException {
 		this.job = job;
 
 		/*
@@ -75,8 +76,9 @@ public class Editing_Driver {
 
 	/**
 	 * This method will create the sql statement to edit a jobi in the db
+	 * @throws SQLException 
 	 */
-	public void edit() {
+	public void edit() throws SQLException {
 		try {
 			statement = conn.createStatement();
 
@@ -90,9 +92,6 @@ public class Editing_Driver {
 					job.getPDFs(), job.getImages(), job.isStartTimeAm(), job.isEndTimeAm(),job.getWork_Id());
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The database has been successfully updated", "Edit", 1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (NullPointerException npe) {
 			System.out.println("Error: Connection to database was not established!");
 		}
