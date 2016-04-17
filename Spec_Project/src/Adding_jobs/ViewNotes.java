@@ -18,6 +18,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 
 import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
@@ -39,7 +40,7 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ViewNotes extends JFrame implements MouseListener{
+public class ViewNotes extends JFrame{
 	private JTextField textField;
 	static ViewNotes frame;
 	int row;
@@ -68,7 +69,21 @@ public class ViewNotes extends JFrame implements MouseListener{
 		getContentPane().setLayout(gridBagLayout);
 		
 		JButton btnCloseNotes = new JButton("Close Notes");
-		btnCloseNotes.addMouseListener(this);
+	//	btnCloseNotes.addMouseListener();
+		btnCloseNotes.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("You pressed SaveNotes");
+				
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+		                .format(new java.util.Date()) + 
+		                ": ViewNotes -> Clicked save button to save notes/save notes");
+				
+				dispose();
+				
+			
+		}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -96,49 +111,5 @@ public class ViewNotes extends JFrame implements MouseListener{
 		
 		
 	}
-	/**
-	 * Launch the application.
-	 */
 
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("You pressed SaveNotes");
-		
-		dispose();
-		
-	}
-
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-	
-	}
-
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
