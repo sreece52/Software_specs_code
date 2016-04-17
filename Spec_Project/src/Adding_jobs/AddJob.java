@@ -92,6 +92,8 @@ public class AddJob extends JFrame {
 	private AddJob added = this;
 	private ImportJob importedJob;
 	private Jobs job;
+	private boolean newJobAdd = false;
+
 	// varibles needed to create a job object
 
 	/**
@@ -99,39 +101,8 @@ public class AddJob extends JFrame {
 	 * 
 	 * @wbp.parser.constructor
 	 */
-	public AddJob(String query, String search) {
-		this.query = query;
-		this.search = search;
-		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
-		setTitle("Add Job");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setLocationRelativeTo(null);
-		setBounds(100, 100, 972, 945);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 127, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
-		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
-				29, 35, 32, 49, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		getContentPane().setLayout(gridBagLayout);
-		this.setVisible(true);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
-		this.setIconImage(img.getImage());
+	public AddJob() {
 
-		NameSection();
-		AddressSection();
-		MaterialsAndNotesSection();
-		DateAndTimeSection();
-		PdfAndImagesSection();
-		CancelSaveSection();
-		IdAndImportSelction();
-
-	}
-
-	public AddJob(Jobs job, String query, String search) {
-		this.query = query;
-		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -839,7 +810,6 @@ public class AddJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Search_GUI(query, search);
 				dispose();
 			}
 		});
@@ -861,8 +831,9 @@ public class AddJob extends JFrame {
 				System.out.println("save button pressed");
 				// disposes the current window
 				new Inserting_Driver(newJob);
+				newJobAdd = true;
 				dispose();
-				new Search_GUI(query, search);
+
 			}
 		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -874,4 +845,11 @@ public class AddJob extends JFrame {
 		getContentPane().add(btnSave, gbc_btnSave);
 	}
 
+	public boolean isNewJobAdd() {
+		return newJobAdd;
+	}
+
+	public void setNewJobAdd(boolean newJobAdd) {
+		this.newJobAdd = newJobAdd;
+	}
 }
