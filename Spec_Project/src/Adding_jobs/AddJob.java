@@ -109,7 +109,38 @@ public class AddJob extends JFrame {
 	 * 
 	 * @wbp.parser.constructor
 	 */
+	public AddJob(String date){
+		this.query = query;
+		this.search = search;
+		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		setTitle("Add Job");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		setBounds(100, 100, 779, 739);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 82, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
+		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
+				29, 35, 32, 49, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 
+		getContentPane().setLayout(gridBagLayout);
+		this.setVisible(true);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
+
+		NameSection();
+		AddressSection();
+		MaterialsAndNotesSection();
+		DateAndTimeSection();
+		PdfAndImagesSection();
+		CancelSaveSection();
+		IdAndImportSelction();
+		
+		date_txt.setText(date);
+		
+	}
 	public AddJob() {
 		this.query = query;
 		this.search = search;
@@ -139,6 +170,8 @@ public class AddJob extends JFrame {
 		CancelSaveSection();
 		IdAndImportSelction();
 
+		
+		
 	}
 
 	@Deprecated
