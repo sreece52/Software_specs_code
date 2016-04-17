@@ -115,8 +115,6 @@ public class EditJob extends JFrame {
 	 */
 	public EditJob(Jobs editedJob) {
 		this.editedJob = editedJob;
-		this.query = query;
-		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Edit Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -180,7 +178,6 @@ public class EditJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Search_GUI(query, search);
 				dispose();
 			}
 		});
