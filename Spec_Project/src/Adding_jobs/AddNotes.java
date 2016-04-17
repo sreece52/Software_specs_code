@@ -36,11 +36,15 @@ import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AddNotes extends JFrame implements MouseListener{
+public class AddNotes extends JFrame {
 	private JTextField textField;
 	static AddNotes frame;
 	int row;
-	static String noteText;
+	private JTextArea txtrNmn;
+	private JScrollPane scrollPane;
+	private String notes;
+	
+
 
 	/**
 	 * Create the frame.
@@ -60,9 +64,17 @@ public class AddNotes extends JFrame implements MouseListener{
 		getContentPane().setLayout(gridBagLayout);
 		
 		JButton btnSaveAddNotes = new JButton("Save Notes");
-		btnSaveAddNotes.addMouseListener(this);
+		btnSaveAddNotes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println("You pressed SaveNotes");
+				notes = txtrNmn.getText();
+				dispose();		
+			}
+		});
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
@@ -70,14 +82,15 @@ public class AddNotes extends JFrame implements MouseListener{
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		JTextArea txtrNmn = new JTextArea();
-		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 17));
-		txtrNmn.setText("Hi");
-		noteText = txtrNmn.getText();
-		System.out.println(noteText);
+		txtrNmn = new JTextArea();
+		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 12));
+	
+		
+	
 		scrollPane.setViewportView(txtrNmn);
-		btnSaveAddNotes.setForeground(Color.BLUE);
-		btnSaveAddNotes.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnSaveAddNotes.setForeground(Color.WHITE);
+		btnSaveAddNotes.setBackground(new Color(0, 102, 206));
+		btnSaveAddNotes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnSaveAddNotes = new GridBagConstraints();
 		gbc_btnSaveAddNotes.gridx = 0;
 		gbc_btnSaveAddNotes.gridy = 1;
@@ -85,62 +98,20 @@ public class AddNotes extends JFrame implements MouseListener{
 
 		
 	}
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame= new AddNotes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public JTextArea getTxtrNmn() {
+		return txtrNmn;
 	}
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("You pressed SaveNotes");
-		
-	//	AddJob add = new AddJob();
-	//	add.setVisible(true);
-		dispose();	
-		
-	}
-
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
 	
+	public void setTxtrNmn(JTextArea txtrNmn) {
+		this.txtrNmn = txtrNmn;
 	}
 
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public String getNotes() {
+		return notes;
 	}
+	
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
 }
