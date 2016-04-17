@@ -807,26 +807,6 @@ public class ViewJob extends JFrame {
 			}
 		});
 		
-		btnViewPdf = new JButton("View PDF");
-		btnViewPdf.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				try {
-					File file = new File(jobs.getPDFs());
-					Desktop.getDesktop().open(file);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
-				}
-			}
-		});
-		btnViewPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnViewPdf = new GridBagConstraints();
-		gbc_btnViewPdf.insets = new Insets(0, 0, 5, 5);
-		gbc_btnViewPdf.gridx = 5;
-		gbc_btnViewPdf.gridy = 18;
-		getContentPane().add(btnViewPdf, gbc_btnViewPdf);
 
 		lblImages = new JLabel("Images:");
 		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
