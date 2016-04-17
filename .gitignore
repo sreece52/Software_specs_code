@@ -8,6 +8,7 @@ target/
 .plugins/
 contexts/
 .tasklistindex/
+Logs/
 
 #files to ignore
 *.lock
@@ -28,3 +29,4 @@ contexts/
 *.trace.db
 *.db
 *.mv
+*.txt
