@@ -30,6 +30,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -44,9 +45,12 @@ public class EditNotes extends JFrame implements MouseListener{
 
 	/**
 	 * Create the frame.
+	 * @param string 
 	 * @param fromAddJob 
 	 */
-	public EditNotes() {
+	public EditNotes(String string) {
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
 		
 		setTitle("Edit Notes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -72,11 +76,12 @@ public class EditNotes extends JFrame implements MouseListener{
 		
 		JTextArea txtrNmn = new JTextArea();
 		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 17));
-		txtrNmn.setText("Hi");
+		txtrNmn.setText(string);
 		noteText = txtrNmn.getText();
 		System.out.println(noteText);
 		scrollPane.setViewportView(txtrNmn);
-		btnSaveEditNotes.setForeground(Color.BLUE);
+		btnSaveEditNotes.setForeground(Color.white);
+		btnSaveEditNotes.setBackground(new Color(0, 102, 206));
 		btnSaveEditNotes.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GridBagConstraints gbc_btnSaveEditNotes = new GridBagConstraints();
 		gbc_btnSaveEditNotes.gridx = 0;
@@ -88,18 +93,7 @@ public class EditNotes extends JFrame implements MouseListener{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame= new EditNotes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 
 	@Override

@@ -30,6 +30,7 @@ import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -51,6 +52,9 @@ public class AddNotes extends JFrame {
 	 * @param fromAddJob 
 	 */
 	public AddNotes() {
+		
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
 		
 		setTitle("Add Notes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
