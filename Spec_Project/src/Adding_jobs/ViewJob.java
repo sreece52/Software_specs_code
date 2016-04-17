@@ -86,10 +86,13 @@ public class ViewJob extends JFrame {
 	private JTextField job_text;
 	static int row;
 	private Jobs jobs;
+	private String pdfFile;
 	private String query;
 	private String searchType;
-	private JButton btnViewImage;
+
 	private JButton btnViewPdf;
+	private JButton btnViewImage;
+	private String pdf_text;
 
 	/**
 	 * Frame Created
@@ -788,7 +791,8 @@ public class ViewJob extends JFrame {
 				fd.setDirectory("C:\\");
 				fd.setFile("*.pdf");
 				fd.setVisible(true);
-				filename = fd.getFile();
+				filename = fd.getDirectory() + fd.getFile();
+				pdf_text = fd.getDirectory() + fd.getFile();
 				if (filename == null)
 					System.out.println("You cancelled the choice");
 				else {
@@ -802,6 +806,27 @@ public class ViewJob extends JFrame {
 				}
 			}
 		});
+		
+		btnViewPdf = new JButton("View PDF");
+		btnViewPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				try {
+					File file = new File(jobs.getPDFs());
+					Desktop.getDesktop().open(file);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
+							"File not Found", 2);
+				}
+			}
+		});
+		btnViewPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnViewPdf = new GridBagConstraints();
+		gbc_btnViewPdf.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewPdf.gridx = 5;
+		gbc_btnViewPdf.gridy = 18;
+		getContentPane().add(btnViewPdf, gbc_btnViewPdf);
 
 		lblImages = new JLabel("Images:");
 		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -844,11 +869,11 @@ public class ViewJob extends JFrame {
 			}
 		});
 		btnViewPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnViewPdf = new GridBagConstraints();
-		gbc_btnViewPdf.insets = new Insets(0, 0, 5, 5);
-		gbc_btnViewPdf.gridx = 5;
-		gbc_btnViewPdf.gridy = 18;
-		getContentPane().add(btnViewPdf, gbc_btnViewPdf);
+		GridBagConstraints gbc_btnViewPdf1 = new GridBagConstraints();
+		gbc_btnViewPdf1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewPdf1.gridx = 5;
+		gbc_btnViewPdf1.gridy = 18;
+		getContentPane().add(btnViewPdf, gbc_btnViewPdf1);
 
 		// "Add Image" button and actionlistener
 		btnAddImage = new JButton("Add Image");
