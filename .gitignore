@@ -27,4 +27,4 @@ contexts/
 *.mv.db
 *.trace.db
 *.db
-*.db
+*.mv
