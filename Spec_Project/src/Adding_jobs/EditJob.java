@@ -36,6 +36,8 @@ import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
@@ -217,24 +219,49 @@ public class EditJob extends JFrame {
 					notes = note.getNotes();
 				}
 				
+				/* Temporary calendar for validation purposes */
+				Calendar temp = Calendar.getInstance();
+				
 				System.out.println("save button pressed");
 				if (date_txt.getText().matches("\\d{4}-\\d{2}-\\d{2}")) {
-					int reply = JOptionPane.showConfirmDialog(null,
-							"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
-							JOptionPane.YES_NO_OPTION);
-					if (reply == JOptionPane.YES_OPTION) {
+					/* Prevent user from entering invalid months */
+					if (Integer.parseInt(date_txt.getText().substring(5, 7)) <= temp.getActualMaximum(Calendar.MONTH)) {
+						temp.set(Calendar.MONTH, Integer.parseInt(date_txt.getText().substring(5, 7)));
 
-						Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(), fname_txt.getText(),
-								lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
-								zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-								hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
-								end_txt.getSelectedItem(), notes , pdf_txt.getText(), images_txt.getText(),
-								rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
+						/* Determine num of days in month */
+						int maxMonthDays = temp.getActualMaximum(Calendar.DAY_OF_MONTH);
+						if (Integer.parseInt(date_txt.getText().substring(8)) <= maxMonthDays) {
+							int reply = JOptionPane.showConfirmDialog(null,
+									"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
+									JOptionPane.YES_NO_OPTION);
+							if (reply == JOptionPane.YES_OPTION) {
 
-						// disposes the current window
-						new Editing_Driver(newJob);
-						isEdited = true;
-						dispose();
+								Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(),
+										fname_txt.getText(), lname_txt.getText(), street_txt.getText(),
+										city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText(),
+										materials_txt.getText(), date_txt.getText(),
+										hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
+										end_txt.getSelectedItem(), notes, pdf_txt.getText(), images_txt.getText(),
+										rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
+
+								/* Checks for invalid leap years */
+								boolean exceptionThrown = false;
+								try {
+									new Editing_Driver(newJob);
+								} catch (SQLException sqle) {
+									JOptionPane.showMessageDialog(null, "Invalid Date", "Leap Year", 2);
+									exceptionThrown = true;
+								}
+								if (!exceptionThrown) {
+									isEdited = true;
+									dispose();
+								}
+							}
+						} else { //Day incorrect
+							JOptionPane.showMessageDialog(null, "Day of month must exist", "Incorrect Day Format", 2);
+						}
+					} else { //Month incorrect
+						JOptionPane.showMessageDialog(null, "Month must be 01 - 12", "Incorrect Month Format", 2);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Date does not match required format YYYY-MM-DD",
