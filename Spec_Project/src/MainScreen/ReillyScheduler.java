@@ -27,7 +27,6 @@ public class ReillyScheduler {
 			System.out.println("Failed to change stdout");
 			e.printStackTrace();
 		}
-		System.out.println("Test");
 		MainScreen frame = new MainScreen();
 		frame.setVisible(true);
 	}

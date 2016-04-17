@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -77,6 +78,12 @@ public class Removing_Driver {
 		try {
 			statement = conn.createStatement();
 			String removingStatement = String.format("delete from jobs where work_id = '%s';", work_id);
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Removing_Driver -> Sent query " + removingStatement);
+			
 			statement.execute(removingStatement);
 			JOptionPane.showMessageDialog(null, "The entry has been removed from the data base", "Removed", 1);
 		} catch (SQLException e) {

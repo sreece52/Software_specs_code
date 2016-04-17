@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -87,6 +89,10 @@ public class ImportJob extends JFrame {
 		search.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				/*Log action*/
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+						.format(new java.util.Date()) + 
+						": ImportJob -> Clicked search");
 				search();
 			}
 		});
@@ -113,6 +119,10 @@ public class ImportJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				/*Log action*/
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+						.format(new java.util.Date()) + 
+						": ImportJob -> Clicked cancel");
 				dispose();
 			}
 		});
@@ -122,6 +132,10 @@ public class ImportJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				/*Log action*/
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+						.format(new java.util.Date()) + 
+						": ImportJob -> Clicked submit");
 				if (isEdit) {
 					edit.setJob(driver.getResults().get(table.getSelectedRow()));
 					dispose();
