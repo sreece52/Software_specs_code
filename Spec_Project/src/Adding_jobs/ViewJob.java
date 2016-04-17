@@ -12,8 +12,11 @@ import Search_DB.Jobs;
 import Search_DB.Search_GUI;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -23,6 +26,7 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
@@ -84,6 +88,8 @@ public class ViewJob extends JFrame {
 	private Jobs jobs;
 	private String query;
 	private String searchType;
+	private JButton btnViewImage;
+	private JButton btnViewPdf;
 
 	/**
 	 * Frame Created
@@ -149,6 +155,26 @@ public class ViewJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
+		
+		btnViewImage = new JButton("View Image");
+		btnViewImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					File file = new File(jobs.getImages());
+					Desktop.getDesktop().open(file);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
+							"File not Found", 2);
+				}
+			}
+		});
+		btnViewImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnViewImage = new GridBagConstraints();
+		gbc_btnViewImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewImage.gridx = 5;
+		gbc_btnViewImage.gridy = 20;
+		getContentPane().add(btnViewImage, gbc_btnViewImage);
 
 		// Back Button and Actionlistener
 		btnCancel = new JButton("Back");
@@ -801,6 +827,28 @@ public class ViewJob extends JFrame {
 		getContentPane().add(images, gbc_images);
 		images.setColumns(10);
 		images.setText(jobs.getImages());
+		
+		
+		btnViewPdf = new JButton("View PDF");
+		btnViewPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				try {
+					File file = new File(jobs.getPDFs());
+					Desktop.getDesktop().open(file);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
+							"File not Found", 2);
+				}
+			}
+		});
+		btnViewPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnViewPdf = new GridBagConstraints();
+		gbc_btnViewPdf.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewPdf.gridx = 5;
+		gbc_btnViewPdf.gridy = 18;
+		getContentPane().add(btnViewPdf, gbc_btnViewPdf);
 
 		// "Add Image" button and actionlistener
 		btnAddImage = new JButton("Add Image");
