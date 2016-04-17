@@ -16,6 +16,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import java.awt.Font;
@@ -71,7 +72,12 @@ public class MainScreen extends JFrame {
 				dialog.createDialog();
 				if(dialog.getReturnCode() == JCalendarDialog.OK_PRESSED)
 					dialog.dispose();
+			
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                    .format(new java.util.Date()) + 
+	                    ": MainScreen -> Clicked Calendar Button/Open calendar");
 			}
+			
 		});
 		
 		/*Subsection for search parameters*/
@@ -104,6 +110,10 @@ public class MainScreen extends JFrame {
 		searchButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				new Search_GUI(searchField.getText(), searchFilters.getSelectedItem().toString());
+				
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                    .format(new java.util.Date()) + 
+	                    ": MainScreen -> clicked search button/goes to search results based on input");
 			}
 		});
 		
@@ -115,6 +125,10 @@ public class MainScreen extends JFrame {
 		btnExit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ae){
 				System.exit(0); //0 denotes normal exit
+				
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                    .format(new java.util.Date()) + 
+	                    ": MainScreen -> Exit program/program closes");
 			}
 		});
 		
@@ -135,6 +149,10 @@ public class MainScreen extends JFrame {
 		searchField.addFocusListener(new FocusListener(){
 			public void focusGained(FocusEvent arg0) {
 				searchField.setText("");
+				
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                    .format(new java.util.Date()) + 
+	                    ": MainScreen -> Clicked combobox options/shows options");
 			}
 			public void focusLost(FocusEvent arg0) {
 				//do nothing
@@ -153,7 +171,10 @@ public class MainScreen extends JFrame {
 			File pic = new File("Handyman Scheduler Logo 1.png");
 			image = ImageIO.read(pic).getScaledInstance(20, -20, 0);
 		} catch (IOException e) {
-			e.printStackTrace();
+			
+			
+		System.out.println((new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date()) + ": MainScren -> Icon didnt load"));
+		e.printStackTrace();
 		}
 		return image;
 	}
