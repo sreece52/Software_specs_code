@@ -25,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.JLabel;
 
+@Deprecated
 public class Test extends JFrame{
 
 	private JPanel contentPane;

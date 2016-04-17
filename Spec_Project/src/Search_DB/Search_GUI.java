@@ -30,6 +30,7 @@ import java.awt.Font;
 import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 
 /**
@@ -46,17 +47,19 @@ public class Search_GUI extends JFrame {
 	private static Search_Driver driver;
 	private JScrollPane contentPane;
 	private JButton view;
-	String[] columnNames = { "Job Name", "First Name", "Last Name", "Street", "City", "State", "Zip Code",
+	String[] columnNames = { "Work ID", "Job Name", "First Name", "Last Name", "Street", "City", "State", "Zip Code",
 			"Phone Number", "Date" };
-
 	private String query;
 	private String searchType;
 	private JPanel panel;
 	private JPanel searchPanel;
 	private JTextField valueTxt;
 	private JButton search;
-	private int selectedRow;
 	private DefaultTableModel model;
+	private JPanel refreshPanel;
+	private JButton refresh;
+	private AddJob newAddJob;
+	private EditJob editedJob;
 
 	/**
 	 * Create the frame.
@@ -76,6 +79,7 @@ public class Search_GUI extends JFrame {
 		driver = new Search_Driver(query, searchType);
 		this.setResizable(false);
 		initSearchPanel();
+		initRefresh();
 		buildtable();
 		initButtonPanel();
 
@@ -112,12 +116,11 @@ public class Search_GUI extends JFrame {
 		 */
 		add = new JButton("Add a Job");
 		add.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add Pressed");
-				new AddJob(query, searchType);
-				
+				newAddJob = new AddJob();
+				refresh.setEnabled(true);
 				return;
 			}
 		});
@@ -129,7 +132,9 @@ public class Search_GUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (driver.getResults().size() != 0) {
-						new ViewJob(driver.getResults().get(table.getSelectedRow()), query, query);
+						String workId = (String) table.getValueAt(table.getSelectedRow(), 0);
+						Search_Driver view = new Search_Driver(workId, "WORKID");
+						new ViewJob(view.getResults().get(0));
 					}
 				} catch (Exception table) {
 					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
@@ -151,13 +156,15 @@ public class Search_GUI extends JFrame {
 				try {
 
 					if (driver.getResults().size() != 0) {
-						String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
+
+						String jobId = driver.getResults().get(table.getSelectedRow() + 1).getWork_Id();
+						System.out.println(table.getSelectedRow());
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
 								JOptionPane.YES_NO_OPTION);
 						if (reply == JOptionPane.YES_OPTION) {
 							new Removing_Driver(jobId);
-							model.removeRow(selectedRow);
+							model.removeRow(table.getSelectedRow());
 							String numResults = String.format("Numer of results: %s", model.getRowCount());
 							resultsLbl.setText(numResults);
 							repaint();
@@ -182,12 +189,12 @@ public class Search_GUI extends JFrame {
 		 */
 		edit = new JButton("Edit Job");
 		edit.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if (driver.getResults().size() != 0) {
-						new EditJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+						editedJob = new EditJob(driver.getResults().get(table.getSelectedRow()));
+						refresh.setEnabled(true);
 					}
 					dispose();
 				} catch (Exception table) {
@@ -213,21 +220,69 @@ public class Search_GUI extends JFrame {
 		getContentPane().add(btnPanel);
 	}
 
+	public void initRefresh() {
+		refreshPanel = new JPanel();
+		refreshPanel.setBounds(10, 11, 105, 41);
+		getContentPane().add(refreshPanel);
+		refreshPanel.setLayout(new BorderLayout(0, 0));
+
+		refresh = new JButton("refresh");
+		refresh.setEnabled(false);
+		refresh.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (newAddJob.isNewJobAdd()) {
+					Search_Driver newJob = new Search_Driver("", "CURRENTID");
+					String workId = newJob.getResults().get(0).getWork_Id();
+					String jobName = newJob.getResults().get(0).getJob_name();
+					String fname = newJob.getResults().get(0).getFname();
+					String lname = newJob.getResults().get(0).getLname();
+					String street = newJob.getResults().get(0).getStreet();
+					String city = newJob.getResults().get(0).getCity();
+					String state = newJob.getResults().get(0).getState();
+					String zip = newJob.getResults().get(0).getZip_code();
+					String phone = newJob.getResults().get(0).getPhone_number();
+					String date = newJob.getResults().get(0).getDate();
+					Object[] rowdata = { workId, jobName, fname, lname, street, city, state, zip, phone, date };
+					System.out.println(model.getRowCount());
+					model.addRow(rowdata);
+					System.out.println(model.getRowCount());
+					System.out.println(table.getRowCount());
+					String numResults = String.format("Numer of results: %s", model.getRowCount());
+					resultsLbl.setText(numResults);
+					repaint();
+					revalidate();
+					refresh.setEnabled(false);
+				}
+				else if(editedJob.isEdited()){
+					System.out.println("Todo add code to edit the table");
+				}
+				else {
+					refresh.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "No new updates");
+				}
+			}
+		});
+
+		refreshPanel.add(refresh);
+	}
+
 	public void buildtable() {
 		Object[][] data = new Object[driver.getResults().size()][columnNames.length];
 		int j = 0;
 
 		// Builds the table's data
 		for (int i = 0; i < driver.getResults().size(); i++) {
-			data[i][j] = driver.getResults().get(i).getJob_name();
-			data[i][j + 1] = driver.getResults().get(i).getFname();
-			data[i][j + 2] = driver.getResults().get(i).getLname();
-			data[i][j + 3] = driver.getResults().get(i).getStreet();
-			data[i][j + 4] = driver.getResults().get(i).getCity();
-			data[i][j + 5] = driver.getResults().get(i).getState();
-			data[i][j + 6] = driver.getResults().get(i).getZip_code();
-			data[i][j + 7] = driver.getResults().get(i).getPhone_number();
-			data[i][j + 8] = driver.getResults().get(i).getDate();
+			data[i][j] = driver.getResults().get(i).getWork_Id();
+			data[i][j + 1] = driver.getResults().get(i).getJob_name();
+			data[i][j + 2] = driver.getResults().get(i).getFname();
+			data[i][j + 3] = driver.getResults().get(i).getLname();
+			data[i][j + 4] = driver.getResults().get(i).getStreet();
+			data[i][j + 5] = driver.getResults().get(i).getCity();
+			data[i][j + 6] = driver.getResults().get(i).getState();
+			data[i][j + 7] = driver.getResults().get(i).getZip_code();
+			data[i][j + 8] = driver.getResults().get(i).getPhone_number();
+			data[i][j + 9] = driver.getResults().get(i).getDate();
 		}
 
 		panel = new JPanel();
@@ -241,21 +296,7 @@ public class Search_GUI extends JFrame {
 		// builds the table
 		table = new JTable(model);
 		table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		table.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				System.out.println(driver.getResults().get(table.getSelectedRow()).toString());
-
-			}
-		});
 		panel.setLayout(null);
-
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				selectedRow = table.getSelectedRow();
-				System.out.println(selectedRow);
-			}
-		});
 
 		// Here I attach the table to a JScrollPane
 		contentPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -304,5 +345,4 @@ public class Search_GUI extends JFrame {
 		search.setBounds(245, 12, 89, 23);
 		searchPanel.add(search);
 	}
-
 }
