@@ -18,11 +18,19 @@ import javax.swing.JTable;
 import Adding_jobs.AddJob;
 import Adding_jobs.EditJob;
 import Adding_jobs.ViewJob;
+import Calendar.JCalendarDialog;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.CompoundBorder;
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.border.LineBorder;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
 
 /**
  * @author Shawn Reece Date: 2/9/2016
@@ -44,6 +52,9 @@ public class Search_GUI extends JFrame {
 	private String query;
 	private String searchType;
 	private JPanel panel;
+	private JPanel searchPanel;
+	private JTextField valueTxt;
+	private JButton search;
 
 	/**
 	 * Create the frame.
@@ -52,7 +63,7 @@ public class Search_GUI extends JFrame {
 
 		// build the window
 		super("Search Results");
-		setBounds(100, 100, 750, 298);
+		setBounds(100, 100, 750, 361);
 		this.setVisible(true);
 		this.query = query;
 		this.searchType = searchType;
@@ -61,24 +72,35 @@ public class Search_GUI extends JFrame {
 		this.setIconImage(img.getImage());
 		// Object to start the searching
 		driver = new Search_Driver(query, searchType);
+		this.setResizable(false);
+		initSearchPanel();
+		buildtable();
+		initButtonPanel();
 
-		System.out.println(driver.getResults().size());
-		// Creates the 2D object array of the same size of the table
-		Object[][] data = new Object[driver.getResults().size()][columnNames.length];
-		int j = 0;
-
-		// Builds the table's data
-		for (int i = 0; i < driver.getResults().size(); i++) {
-			data[i][j] = driver.getResults().get(i).getJob_name();
-			data[i][j + 1] = driver.getResults().get(i).getFname();
-			data[i][j + 2] = driver.getResults().get(i).getLname();
-			data[i][j + 3] = driver.getResults().get(i).getStreet();
-			data[i][j + 4] = driver.getResults().get(i).getCity();
-			data[i][j + 5] = driver.getResults().get(i).getState();
-			data[i][j + 6] = driver.getResults().get(i).getZip_code();
-			data[i][j + 7] = driver.getResults().get(i).getPhone_number();
-			data[i][j + 8] = driver.getResults().get(i).getDate();
+		if (driver.getResults().size() == 0) {
+			String message = String.format("No results");
+			JOptionPane.showMessageDialog(null, message, "No records found", 2);
 		}
+
+		// disconnect from db
+		driver.closeConn();
+	}
+
+	public void initButtonPanel() {
+
+		JButton calendarButton = new JButton("Calendar");
+		calendarButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JCalendarDialog dialog = new JCalendarDialog();
+				dialog.setDialogTitle("HandyMan Calendar");
+				// dialog.setLocale(Locale.ENGLISH);
+				dialog.createDialog();
+				if (dialog.getReturnCode() == JCalendarDialog.OK_PRESSED)
+					dialog.dispose();
+			}
+		});
 
 		/*
 		 * this code below handles adding jobs
@@ -99,10 +121,16 @@ public class Search_GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (driver.getResults().size() != 0) {
-					new ViewJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+				try {
+					if (driver.getResults().size() != 0) {
+						new ViewJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+					}
+					dispose();
+
+				} catch (Exception table) {
+					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
 				}
-				dispose();
+
 			}
 		});
 
@@ -114,11 +142,29 @@ public class Search_GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (driver.getResults().size() != 0) {
-					String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
-					new Removing_Driver(jobId);
+
+				try {
+
+					if (driver.getResults().size() != 0) {
+						String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
+						int reply = JOptionPane.showConfirmDialog(null,
+								"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
+								JOptionPane.YES_NO_OPTION);
+						if (reply == JOptionPane.YES_OPTION) {
+							new Removing_Driver(jobId);
+							((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
+							table.repaint();
+
+						} else {
+							return;
+						}
+
+					}
+
 					dispose();
-					new Search_GUI(query, searchType);
+
+				} catch (Exception table) {
+					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
 				}
 			}
 		});
@@ -131,30 +177,56 @@ public class Search_GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (driver.getResults().size() != 0) {
-					new EditJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+				try {
+					if (driver.getResults().size() != 0) {
+						new EditJob(driver.getResults().get(table.getSelectedRow()), query, searchType);
+					}
+					dispose();
+				} catch (Exception table) {
+					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
 				}
-				dispose();
+
 			}
 		});
+
 		getContentPane().setLayout(null);
 		String numResults = String.format("Numer of results: %s", driver.getResults().size());
 		resultsLbl = new JLabel(numResults);
 
 		btnPanel = new JPanel();
-		btnPanel.setBounds(10, 215, 714, 33);
+		btnPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		btnPanel.setBounds(10, 280, 714, 41);
+		btnPanel.add(calendarButton);
 		btnPanel.add(add);
 		btnPanel.add(view);
 		btnPanel.add(edit);
 		btnPanel.add(remove);
 		btnPanel.add(resultsLbl);
-
 		getContentPane().add(btnPanel);
+	}
+
+	public void buildtable() {
+		Object[][] data = new Object[driver.getResults().size()][columnNames.length];
+		int j = 0;
+
+		// Builds the table's data
+		for (int i = 0; i < driver.getResults().size(); i++) {
+			data[i][j] = driver.getResults().get(i).getJob_name();
+			data[i][j + 1] = driver.getResults().get(i).getFname();
+			data[i][j + 2] = driver.getResults().get(i).getLname();
+			data[i][j + 3] = driver.getResults().get(i).getStreet();
+			data[i][j + 4] = driver.getResults().get(i).getCity();
+			data[i][j + 5] = driver.getResults().get(i).getState();
+			data[i][j + 6] = driver.getResults().get(i).getZip_code();
+			data[i][j + 7] = driver.getResults().get(i).getPhone_number();
+			data[i][j + 8] = driver.getResults().get(i).getDate();
+		}
+
 
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null), "Result table",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(10, 11, 714, 196);
+		panel.setBounds(10, 63, 714, 206);
 		getContentPane().add(panel);
 
 		// builds the table
@@ -170,15 +242,48 @@ public class Search_GUI extends JFrame {
 		// Here I attach the table to a JScrollPane
 		contentPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		contentPane.setBounds(10, 25, 694, 160);
+		contentPane.setBounds(10, 21, 694, 174);
 		panel.add(contentPane);
 
-		if (driver.getResults().size() == 0) {
-			String message = String.format("No results");
-			JOptionPane.showMessageDialog(null, message, "No records found", 2);
-		}
-
-		// disconnect from db
-		driver.closeConn();
 	}
+
+	public void initSearchPanel() {
+		searchPanel = new JPanel();
+		searchPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		searchPanel.setBounds(380, 11, 344, 46);
+		getContentPane().add(searchPanel);
+		searchPanel.setLayout(null);
+
+		valueTxt = new JTextField();
+		valueTxt.setBounds(133, 11, 102, 25);
+		searchPanel.add(valueTxt);
+		valueTxt.setColumns(10);
+
+		JComboBox<String> searchFilters = new JComboBox<String>();
+		searchFilters.addItem("First Name");
+		searchFilters.addItem("Last Name");
+		searchFilters.addItem("Date");
+		searchFilters.addItem("Address");
+		searchFilters.addItem("Show All");
+		searchFilters.setBounds(10, 13, 113, 20);
+		searchPanel.add(searchFilters);
+
+		search = new JButton("Search");
+		search.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				remove(panel);
+				driver = new Search_Driver(valueTxt.getText(),
+						searchFilters.getSelectedItem().toString());
+				panel.removeAll();
+				repaint();
+				revalidate();
+				buildtable();
+			}
+		});
+		search.setBounds(245, 12, 89, 23);
+		searchPanel.add(search);
+	}
+
 }

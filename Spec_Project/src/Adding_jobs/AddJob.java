@@ -96,6 +96,8 @@ public class AddJob extends JFrame {
 
 	/**
 	 * Frame Created
+	 * 
+	 * @wbp.parser.constructor
 	 */
 	public AddJob(String query, String search) {
 		this.query = query;
@@ -188,6 +190,45 @@ public class AddJob extends JFrame {
 
 	public void setJob(Jobs jobs) {
 		this.job = jobs;
+		setDocText();
+		repaint();
+		revalidate();
+	}
+
+	private void setDocText() {
+		job_name_txt.setText(job.getJob_name());
+		fname_txt.setText(job.getFname());
+		lname_txt.setText(job.getLname());
+		street_txt.setText(job.getStreet());
+		state_txt.setText(job.getState());
+		city_txt.setText(job.getCity());
+		zip_txt.setText(job.getZip_code());
+		phone_txt.setText(job.getPhone_number());
+		pdf_file_txt.setText(job.getPDFs());
+		image_txt.setText(job.getImages());
+		materials_txt.setText(job.getMaterials());
+		date_txt.setText(job.getDate());
+		hours_spinner.setValue(new Double(Double.parseDouble(job.getHours())));
+		for (int i = 0; i < 48; i++) {
+			if (start_txt.getItem(i).equals(job.getStartTime()))
+				start_txt.select(i);
+		}
+		for (int i = 0; i < 48; i++) {
+			if (end_txt.getItem(i).equals(job.getStartTime()))
+				end_txt.select(i);
+		}
+		if (job.isStartTimeAm()) {
+			rdbtnAm_start.setSelected(true);
+		} else {
+			rdbtnPm_start.setSelected(true);
+		}
+
+		if (job.isEndTimeAm()) {
+			rdbtnAm_end.setSelected(true);
+		} else {
+			rdbtnPm_end.setSelected(true);
+		}
+
 	}
 
 	/**

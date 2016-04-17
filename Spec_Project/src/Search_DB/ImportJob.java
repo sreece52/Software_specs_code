@@ -125,9 +125,10 @@ public class ImportJob extends JFrame {
 				if (isEdit) {
 					edit.setJob(driver.getResults().get(table.getSelectedRow()));
 					dispose();
+				} else {
+					add.setJob(driver.getResults().get(table.getSelectedRow()));
+					dispose();
 				}
-				add.setJob(driver.getResults().get(table.getSelectedRow()));
-				dispose();
 
 			}
 		});
