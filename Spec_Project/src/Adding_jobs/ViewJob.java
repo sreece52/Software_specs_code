@@ -101,13 +101,13 @@ public class ViewJob extends JFrame {
 		this.query = query;
 		this.searchType = searchType;
 
-		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 24));
+		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("View Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		setBounds(100, 100, 870, 911);
+		setBounds(100, 100, 779, 739);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 127, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
+		gridBagLayout.columnWidths = new int[] { 83, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
 		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
 				29, 35, 32, 49, 0 };
 		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
@@ -142,13 +142,55 @@ public class ViewJob extends JFrame {
 		// Import button
 		btnImportInformationFrom = new JButton("Import Information from Existing Job");
 		btnImportInformationFrom.setEnabled(false);
-		btnImportInformationFrom.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		btnImportInformationFrom.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnImportInformationFrom = new GridBagConstraints();
 		gbc_btnImportInformationFrom.gridwidth = 5;
 		gbc_btnImportInformationFrom.insets = new Insets(0, 0, 5, 5);
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
+						
+								// Back Button and Actionlistener
+								btnCancel = new JButton("Back");
+								btnCancel.setForeground(Color.white);
+								btnCancel.setBackground(Color.BLACK);
+								btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+								gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
+								gbc_btnCancel.gridwidth = 2;
+								gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
+								gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+								gbc_btnCancel.gridx = 3;
+								gbc_btnCancel.gridy = 21;
+								getContentPane().add(btnCancel, gbc_btnCancel);
+								btnCancel.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										dispose();
+									}
+								});
+						
+								// edit button and actionlistener
+								btnSave = new JButton("Edit");
+								btnSave.setForeground(Color.white);
+								btnSave.setBackground(new Color(0,102,206));
+								btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
+								
+										btnSave.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												System.out.println("save button pressed");
+								
+												EditJob editjob = new EditJob(jobs, query, searchType);
+												editjob.setVisible(true);
+												dispose();
+											}
+										});
+										GridBagConstraints gbc_btnSave = new GridBagConstraints();
+										gbc_btnSave.insets = new Insets(0, 0, 5, 5);
+										gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+										gbc_btnSave.anchor = GridBagConstraints.SOUTH;
+										gbc_btnSave.gridx = 5;
+										gbc_btnSave.gridy = 21;
+										getContentPane().add(btnSave, gbc_btnSave);
 		/*
 		 * call search driver for all records and have user select the job they
 		 * wish to import
@@ -163,7 +205,7 @@ public class ViewJob extends JFrame {
 	public void NameSection() {
 
 		lblJobName = new JLabel("Job Name:");
-		lblJobName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblJobName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblJobName = new GridBagConstraints();
 		gbc_lblJobName.anchor = GridBagConstraints.EAST;
 		gbc_lblJobName.gridwidth = 2;
@@ -176,10 +218,10 @@ public class ViewJob extends JFrame {
 		job_text = new JTextField();
 		job_text.setText(jobs.getJob_name());
 		job_text.setEditable(false);
-		job_text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		job_text.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_job_text = new GridBagConstraints();
-		gbc_job_text.gridwidth = 6;
-		gbc_job_text.insets = new Insets(0, 0, 5, 5);
+		gbc_job_text.gridwidth = 7;
+		gbc_job_text.insets = new Insets(0, 0, 5, 0);
 		gbc_job_text.fill = GridBagConstraints.HORIZONTAL;
 		gbc_job_text.gridx = 2;
 		gbc_job_text.gridy = 1;
@@ -187,7 +229,7 @@ public class ViewJob extends JFrame {
 		job_text.setColumns(10);
 
 		lblFirstName = new JLabel("First Name:");
-		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblFirstName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblFirstName = new GridBagConstraints();
 		gbc_lblFirstName.anchor = GridBagConstraints.EAST;
 		gbc_lblFirstName.insets = new Insets(0, 0, 5, 5);
@@ -200,18 +242,18 @@ public class ViewJob extends JFrame {
 		fname_text = new JTextField();
 		fname_text.setText(jobs.getFname());
 		fname_text.setEditable(false);
-		fname_text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		fname_text.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_fname_text = new GridBagConstraints();
 		gbc_fname_text.fill = GridBagConstraints.HORIZONTAL;
 		gbc_fname_text.insets = new Insets(0, 0, 5, 0);
-		gbc_fname_text.gridwidth = 6;
+		gbc_fname_text.gridwidth = 7;
 		gbc_fname_text.gridx = 2;
 		gbc_fname_text.gridy = 3;
 		getContentPane().add(fname_text, gbc_fname_text);
 		fname_text.setColumns(10);
 
 		lblLastName = new JLabel("Last Name:");
-		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblLastName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblLastName = new GridBagConstraints();
 		gbc_lblLastName.anchor = GridBagConstraints.EAST;
 		gbc_lblLastName.insets = new Insets(0, 0, 5, 5);
@@ -224,11 +266,11 @@ public class ViewJob extends JFrame {
 		lname_text = new JTextField();
 		lname_text.setText(jobs.getLname());
 		lname_text.setEditable(false);
-		lname_text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lname_text.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_lname_text = new GridBagConstraints();
 		gbc_lname_text.fill = GridBagConstraints.HORIZONTAL;
 		gbc_lname_text.insets = new Insets(0, 0, 5, 0);
-		gbc_lname_text.gridwidth = 6;
+		gbc_lname_text.gridwidth = 7;
 		gbc_lname_text.gridx = 2;
 		gbc_lname_text.gridy = 4;
 		getContentPane().add(lname_text, gbc_lname_text);
@@ -244,7 +286,7 @@ public class ViewJob extends JFrame {
 	public void AddressSection() {
 
 		lblStreetName = new JLabel("Street Name:");
-		lblStreetName.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblStreetName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblStreetName = new GridBagConstraints();
 		gbc_lblStreetName.anchor = GridBagConstraints.EAST;
 		gbc_lblStreetName.insets = new Insets(0, 0, 5, 5);
@@ -257,9 +299,9 @@ public class ViewJob extends JFrame {
 		streetname_text = new JTextField();
 		streetname_text.setText(jobs.getStreet());
 		streetname_text.setEditable(false);
-		streetname_text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		streetname_text.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_streetname_text = new GridBagConstraints();
-		gbc_streetname_text.gridwidth = 6;
+		gbc_streetname_text.gridwidth = 7;
 		gbc_streetname_text.insets = new Insets(0, 0, 5, 0);
 		gbc_streetname_text.fill = GridBagConstraints.HORIZONTAL;
 		gbc_streetname_text.gridx = 2;
@@ -268,7 +310,7 @@ public class ViewJob extends JFrame {
 		streetname_text.setColumns(10);
 
 		lblCity = new JLabel("City:");
-		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblCity.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblCity = new GridBagConstraints();
 		gbc_lblCity.anchor = GridBagConstraints.EAST;
 		gbc_lblCity.insets = new Insets(0, 0, 5, 5);
@@ -280,7 +322,7 @@ public class ViewJob extends JFrame {
 		txtCity = new JTextField();
 		txtCity.setText(jobs.getCity());
 		txtCity.setEditable(false);
-		txtCity.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		txtCity.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_txtCity = new GridBagConstraints();
 		gbc_txtCity.gridwidth = 2;
 		gbc_txtCity.insets = new Insets(0, 0, 5, 5);
@@ -291,7 +333,7 @@ public class ViewJob extends JFrame {
 		txtCity.setColumns(10);
 
 		lblState = new JLabel("State:");
-		lblState.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblState.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblState = new GridBagConstraints();
 		gbc_lblState.anchor = GridBagConstraints.EAST;
 		gbc_lblState.insets = new Insets(0, 0, 5, 5);
@@ -303,7 +345,7 @@ public class ViewJob extends JFrame {
 		state_text = new JTextField();
 		state_text.setText(jobs.getState());
 		state_text.setEditable(false);
-		state_text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		state_text.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_state_text = new GridBagConstraints();
 		gbc_state_text.insets = new Insets(0, 0, 5, 5);
 		gbc_state_text.fill = GridBagConstraints.HORIZONTAL;
@@ -313,7 +355,7 @@ public class ViewJob extends JFrame {
 		state_text.setColumns(10);
 
 		lblZip = new JLabel("Zip:");
-		lblZip.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblZip.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblZip = new GridBagConstraints();
 		gbc_lblZip.anchor = GridBagConstraints.EAST;
 		gbc_lblZip.insets = new Insets(0, 0, 5, 5);
@@ -325,9 +367,10 @@ public class ViewJob extends JFrame {
 		zip_text = new JTextField();
 		zip_text.setText(jobs.getZip_code());
 		zip_text.setEditable(false);
-		zip_text.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		zip_text.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_zip_text = new GridBagConstraints();
-		gbc_zip_text.insets = new Insets(0, 0, 5, 5);
+		gbc_zip_text.gridwidth = 2;
+		gbc_zip_text.insets = new Insets(0, 0, 5, 0);
 		gbc_zip_text.fill = GridBagConstraints.HORIZONTAL;
 		gbc_zip_text.gridx = 7;
 		gbc_zip_text.gridy = 7;
@@ -335,7 +378,7 @@ public class ViewJob extends JFrame {
 		zip_text.setColumns(10);
 
 		lblPhoneNumber = new JLabel("Phone Number:");
-		lblPhoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblPhoneNumber.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblPhoneNumber = new GridBagConstraints();
 		gbc_lblPhoneNumber.anchor = GridBagConstraints.EAST;
 		gbc_lblPhoneNumber.insets = new Insets(0, 0, 5, 5);
@@ -348,10 +391,10 @@ public class ViewJob extends JFrame {
 		phone_number = new JTextField();
 		phone_number.setText(jobs.getPhone_number());
 		phone_number.setEditable(false);
-		phone_number.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		phone_number.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		GridBagConstraints gbc_phone_number = new GridBagConstraints();
 		gbc_phone_number.fill = GridBagConstraints.HORIZONTAL;
-		gbc_phone_number.insets = new Insets(0, 0, 5, 0);
+		gbc_phone_number.insets = new Insets(0, 0, 5, 5);
 		gbc_phone_number.gridwidth = 4;
 		gbc_phone_number.gridx = 2;
 		gbc_phone_number.gridy = 8;
@@ -369,7 +412,7 @@ public class ViewJob extends JFrame {
 	public void MaterialsAndNotesSection() {
 
 		lblMaterials = new JLabel("Materials:");
-		lblMaterials.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblMaterials.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblMaterials = new GridBagConstraints();
 		gbc_lblMaterials.anchor = GridBagConstraints.EAST;
 		gbc_lblMaterials.insets = new Insets(0, 0, 5, 5);
@@ -398,7 +441,7 @@ public class ViewJob extends JFrame {
 		materials_text.setText(jobs.getMaterials());
 
 		lblNotes = new JLabel("Notes:");
-		lblNotes.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNotes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNotes = new GridBagConstraints();
 		gbc_lblNotes.anchor = GridBagConstraints.EAST;
 		gbc_lblNotes.insets = new Insets(0, 0, 5, 5);
@@ -424,7 +467,7 @@ public class ViewJob extends JFrame {
 
 		// button for View notes and action listener
 		btnViewNotesIn = new JButton("View Notes in New Window");
-		btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnViewNotesIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -456,7 +499,7 @@ public class ViewJob extends JFrame {
 	public void DateAndTimeSection() {
 
 		lblDate_1 = new JLabel("Date:");
-		lblDate_1.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblDate_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblDate_1 = new GridBagConstraints();
 		gbc_lblDate_1.anchor = GridBagConstraints.EAST;
 		gbc_lblDate_1.insets = new Insets(0, 0, 5, 5);
@@ -468,7 +511,7 @@ public class ViewJob extends JFrame {
 		// Date text field
 		date = new JTextField();
 		date.setEditable(false);
-		date.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		date.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		date.setText("yyyy/mm/dd");
 		GridBagConstraints gbc_date = new GridBagConstraints();
 		gbc_date.insets = new Insets(0, 0, 5, 5);
@@ -480,7 +523,7 @@ public class ViewJob extends JFrame {
 		date.setText(jobs.getDate());
 
 		lblHours = new JLabel("Hours:");
-		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblHours.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblHours = new GridBagConstraints();
 		gbc_lblHours.anchor = GridBagConstraints.EAST;
 		gbc_lblHours.insets = new Insets(0, 0, 5, 5);
@@ -499,7 +542,7 @@ public class ViewJob extends JFrame {
 				.25 // step
 		);
 		hours = new JSpinner(model);
-		hours.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		hours.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		hours.setEnabled(false);
 		GridBagConstraints gbc_hours = new GridBagConstraints();
 		gbc_hours.anchor = GridBagConstraints.WEST;
@@ -510,7 +553,7 @@ public class ViewJob extends JFrame {
 		hours.setValue(new Double(Double.parseDouble(jobs.getHours())));
 
 		lblStartTime = new JLabel("Start Time:");
-		lblStartTime.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblStartTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblStartTime = new GridBagConstraints();
 		gbc_lblStartTime.anchor = GridBagConstraints.EAST;
 		gbc_lblStartTime.insets = new Insets(0, 0, 5, 5);
@@ -559,7 +602,7 @@ public class ViewJob extends JFrame {
 		// Start Time JRadioButtons
 		rdbtnAm_start = new JRadioButton("A.M.");
 		rdbtnAm_start.setEnabled(false);
-		rdbtnAm_start.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnAm_start.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_rdbtnAm_start = new GridBagConstraints();
 		gbc_rdbtnAm_start.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAm_start.gridx = 4;
@@ -568,7 +611,7 @@ public class ViewJob extends JFrame {
 
 		rdbtnPm_start = new JRadioButton("P.M.");
 		rdbtnPm_start.setEnabled(false);
-		rdbtnPm_start.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnPm_start.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_rdbtnPm_start = new GridBagConstraints();
 		gbc_rdbtnPm_start.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnPm_start.gridx = 5;
@@ -588,7 +631,7 @@ public class ViewJob extends JFrame {
 		groupStartTime.add(rdbtnAm_start);
 
 		lblEndTime = new JLabel("End Time:");
-		lblEndTime.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblEndTime.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblEndTime = new GridBagConstraints();
 		gbc_lblEndTime.anchor = GridBagConstraints.EAST;
 		gbc_lblEndTime.insets = new Insets(0, 0, 5, 5);
@@ -600,7 +643,7 @@ public class ViewJob extends JFrame {
 		// EndTime JRadioButtons
 		rdbtnAm_end = new JRadioButton("A.M.");
 		rdbtnAm_end.setEnabled(false);
-		rdbtnAm_end.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnAm_end.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_rdbtnAm_end = new GridBagConstraints();
 		gbc_rdbtnAm_end.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnAm_end.gridx = 4;
@@ -609,7 +652,7 @@ public class ViewJob extends JFrame {
 
 		rdbtnPm_end = new JRadioButton("P.M.");
 		rdbtnPm_end.setEnabled(false);
-		rdbtnPm_end.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		rdbtnPm_end.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_rdbtnPm_end = new GridBagConstraints();
 		gbc_rdbtnPm_end.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnPm_end.gridx = 5;
@@ -675,7 +718,7 @@ public class ViewJob extends JFrame {
 	public void PdfAndImagesSection() {
 
 		lblPdf = new JLabel("PDF:");
-		lblPdf.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblPdf = new GridBagConstraints();
 		gbc_lblPdf.anchor = GridBagConstraints.EAST;
 		gbc_lblPdf.insets = new Insets(0, 0, 5, 5);
@@ -687,7 +730,7 @@ public class ViewJob extends JFrame {
 		// PDF JTextField that displays the saved PDF
 		pdf = new JTextField();
 		pdf.setEditable(false);
-		pdf.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		pdf.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		pdf.setText("List the file names of the added PDF's");
 		GridBagConstraints gbc_pdf = new GridBagConstraints();
 		gbc_pdf.fill = GridBagConstraints.HORIZONTAL;
@@ -702,7 +745,7 @@ public class ViewJob extends JFrame {
 		// "Add PDF" button and action listener
 		btnAddPdf = new JButton("Add PDF");
 		btnAddPdf.setEnabled(false);
-		btnAddPdf.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnAddPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnAddPdf = new GridBagConstraints();
 		gbc_btnAddPdf.anchor = GridBagConstraints.EAST;
 		gbc_btnAddPdf.insets = new Insets(0, 0, 5, 5);
@@ -735,7 +778,7 @@ public class ViewJob extends JFrame {
 		});
 
 		lblImages = new JLabel("Images:");
-		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblImages = new GridBagConstraints();
 		gbc_lblImages.anchor = GridBagConstraints.EAST;
 		gbc_lblImages.insets = new Insets(0, 0, 5, 5);
@@ -747,7 +790,7 @@ public class ViewJob extends JFrame {
 		// Images JTextField
 		images = new JTextField();
 		images.setEditable(false);
-		images.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		images.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		images.setText("Preview Images or File Name of picture");
 		GridBagConstraints gbc_images = new GridBagConstraints();
 		gbc_images.fill = GridBagConstraints.HORIZONTAL;
@@ -762,7 +805,7 @@ public class ViewJob extends JFrame {
 		// "Add Image" button and actionlistener
 		btnAddImage = new JButton("Add Image");
 		btnAddImage.setEnabled(false);
-		btnAddImage.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		btnAddImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnAddImage = new GridBagConstraints();
 		gbc_btnAddImage.anchor = GridBagConstraints.EAST;
 		gbc_btnAddImage.insets = new Insets(0, 0, 5, 5);
@@ -801,45 +844,5 @@ public class ViewJob extends JFrame {
 	 * 
 	 */
 	public void BackEditSection() {
-
-		// Back Button and Actionlistener
-		btnCancel = new JButton("Back");
-		btnCancel.setForeground(Color.BLACK);
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnCancel.gridwidth = 2;
-		gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
-		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCancel.gridx = 0;
-		gbc_btnCancel.gridy = 22;
-		getContentPane().add(btnCancel, gbc_btnCancel);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-
-		// edit button and actionlistener
-		btnSave = new JButton("Edit");
-		btnSave.setForeground(Color.BLUE);
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 33));
-
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("save button pressed");
-
-				EditJob editjob = new EditJob(jobs, query, searchType);
-				editjob.setVisible(true);
-				dispose();
-			}
-		});
-		GridBagConstraints gbc_btnSave = new GridBagConstraints();
-		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSave.gridwidth = 3;
-		gbc_btnSave.anchor = GridBagConstraints.SOUTH;
-		gbc_btnSave.gridx = 7;
-		gbc_btnSave.gridy = 22;
-		getContentPane().add(btnSave, gbc_btnSave);
 	}
 }

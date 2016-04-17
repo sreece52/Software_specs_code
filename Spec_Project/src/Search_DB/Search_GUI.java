@@ -58,9 +58,13 @@ public class Search_GUI extends JFrame {
 	private JButton search;
 	private int selectedRow;
 	private DefaultTableModel model;
+<<<<<<< HEAD
 	private JPanel refreshPanel;
 	private JButton refresh;
 	private AddJob newAddJob;
+=======
+	private JLabel lblPic;
+>>>>>>> refs/remotes/origin/master
 
 	/**
 	 * Create the frame.
@@ -218,6 +222,7 @@ public class Search_GUI extends JFrame {
 		btnPanel.add(remove);
 		btnPanel.add(resultsLbl);
 		getContentPane().add(btnPanel);
+<<<<<<< HEAD
 
 	}
 
@@ -262,6 +267,24 @@ public class Search_GUI extends JFrame {
 		});
 
 		refreshPanel.add(refresh);
+=======
+		
+		
+		
+		//ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		//this.setIconImage(img.getImage());
+		
+		
+		JButton btnNewButton = new JButton(new ImageIcon(((new ImageIcon("Handyman Scheduler Logo 1.2.png").getImage().getScaledInstance(376, 60,
+                java.awt.Image.SCALE_SMOOTH)))));
+		btnNewButton.setBounds(0, 0, 376, 60);	
+		//btnNewButton.setEnabled(false);
+		//btnNewButton.enable(false);
+		
+		getContentPane().add(btnNewButton);
+	
+		
+>>>>>>> refs/remotes/origin/master
 	}
 
 	public void buildtable() {
