@@ -138,7 +138,7 @@ public class Search_GUI extends JFrame {
 					if (driver.getResults().size() != 0) {
 						String workId = (String) table.getValueAt(table.getSelectedRow(), 0);
 						Search_Driver view = new Search_Driver(workId, "WORKID");
-						new ViewJob(view.getResults().get(0), query, query);
+						new ViewJob(view.getResults().get(0));
 					}
 				} catch (Exception table) {
 					JOptionPane.showMessageDialog(null, "Please select a value from the table.");

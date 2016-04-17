@@ -96,7 +96,7 @@ public class ViewJob extends JFrame {
 	 * @param jobs
 	 * 
 	 */
-	public ViewJob(Jobs jobs, String query, String searchType) {
+	public ViewJob(Jobs jobs) {
 		this.jobs = jobs;
 		this.query = query;
 		this.searchType = searchType;
@@ -149,48 +149,48 @@ public class ViewJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
-						
-								// Back Button and Actionlistener
-								btnCancel = new JButton("Back");
-								btnCancel.setForeground(Color.white);
-								btnCancel.setBackground(Color.BLACK);
-								btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-								GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-								gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
-								gbc_btnCancel.gridwidth = 2;
-								gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
-								gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
-								gbc_btnCancel.gridx = 3;
-								gbc_btnCancel.gridy = 21;
-								getContentPane().add(btnCancel, gbc_btnCancel);
-								btnCancel.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										dispose();
-									}
-								});
-						
-								// edit button and actionlistener
-								btnSave = new JButton("Edit");
-								btnSave.setForeground(Color.white);
-								btnSave.setBackground(new Color(0,102,206));
-								btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
-								
-										btnSave.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-												System.out.println("save button pressed");
-								
-												EditJob editjob = new EditJob(jobs, query, searchType);
-												editjob.setVisible(true);
-												dispose();
-											}
-										});
-										GridBagConstraints gbc_btnSave = new GridBagConstraints();
-										gbc_btnSave.insets = new Insets(0, 0, 5, 5);
-										gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-										gbc_btnSave.anchor = GridBagConstraints.SOUTH;
-										gbc_btnSave.gridx = 5;
-										gbc_btnSave.gridy = 21;
-										getContentPane().add(btnSave, gbc_btnSave);
+
+		// Back Button and Actionlistener
+		btnCancel = new JButton("Back");
+		btnCancel.setForeground(Color.white);
+		btnCancel.setBackground(Color.BLACK);
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancel.gridwidth = 2;
+		gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
+		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancel.gridx = 3;
+		gbc_btnCancel.gridy = 21;
+		getContentPane().add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+		// edit button and actionlistener
+		btnSave = new JButton("Edit");
+		btnSave.setForeground(Color.white);
+		btnSave.setBackground(new Color(0, 102, 206));
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("save button pressed");
+
+				EditJob editjob = new EditJob(jobs, query, searchType);
+				editjob.setVisible(true);
+				dispose();
+			}
+		});
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSave.anchor = GridBagConstraints.SOUTH;
+		gbc_btnSave.gridx = 5;
+		gbc_btnSave.gridy = 21;
+		getContentPane().add(btnSave, gbc_btnSave);
 		/*
 		 * call search driver for all records and have user select the job they
 		 * wish to import
