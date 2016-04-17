@@ -3,6 +3,10 @@ package Search_DB;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +23,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
+import java.awt.Image;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -91,6 +97,11 @@ public class Search_GUI extends JFrame {
 
 		// Creates a calendar button
 		JButton calendarButton = new JButton("Calendar");
+		
+		Color lightpurple = new Color(255, 220, 255);
+		calendarButton.setBackground(lightpurple);
+		  
+		  
 		calendarButton.addActionListener(new ActionListener() {
 
 			// when the button is clicked it creates a calendar dialog
@@ -111,6 +122,8 @@ public class Search_GUI extends JFrame {
 		 * this code below handles adding jobs
 		 */
 		add = new JButton("Add a Job");
+		Color lightgreen = new Color(230, 255, 235);
+		add.setBackground(lightgreen);
 		add.addActionListener(new ActionListener() {
 			@Override
 			/**
@@ -126,6 +139,8 @@ public class Search_GUI extends JFrame {
 		});
 
 		view = new JButton("View a Job");
+		Color yellow = new Color(255, 255, 204);
+		view.setBackground(yellow);
 		view.addActionListener(new ActionListener() {
 
 			@Override
@@ -152,6 +167,8 @@ public class Search_GUI extends JFrame {
 		 * This code code below handles removing a job
 		 */
 		remove = new JButton("Remove a Job");
+		Color lightred = new Color(255, 204, 204);
+		remove.setBackground(lightred);
 		remove.addActionListener(new ActionListener() {
 
 			@Override
@@ -205,6 +222,8 @@ public class Search_GUI extends JFrame {
 		 * This code below handles editing jobs
 		 */
 		edit = new JButton("Edit Job");
+		Color lightblue = new Color(230, 255, 255);
+		edit.setBackground(lightblue);
 		edit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -322,6 +341,7 @@ public class Search_GUI extends JFrame {
 		table = new JTable(model);
 		table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 		panel.setLayout(null);
+		table.setAutoCreateRowSorter(true);
 
 		// Here I attach the table to a JScrollPane
 		contentPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -360,6 +380,8 @@ public class Search_GUI extends JFrame {
 
 		// search button
 		search = new JButton("Search");
+		Color green = new Color(150, 255, 150);
+		search.setBackground(green);
 		search.addActionListener(new ActionListener() {
 
 			@Override
