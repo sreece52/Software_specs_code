@@ -103,6 +103,7 @@ public class EditJob extends JFrame {
 	private ImportJob importedJob;
 	private EditJob edit = this;
 	private Jobs job;
+	private boolean isEdited = false;
 
 	/**
 	 * Frame Created
@@ -112,7 +113,7 @@ public class EditJob extends JFrame {
 	 * @param editedJob
 	 * 
 	 */
-	public EditJob(Jobs editedJob, String query, String search) {
+	public EditJob(Jobs editedJob) {
 		this.editedJob = editedJob;
 		this.query = query;
 		this.search = search;
@@ -163,63 +164,63 @@ public class EditJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
-										
-												// Cancel Button and Actionlistener
-												btnCancel = new JButton("Cancel");
-												btnCancel.setForeground(Color.WHITE);
-												btnCancel.setBackground(Color.red);
-												btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-												GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-												gbc_btnCancel.gridwidth = 2;
-												gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
-												gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
-												gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
-												gbc_btnCancel.gridx = 3;
-												gbc_btnCancel.gridy = 21;
-												getContentPane().add(btnCancel, gbc_btnCancel);
-												btnCancel.addActionListener(new ActionListener() {
-													public void actionPerformed(ActionEvent e) {
-														new Search_GUI(query, search);
-														dispose();
-													}
-												});
-										
-												// Save button and actionlistener
-												btnSave = new JButton("Save");
-												btnSave.setForeground(Color.WHITE);
-												btnSave.setBackground(new Color(0,102,206));
-												btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
-												
-														btnSave.addActionListener(new ActionListener() {
-															public void actionPerformed(ActionEvent e) {
-																System.out.println("save button pressed");
-												
-																int reply = JOptionPane.showConfirmDialog(null,
-																		"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
-																		JOptionPane.YES_NO_OPTION);
-																if (reply == JOptionPane.YES_OPTION) {
-												
-																	Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(), fname_txt.getText(),
-																			lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
-																			zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-																			hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
-																			end_txt.getSelectedItem(), notes_txt.getText(), pdf_txt.getText(), images_txt.getText(),
-																			rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
-												
-																	// disposes the current window
-																	new Editing_Driver(newJob);
-																	dispose();
-																	new Search_GUI(query, search);
-																}
-															}
-														});
-														GridBagConstraints gbc_btnSave = new GridBagConstraints();
-														gbc_btnSave.insets = new Insets(0, 0, 5, 5);
-														gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-														gbc_btnSave.anchor = GridBagConstraints.SOUTH;
-														gbc_btnSave.gridx = 5;
-														gbc_btnSave.gridy = 21;
-														getContentPane().add(btnSave, gbc_btnSave);
+
+		// Cancel Button and Actionlistener
+		btnCancel = new JButton("Cancel");
+		btnCancel.setForeground(Color.WHITE);
+		btnCancel.setBackground(Color.red);
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
+		gbc_btnCancel.gridwidth = 2;
+		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
+		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancel.gridx = 3;
+		gbc_btnCancel.gridy = 21;
+		getContentPane().add(btnCancel, gbc_btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Search_GUI(query, search);
+				dispose();
+			}
+		});
+
+		// Save button and actionlistener
+		btnSave = new JButton("Save");
+		btnSave.setForeground(Color.WHITE);
+		btnSave.setBackground(new Color(0, 102, 206));
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("save button pressed");
+
+				int reply = JOptionPane.showConfirmDialog(null,
+						"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
+						JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+
+					Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(), fname_txt.getText(),
+							lname_txt.getText(), street_txt.getText(), city_txt.getText(), state_txt.getText(),
+							zip_txt.getText(), phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
+							hours_spinner.getValue().toString(), startTime_txt.getSelectedItem(),
+							end_txt.getSelectedItem(), notes_txt.getText(), pdf_txt.getText(), images_txt.getText(),
+							rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
+
+					// disposes the current window
+					new Editing_Driver(newJob);
+					isEdited = true;
+					dispose();
+				}
+			}
+		});
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnSave.anchor = GridBagConstraints.SOUTH;
+		gbc_btnSave.gridx = 5;
+		gbc_btnSave.gridy = 21;
+		getContentPane().add(btnSave, gbc_btnSave);
 		btnImportInformationFrom.addActionListener(new ActionListener() {
 
 			@Override
@@ -968,4 +969,11 @@ public class EditJob extends JFrame {
 		startTime_txt.select(0);
 	}
 
+	public boolean isEdited() {
+		return isEdited;
+	}
+
+	public void setEdited(boolean isEdited) {
+		this.isEdited = isEdited;
+	}
 }
