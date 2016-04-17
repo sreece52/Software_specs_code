@@ -17,6 +17,8 @@ import Search_DB.Search_GUI;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -43,6 +45,7 @@ import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")
 public class AddJob extends JFrame {
+	private AddNotes note;
 	private JTextField fname_txt;
 	private JLabel lblFirstName;
 	private JLabel lblLastName;
@@ -52,7 +55,6 @@ public class AddJob extends JFrame {
 	private JLabel lblMaterials;
 	private JLabel lblHours;
 	private JLabel lblNotes;
-	private JTextArea notes_txt;
 	private JButton btnViewNotesIn;
 	private JLabel lblPdf;
 	private JTextField pdf_file_txt;
@@ -160,6 +162,7 @@ public class AddJob extends JFrame {
 		this.setIconImage(img.getImage());
 
 		JScrollPane scroller = new JScrollPane(this);
+
 		this.getContentPane().add(scroller, this);
 
 		NameSection();
@@ -193,48 +196,40 @@ public class AddJob extends JFrame {
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
 
-		// Cancel Button and Actionlistener
-		btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setBackground(Color.red);
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
-		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnCancel.gridwidth = 2;
-		gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
-		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCancel.gridx = 3;
-		gbc_btnCancel.gridy = 21;
-		getContentPane().add(btnCancel, gbc_btnCancel);
-		btnCancel.addActionListener(new ActionListener() {
+		// "Add Image" button and actionlistener
+		btnAddImage = new JButton("Add Image");
+		btnAddImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnAddImage = new GridBagConstraints();
+		gbc_btnAddImage.anchor = GridBagConstraints.EAST;
+		gbc_btnAddImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAddImage.gridwidth = 2;
+		gbc_btnAddImage.gridx = 2;
+		gbc_btnAddImage.gridy = 19;
+		getContentPane().add(btnAddImage, gbc_btnAddImage);
+
+		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Search_GUI(query, search);
-				dispose();
+				System.out.println("Add Image button pressed");
+
+				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
+				fd.setDirectory("C:\\");
+				fd.setFile("*.jpg");
+				fd.setVisible(true);
+				filename = fd.getDirectory() + fd.getFile();
+				if (filename == null)
+					System.out.println("You cancelled the choice");
+				else {
+					System.out.println("You chose " + filename);
+
+				}
+				if (filename != null) {
+					System.out.println(filename);
+					image_txt.setText(filename);
+
+				}
 			}
 		});
 
-		// Save button and actionlistener
-		btnSave = new JButton("Save");
-		btnSave.setForeground(Color.WHITE);
-		btnSave.setBackground(new Color(0, 102, 206));
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
-
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
-						street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
-						phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
-						hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
-						notes_txt.getText(), pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
-						rdbtnAm_end.isSelected());
-				System.out.println("save button pressed");
-				// disposes the current window
-				new Inserting_Driver(newJob);
-				newJobAdd = true;
-				dispose();
-			}
-		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
 		gbc_btnSave.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
@@ -242,6 +237,7 @@ public class AddJob extends JFrame {
 		gbc_btnSave.gridx = 5;
 		gbc_btnSave.gridy = 21;
 		getContentPane().add(btnSave, gbc_btnSave);
+
 		btnImportInformationFrom.addActionListener(new ActionListener() {
 
 			@Override
@@ -528,39 +524,6 @@ public class AddJob extends JFrame {
 		gbc_lblNotes.gridx = 0;
 		gbc_lblNotes.gridy = 15;
 		getContentPane().add(lblNotes, gbc_lblNotes);
-
-		// Notes Scroll bar and textfield
-		notes_txt = new JTextArea();
-		notes_txt.setLineWrap(true);
-		notes_txt.setColumns(1);
-		notes_txt.setFont(new Font("Monospaced", Font.PLAIN, 12));
-		notes_txt.setText("Preview of Notes Starts Here");
-		GridBagConstraints gbc_notes_txt = new GridBagConstraints();
-		gbc_notes_txt.fill = GridBagConstraints.BOTH;
-		gbc_notes_txt.insets = new Insets(0, 0, 5, 0);
-		gbc_notes_txt.gridwidth = 7;
-		gbc_notes_txt.gridx = 2;
-		gbc_notes_txt.gridy = 15;
-		getContentPane().add(notes_txt, gbc_notes_txt);
-
-		// button for Add notes and action listener
-		btnViewNotesIn = new JButton("Add Notes in New Window");
-		btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnViewNotesIn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				// opens the Add Notes window
-				AddNotes note = new AddNotes();
-				note.setVisible(true);
-
-			}
-		});
-		GridBagConstraints gbc_btnViewNotesIn = new GridBagConstraints();
-		gbc_btnViewNotesIn.insets = new Insets(0, 0, 5, 5);
-		gbc_btnViewNotesIn.gridwidth = 3;
-		gbc_btnViewNotesIn.gridx = 4;
-		gbc_btnViewNotesIn.gridy = 16;
-		getContentPane().add(btnViewNotesIn, gbc_btnViewNotesIn);
 	}
 
 	/**
@@ -763,6 +726,25 @@ public class AddJob extends JFrame {
 	 */
 	public void PdfAndImagesSection() {
 
+		// button for Add notes and action listener
+		btnViewNotesIn = new JButton("Add Notes in New Window");
+		btnViewNotesIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnViewNotesIn.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog(null, "Hello");
+				note = new AddNotes();
+				note.setVisible(true);
+
+			}
+		});
+		GridBagConstraints gbc_btnViewNotesIn = new GridBagConstraints();
+		gbc_btnViewNotesIn.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewNotesIn.gridwidth = 3;
+		gbc_btnViewNotesIn.gridx = 2;
+		gbc_btnViewNotesIn.gridy = 15;
+		getContentPane().add(btnViewNotesIn, gbc_btnViewNotesIn);
+
 		lblPdf = new JLabel("PDF:");
 		lblPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblPdf = new GridBagConstraints();
@@ -770,7 +752,7 @@ public class AddJob extends JFrame {
 		gbc_lblPdf.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPdf.gridwidth = 2;
 		gbc_lblPdf.gridx = 0;
-		gbc_lblPdf.gridy = 17;
+		gbc_lblPdf.gridy = 16;
 		getContentPane().add(lblPdf, gbc_lblPdf);
 
 		// PDF JTextField that displays the saved PDF
@@ -783,7 +765,7 @@ public class AddJob extends JFrame {
 		gbc_pdf_file_txt.insets = new Insets(0, 0, 5, 0);
 		gbc_pdf_file_txt.gridwidth = 7;
 		gbc_pdf_file_txt.gridx = 2;
-		gbc_pdf_file_txt.gridy = 17;
+		gbc_pdf_file_txt.gridy = 16;
 		getContentPane().add(pdf_file_txt, gbc_pdf_file_txt);
 		pdf_file_txt.setColumns(10);
 
@@ -795,7 +777,7 @@ public class AddJob extends JFrame {
 		gbc_btnAddPdf.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAddPdf.gridwidth = 2;
 		gbc_btnAddPdf.gridx = 2;
-		gbc_btnAddPdf.gridy = 18;
+		gbc_btnAddPdf.gridy = 17;
 		getContentPane().add(btnAddPdf, gbc_btnAddPdf);
 
 		btnAddPdf.addActionListener(new ActionListener() {
@@ -828,7 +810,7 @@ public class AddJob extends JFrame {
 		gbc_lblImages.insets = new Insets(0, 0, 5, 5);
 		gbc_lblImages.gridwidth = 2;
 		gbc_lblImages.gridx = 0;
-		gbc_lblImages.gridy = 19;
+		gbc_lblImages.gridy = 18;
 		getContentPane().add(lblImages, gbc_lblImages);
 
 		// Images JTextField
@@ -841,43 +823,9 @@ public class AddJob extends JFrame {
 		gbc_image_txt.insets = new Insets(0, 0, 5, 0);
 		gbc_image_txt.gridwidth = 7;
 		gbc_image_txt.gridx = 2;
-		gbc_image_txt.gridy = 19;
+		gbc_image_txt.gridy = 18;
 		getContentPane().add(image_txt, gbc_image_txt);
 		image_txt.setColumns(10);
-
-		// "Add Image" button and actionlistener
-		btnAddImage = new JButton("Add Image");
-		btnAddImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnAddImage = new GridBagConstraints();
-		gbc_btnAddImage.anchor = GridBagConstraints.EAST;
-		gbc_btnAddImage.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAddImage.gridwidth = 2;
-		gbc_btnAddImage.gridx = 2;
-		gbc_btnAddImage.gridy = 20;
-		getContentPane().add(btnAddImage, gbc_btnAddImage);
-
-		btnAddImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Add Image button pressed");
-
-				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.jpg");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
-
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					image_txt.setText(filename);
-
-				}
-			}
-		});
 
 	}
 
@@ -891,15 +839,16 @@ public class AddJob extends JFrame {
 
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.RED);
-		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		btnCancel.setForeground(Color.WHITE);
+		btnCancel.setBackground(Color.RED);
+		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancel.gridwidth = 2;
 		gbc_btnCancel.anchor = GridBagConstraints.SOUTH;
-		gbc_btnCancel.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCancel.gridx = 0;
-		gbc_btnCancel.gridy = 22;
+		gbc_btnCancel.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCancel.gridx = 3;
+		gbc_btnCancel.gridy = 21;
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -909,34 +858,32 @@ public class AddJob extends JFrame {
 
 		// Save button and actionlistener
 		btnSave = new JButton("Save");
-		btnSave.setForeground(Color.BLUE);
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		btnSave.setForeground(Color.white);
+		btnSave.setBackground(new Color(0, 102, 206));
+		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String notes;
+				if (note == null) {
+					notes = "";
+				} else {
+					notes = note.getNotes();
+				}
 
 				Jobs newJob = new Jobs(null, job_name_txt.getText(), fname_txt.getText(), lname_txt.getText(),
 						street_txt.getText(), city_txt.getText(), state_txt.getText(), zip_txt.getText(),
 						phone_txt.getText(), materials_txt.getText(), date_txt.getText(),
 						hours_spinner.getValue().toString(), start_txt.getSelectedItem(), end_txt.getSelectedItem(),
-						notes_txt.getText(), pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
+						notes, pdf_file_txt.getText(), image_txt.getText(), rdbtnAm_start.isSelected(),
 						rdbtnAm_end.isSelected());
 				System.out.println("save button pressed");
 				// disposes the current window
 				new Inserting_Driver(newJob);
 				newJobAdd = true;
 				dispose();
-
 			}
 		});
-		GridBagConstraints gbc_btnSave = new GridBagConstraints();
-		gbc_btnSave.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnSave.gridwidth = 3;
-		gbc_btnSave.anchor = GridBagConstraints.SOUTH;
-		gbc_btnSave.gridx = 7;
-		gbc_btnSave.gridy = 22;
-		getContentPane().add(btnSave, gbc_btnSave);
-
 	}
 
 	public boolean isNewJobAdd() {
