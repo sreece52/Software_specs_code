@@ -25,7 +25,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.JLabel;
 
-public class Test extends JFrame implements MouseListener{
+@Deprecated
+public class Test extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table;
@@ -48,7 +49,7 @@ public class Test extends JFrame implements MouseListener{
 		setContentPane(contentPane);
 		
 		JButton btnAddJob = new JButton("Add Job");
-		btnAddJob.addMouseListener(this); //MouseListener
+	//	btnAddJob.addMouseListener(this); //MouseListener
 		btnAddJob.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		btnAddJob.setForeground(Color.BLACK);
 		contentPane.add(btnAddJob, BorderLayout.NORTH);
@@ -95,71 +96,12 @@ public class Test extends JFrame implements MouseListener{
 				      
 				    	System.out.println(row);
 
-						ViewJob viewjob = new ViewJob();
-						viewjob.setVisible(true);
+					//	ViewJob viewjob = new ViewJob();
+						//viewjob.setVisible(true);
 						dispose();
 				    }
 				  }
 	});
 		
 	}
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame= new Test();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println("You pressed me buttons");
-
-		AddJob addjob = new AddJob("","");
-		addjob.setVisible(true);
-		dispose();
-		
-	}
-
-
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-	
-	}
-
-
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

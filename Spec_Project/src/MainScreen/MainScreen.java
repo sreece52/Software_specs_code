@@ -26,22 +26,25 @@ import javax.swing.JComboBox;
 import javax.swing.SpringLayout;
 import java.awt.Font;
 import java.awt.Image;
-
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.JLabel;
 
 /**
  * 
  * @author josh
- * @TODO Ask client for full name search compatibility
- * some comment
+ * @TODO Ask client for full name search compatibility some comment
  */
 public class MainScreen extends JFrame {
 
 	private JPanel contentPane;
 
-
 	/**
-	 * Launch the application.
-	 * New commit
+	 * Launch the application. New commit
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,18 +65,99 @@ public class MainScreen extends JFrame {
 	public MainScreen() {
 		/*Set constraints for window*/
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 300, 320);
+		setBounds(100, 100, 300, 368);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
+		
+		
 		
 		//Image image = getImage();
 		
 		/*Button disposes current frame and creates Calendar frame*/
-		JButton calendarButton = new JButton("Calendar");
+		contentPane.setLayout(null);
+		
+		/*Constraints and setup for search field*/
+		
+		/*Combo box to contain search filters*/
+		
+		/*Button to initiate search*/
+		
+		/*Button to close program*/
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(103, 61, 83, 76);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		JButton calendarButton = new JButton(new ImageIcon(((new ImageIcon(
+	            "calendarIcon.png").getImage()
+	            .getScaledInstance(64, 50,
+	                    java.awt.Image.SCALE_SMOOTH)))));
+		calendarButton.setBounds(10, 11, 64, 54);
+		panel.add(calendarButton);
 		calendarButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_1.setBounds(10, 153, 269, 96);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		final JTextField searchField = new JTextField("Search");
+		searchField.setBounds(10, 33, 110, 25);
+		panel_1.add(searchField);
+		searchField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		final JComboBox<String> searchFilters = new JComboBox<String>();
+		searchFilters.setBounds(135, 33, 124, 25);
+		panel_1.add(searchFilters);
+		searchFilters.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel_2.setBounds(10, 265, 269, 47);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		JButton searchButton = new JButton("Search");
+		searchButton.setBounds(10, 11, 110, 27);
+		panel_2.add(searchButton);
+		searchButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		JButton btnExit = new JButton("Exit");
+		btnExit.setBounds(140, 11, 124, 27);
+		panel_2.add(btnExit);
+		btnExit.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		JLabel lblHandymanScheduler = new JLabel("Handyman Scheduler");
+		lblHandymanScheduler.setForeground(new Color(0, 139, 139));
+		lblHandymanScheduler.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblHandymanScheduler.setBounds(46, 16, 200, 28);
+		contentPane.add(lblHandymanScheduler);
+		btnExit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				System.exit(0); //0 denotes normal exit
+			}
+		});
+		searchButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ae){
+				new Search_GUI(searchField.getText(), searchFilters.getSelectedItem().toString());
+			}
+		});
+		searchFilters.addItem("First Name");
+		searchFilters.addItem("Last Name");
+		searchFilters.addItem("Date");
+		searchFilters.addItem("Address");
+		searchFilters.addItem("Show All");
+		searchField.addFocusListener(new FocusListener(){
+			public void focusGained(FocusEvent arg0) {
+				searchField.setText("");
+			}
+			public void focusLost(FocusEvent arg0) {
+				//do nothing
+			}
+		});
 		calendarButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -86,75 +170,8 @@ public class MainScreen extends JFrame {
 					dialog.dispose();
 			}
 		});
-		
-		
-		/*Layout manager for main screen*/
-		SpringLayout sl_contentPane = new SpringLayout();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, calendarButton, 20, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, calendarButton, 75, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, calendarButton, -220, SpringLayout.SOUTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, calendarButton, -77, SpringLayout.EAST, contentPane);
-		contentPane.setLayout(sl_contentPane);
-		contentPane.add(calendarButton);
-		
-		/*Constraints and setup for search field*/
-		final JTextField searchField = new JTextField("Search");
-		sl_contentPane.putConstraint(SpringLayout.WEST, searchField, 10, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, searchField, 121, SpringLayout.WEST, contentPane);
-		searchField.setFont(new Font("Dialog", Font.PLAIN, 14));
-		searchField.addFocusListener(new FocusListener(){
-			public void focusGained(FocusEvent arg0) {
-				searchField.setText("");
-			}
-			public void focusLost(FocusEvent arg0) {
-				//do nothing
-			}
-		});
-		contentPane.add(searchField);
-		
-		/*Combo box to contain search filters*/
-		final JComboBox<String> searchFilters = new JComboBox<String>();
-		sl_contentPane.putConstraint(SpringLayout.NORTH, searchField, 1, SpringLayout.NORTH, searchFilters);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, searchFilters, 52, SpringLayout.SOUTH, calendarButton);
-		sl_contentPane.putConstraint(SpringLayout.WEST, searchFilters, -121, SpringLayout.EAST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, searchFilters, -10, SpringLayout.EAST, contentPane);
-		searchFilters.setFont(new Font("Dialog", Font.BOLD, 14));
-		searchFilters.addItem("First Name");
-		searchFilters.addItem("Last Name");
-		searchFilters.addItem("Date");
-		searchFilters.addItem("Address");
-		searchFilters.addItem("Show All");
-		contentPane.add(searchFilters);
-		
-		/*Button to initiate search*/
-		JButton searchButton = new JButton("Search");
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, searchField, -17, SpringLayout.NORTH, searchButton);
-		sl_contentPane.putConstraint(SpringLayout.NORTH, searchButton, 161, SpringLayout.NORTH, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.WEST, searchButton, 75, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, searchButton, 0, SpringLayout.EAST, calendarButton);
-		searchButton.setFont(new Font("Dialog", Font.BOLD, 14));
-		searchButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				new Search_GUI(searchField.getText(), searchFilters.getSelectedItem().toString());
-			}
-		});
-		contentPane.add(searchButton);
-		
-		/*Button to close program*/
-		JButton btnExit = new JButton("Exit");
-		btnExit.setFont(new Font("Dialog", Font.BOLD, 14));
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, searchButton, -34, SpringLayout.NORTH, btnExit);
-		sl_contentPane.putConstraint(SpringLayout.WEST, btnExit, 175, SpringLayout.WEST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.EAST, btnExit, -10, SpringLayout.EAST, contentPane);
-		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnExit, -10, SpringLayout.SOUTH, contentPane);
-		btnExit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ae){
-				System.exit(0); //0 denotes normal exit
-			}
-		});
-		contentPane.add(btnExit);
 	}
-	
+
 	public static Image getImage() {
 		Image image = null;
 		try {
