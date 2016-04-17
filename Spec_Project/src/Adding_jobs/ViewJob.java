@@ -89,6 +89,7 @@ public class ViewJob extends JFrame {
 	private String pdfFile;
 	private String query;
 	private String searchType;
+
 	private JButton btnViewPdf;
 	private JButton btnViewImage;
 	private String pdf_text;
@@ -851,6 +852,28 @@ public class ViewJob extends JFrame {
 		getContentPane().add(images, gbc_images);
 		images.setColumns(10);
 		images.setText(jobs.getImages());
+		
+		
+		btnViewPdf = new JButton("View PDF");
+		btnViewPdf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				try {
+					File file = new File(jobs.getPDFs());
+					Desktop.getDesktop().open(file);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
+							"File not Found", 2);
+				}
+			}
+		});
+		btnViewPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnViewPdf1 = new GridBagConstraints();
+		gbc_btnViewPdf1.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewPdf1.gridx = 5;
+		gbc_btnViewPdf1.gridy = 18;
+		getContentPane().add(btnViewPdf, gbc_btnViewPdf1);
 
 		// "Add Image" button and actionlistener
 		btnAddImage = new JButton("Add Image");

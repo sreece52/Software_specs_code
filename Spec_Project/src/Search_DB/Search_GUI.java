@@ -3,9 +3,6 @@ package Search_DB;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,14 +20,10 @@ import Calendar.JCalendarDialog;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.border.CompoundBorder;
 import java.awt.Color;
-import java.awt.Font;
 
-import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 
 /**
@@ -157,7 +150,7 @@ public class Search_GUI extends JFrame {
 
 					if (driver.getResults().size() != 0) {
 
-						String jobId = driver.getResults().get(table.getSelectedRow() + 1).getWork_Id();
+						String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
 						System.out.println(table.getSelectedRow());
 						int reply = JOptionPane.showConfirmDialog(null,
 								"Are you sure you want to delete this record? This cannot be undone.", "Remove record",
@@ -165,7 +158,7 @@ public class Search_GUI extends JFrame {
 						if (reply == JOptionPane.YES_OPTION) {
 							new Removing_Driver(jobId);
 							model.removeRow(table.getSelectedRow());
-							String numResults = String.format("Numer of results: %s", model.getRowCount());
+							String numResults = String.format("Number of results: %s", model.getRowCount());
 							resultsLbl.setText(numResults);
 							repaint();
 							revalidate();
@@ -205,7 +198,7 @@ public class Search_GUI extends JFrame {
 		});
 
 		getContentPane().setLayout(null);
-		String numResults = String.format("Numer of results: %s", driver.getResults().size());
+		String numResults = String.format("Number of results: %s", driver.getResults().size());
 		resultsLbl = new JLabel(numResults);
 
 		btnPanel = new JPanel();
