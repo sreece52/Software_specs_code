@@ -32,6 +32,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JTextArea;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -43,11 +44,17 @@ public class ViewNotes extends JFrame implements MouseListener{
 	static ViewNotes frame;
 	int row;
 	static String noteText;
+	static String string;
+	
+	
 
 	/**
 	 * Create the frame.
+	 * @param string 
 	 */
-	public ViewNotes() {
+	public ViewNotes(String string) {
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
 		
 		setTitle("View Notes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -73,12 +80,13 @@ public class ViewNotes extends JFrame implements MouseListener{
 		
 		JTextArea txtrNmn = new JTextArea();
 		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 17));
-		txtrNmn.setText("Hi");
+		txtrNmn.setText(string);
 		noteText = txtrNmn.getText();
 		System.out.println(noteText);
 		txtrNmn.setEditable(false);
 		scrollPane.setViewportView(txtrNmn);
-		btnCloseNotes.setForeground(Color.black);
+		btnCloseNotes.setForeground(Color.white);
+		btnCloseNotes.setBackground(Color.black);
 		btnCloseNotes.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GridBagConstraints gbc_btnSaveViewNotes = new GridBagConstraints();
 		gbc_btnSaveViewNotes.gridx = 0;
@@ -91,26 +99,14 @@ public class ViewNotes extends JFrame implements MouseListener{
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					frame= new ViewNotes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("You pressed SaveNotes");
-		//ViewJob edit = new ViewJob(row);
-		//edit.setVisible(true);
+		
 		dispose();
 		
 	}
