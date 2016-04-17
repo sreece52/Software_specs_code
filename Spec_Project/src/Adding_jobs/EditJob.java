@@ -36,6 +36,7 @@ import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
@@ -243,10 +244,18 @@ public class EditJob extends JFrame {
 										end_txt.getSelectedItem(), notes, pdf_txt.getText(), images_txt.getText(),
 										rdbtnAmStart.isSelected(), rdbtnAmEnd.isSelected());
 
-								// disposes the current window
-								new Editing_Driver(newJob);
-								isEdited = true;
-								dispose();
+								/* Checks for invalid leap years */
+								boolean exceptionThrown = false;
+								try {
+									new Editing_Driver(newJob);
+								} catch (SQLException sqle) {
+									JOptionPane.showMessageDialog(null, "Invalid Date", "Leap Year", 2);
+									exceptionThrown = true;
+								}
+								if (!exceptionThrown) {
+									isEdited = true;
+									dispose();
+								}
 							}
 						} else { //Day incorrect
 							JOptionPane.showMessageDialog(null, "Day of month must exist", "Incorrect Day Format", 2);
