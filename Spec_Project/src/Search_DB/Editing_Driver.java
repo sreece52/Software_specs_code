@@ -79,8 +79,10 @@ public class Editing_Driver {
 	 */
 	public void edit() throws SQLException {
 		try {
+			//connects to the database
 			statement = conn.createStatement();
 
+			// string to format the query
 			String insertStatement = String.format(
 					"update jobs set job_name = '%s', fname = '%s', lname = '%s',street = '%s', city = '%s', state = '%s',zip_code = '%s'"
 							+ ",phone_num = '%s', materials = '%s', date = '%s', hours = '%s', starttime = '%s',endtime = '%s', notes = '%s', pdfs = '%s', images = '%s', "
@@ -95,6 +97,7 @@ public class Editing_Driver {
 					.format(new java.util.Date()) + 
 					": Editing_Driver -> Sent query " + insertStatement);
 			
+			// sends the query to the database
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The database has been successfully updated", "Edit", 1);
 		} catch (NullPointerException npe) {
