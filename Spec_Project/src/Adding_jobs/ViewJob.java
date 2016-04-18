@@ -9,8 +9,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import Search_DB.Jobs;
-import Search_DB.Search_GUI;
-
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
@@ -39,6 +37,7 @@ import javax.swing.JRadioButton;
  *
  */
 
+@SuppressWarnings({ "serial" })
 public class ViewJob extends JFrame {
 	private JTextField fname_text;
 	private JLabel lblFirstName;
@@ -87,12 +86,10 @@ public class ViewJob extends JFrame {
 	private JTextField job_text;
 	static int row;
 	private Jobs jobs;
-	private String pdfFile;
-	private String query;
-	private String searchType;
 
 	private JButton btnViewPdf;
 	private JButton btnViewImage;
+	@SuppressWarnings("unused")
 	private String pdf_text;
 
 	/**
@@ -108,8 +105,6 @@ public class ViewJob extends JFrame {
 	 */
 	public ViewJob(Jobs jobs) {
 		this.jobs = jobs;
-		this.query = query;
-		this.searchType = searchType;
 
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("View Job");
@@ -170,7 +165,6 @@ public class ViewJob extends JFrame {
 	                        .format(new java.util.Date()) + 
 	                        ": ViewJob -> User clicked on view image");
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
 							"File not Found", 2);
 				}
@@ -861,7 +855,6 @@ public class ViewJob extends JFrame {
 	                        .format(new java.util.Date()) + 
 	                        ": ViewJob -> User clicked on the view PDF button");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
 							"File not Found", 2);
 				}

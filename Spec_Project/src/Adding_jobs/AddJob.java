@@ -1,6 +1,5 @@
 package Adding_jobs;
 
-import java.awt.EventQueue;
 import java.awt.FileDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -9,13 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import org.h2.jdbc.JdbcSQLException;
-
 import Search_DB.ImportJob;
 import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
-import Search_DB.Search_GUI;
-
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -32,10 +27,8 @@ import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
 
@@ -96,9 +89,8 @@ public class AddJob extends JFrame {
 	private JRadioButton rdbtnPm_end;
 	private JLabel lblJobName;
 	private JTextField job_name_txt;
-	private String query;
-	private String search;
 	private AddJob added = this;
+	@SuppressWarnings("unused")
 	private ImportJob importedJob;
 	private Jobs job;
 	private boolean newJobAdd = false;
@@ -111,8 +103,6 @@ public class AddJob extends JFrame {
 	 * @wbp.parser.constructor
 	 */
 	public AddJob(String date) {
-		this.query = query;
-		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -144,8 +134,6 @@ public class AddJob extends JFrame {
 	}
 
 	public AddJob() {
-		this.query = query;
-		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

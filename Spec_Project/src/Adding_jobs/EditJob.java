@@ -8,24 +8,18 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import MainScreen.MainScreen;
-
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
 
 import Search_DB.Editing_Driver;
 import Search_DB.ImportJob;
-import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
-import Search_DB.Search_GUI;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 
@@ -35,7 +29,6 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -50,6 +43,7 @@ import javax.swing.JRadioButton;
  *
  */
 
+@SuppressWarnings("serial")
 public class EditJob extends JFrame {
 	private EditNotes note;
 	private JTextField fname_txt;
@@ -97,12 +91,11 @@ public class EditJob extends JFrame {
 	private JLabel lblJobName;
 	private JTextField job_name_txt;
 	private Jobs editedJob;
-	private String query;
-	private String search;
 	private JButton btnOpenPdf;
 	private JButton btnOpenImage;
 	private String pdf;
 	private String image;
+	@SuppressWarnings("unused")
 	private ImportJob importedJob;
 	private EditJob edit = this;
 	private Jobs job;
