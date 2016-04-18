@@ -56,7 +56,6 @@ public class Search_GUI extends JFrame {
 	private JButton refresh;
 	private AddJob newAddJob;
 	private EditJob editedJob;
-	private int selectedRow;
 
 	/**
 	 * Create the frame.
@@ -404,7 +403,6 @@ public class Search_GUI extends JFrame {
 			 */
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(table.getSelectedRow());
-				selectedRow = table.getSelectedRow();
 			}
 
 		});
