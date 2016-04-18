@@ -56,6 +56,7 @@ public class Search_GUI extends JFrame {
 	private JButton refresh;
 	private AddJob newAddJob;
 	private EditJob editedJob;
+	private int selectedRow;
 
 	/**
 	 * Create the frame.
@@ -137,6 +138,7 @@ public class Search_GUI extends JFrame {
 						+ ": Search_GUI -> Clicked add job");
 				newAddJob = new AddJob();
 				refresh.setEnabled(true);
+				table.setEnabled(false);
 				return;
 			}
 		});
@@ -251,10 +253,15 @@ public class Search_GUI extends JFrame {
 						+ ": Search_GUI -> Clicked edit job");
 				try {
 					if (driver.getResults().size() != 0) {
-						editedJob = new EditJob(driver.getResults().get(table.getSelectedRow()));
+						int row = table.getSelectedRow();
+						int col = 0;
+						String value = (String) table.getValueAt(row, col);
+						System.out.println(value);
+						Search_Driver driver = new Search_Driver(value, "WORKID");
+						editedJob = new EditJob(driver.getResults().get(0), value);
+						table.setEnabled(false);
 						refresh.setEnabled(true);
 					}
-					dispose();
 				} catch (Exception table) {
 					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
 				}
@@ -298,7 +305,8 @@ public class Search_GUI extends JFrame {
 				/* Log action */
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": Search_GUI -> Clicked refresh");
-				if (newAddJob.isNewJobAdd()) {
+				table.setEnabled(true);
+				if (newAddJob != null && newAddJob.isNewJobAdd()) {
 					Search_Driver newJob = new Search_Driver("", "CURRENTID");
 					String workId = newJob.getResults().get(0).getWork_Id();
 					String jobName = newJob.getResults().get(0).getJob_name();
@@ -317,13 +325,35 @@ public class Search_GUI extends JFrame {
 					resultsLbl.setText(numResults);
 					repaint();
 					revalidate();
+					newAddJob.setNewJobAdd(false);
 					refresh.setEnabled(false);
-				} else if (editedJob.isEdited()) {
-					System.out.println("Todo add code to edit the table");
+				} else if (editedJob != null && editedJob.isEdited()) {
+					model.removeRow(table.convertRowIndexToModel(table.getSelectedRow()));
+					Search_Driver newJob = new Search_Driver(editedJob.getWorkId(), "WORKID");
+					String workId = newJob.getResults().get(0).getWork_Id();
+					String jobName = newJob.getResults().get(0).getJob_name();
+					String fname = newJob.getResults().get(0).getFname();
+					String lname = newJob.getResults().get(0).getLname();
+					String street = newJob.getResults().get(0).getStreet();
+					String city = newJob.getResults().get(0).getCity();
+					String state = newJob.getResults().get(0).getState();
+					String zip = newJob.getResults().get(0).getZip_code();
+					String phone = newJob.getResults().get(0).getPhone_number();
+					String date = newJob.getResults().get(0).getDate();
+					Object[] rowdata = { workId, jobName, fname, lname, street, city, state, zip, phone, date };
+					System.out.println(model.getRowCount());
+					model.addRow(rowdata);
+					String numResults = String.format("Numer of results: %s", model.getRowCount());
+					resultsLbl.setText(numResults);
+					editedJob.setEdited(false);
+					repaint();
+					revalidate();
+					refresh.setEnabled(false);
 				} else {
 					refresh.setEnabled(false);
 					JOptionPane.showMessageDialog(null, "No new updates");
 				}
+
 			}
 		});
 
@@ -374,6 +404,7 @@ public class Search_GUI extends JFrame {
 			 */
 			public void mouseClicked(MouseEvent e) {
 				System.out.println(table.getSelectedRow());
+				selectedRow = table.getSelectedRow();
 			}
 
 		});
@@ -445,6 +476,10 @@ public class Search_GUI extends JFrame {
 		});
 		search.setBounds(245, 12, 89, 23);
 		searchPanel.add(search);
+	}
+
+	public void refreshTable() {
+
 	}
 
 	////////////////////////////// Getters and Setters//////////////////////////
