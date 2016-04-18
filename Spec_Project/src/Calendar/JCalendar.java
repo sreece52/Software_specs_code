@@ -351,8 +351,8 @@ public class JCalendar{
         	/*Check if there is a job for the day and set flag accordingly*/
         	hasJob = false; //reset flag for month changes
         	if(!getDay().equals(" ")){
-	            String s = String.format("%d-%02d-%02d", 
-						calendar.get(Calendar.YEAR), 
+	            String s = String.format("%d-%02d-%02d", 	//build date using
+						calendar.get(Calendar.YEAR), 		//info for each day
 						calendar.get(Calendar.MONTH)+1,
 						Integer.parseInt(getDay()));
 	            Search_Driver driver = new Search_Driver(s, "Date");
