@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -78,10 +79,7 @@ public class Search_Driver {
 
 	/**
 	 * This method functions as relay to move the search to the appropriate SQL
-	 * query This is used more for housing keeping. Didn't want all the code in
-	 * one method DO NOT CALL THIS METHOD FROM OUTSIDE OF THE CLASS (Matt or
-	 * Julia). Its private so that shouldn't happen but you never know with
-	 * matt...
+	 * query This is used more for house keeping.
 	 */
 	private void sendQuery() {
 		switch (searchType.toUpperCase()) {
@@ -120,6 +118,16 @@ public class Search_Driver {
 		case "DATE":
 			searchDate(query);
 			break;
+		
+		//Internal use only 
+		case "WORKID":
+			searchWorkID(query);
+			break;
+			
+		//Internal use only 	
+		case "CURRENTID":
+			searchCurrentId();
+			break;
 
 		default:
 			System.out.println("Here");
@@ -127,6 +135,10 @@ public class Search_Driver {
 			break;
 		}
 	}
+
+	
+
+
 
 	/**
 	 * This method is used to close the connection to the database
@@ -139,14 +151,14 @@ public class Search_Driver {
 			e.printStackTrace();
 		}
 	}
-
 	/**
-	 * Shows all data in the table
+	 * this method is for internal use only. User will not be able to search this for the program's screens
+	 * @param query2
 	 */
-	public void showAll() {
+	private void searchCurrentId() {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs order by lname;");
+			String searchName = "select * from jobs where work_id = (select max(work_id) from jobs);";
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -158,7 +170,67 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("Error: Connection to database was not established!");
+		}
+	}
+
+	/**
+	 * this method is for internal use only. User will not be able to search this for the program's screens
+	 * @param query
+	 */
+	private void searchWorkID(String query) {
+		try {
+			statement = conn.createStatement();
+			String searchName = String.format("select * from jobs where work_id = '%s' ;",query);
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
+			results = statement.executeQuery(searchName);
+			while (results.next()) {
+				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
+						results.getString(5), results.getString(6), results.getString(7), results.getString(8),
+						results.getString(9), results.getString(10), results.getString(11), results.getString(12),
+						results.getString(13), results.getString(14), results.getString(15), results.getString(16),
+						results.getString(17), results.getBoolean(18), results.getBoolean(19));
+
+				searchResults.add(job);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			System.out.println("Error: Connection to database was not established!");
+		}
+	}
+	
+	/**
+	 * Shows all data in the table
+	 */
+	public void showAll() {
+		try {
+			statement = conn.createStatement();
+			String searchName = String.format("select * from jobs order by lname;");
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
+			results = statement.executeQuery(searchName);
+			while (results.next()) {
+				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
+						results.getString(5), results.getString(6), results.getString(7), results.getString(8),
+						results.getString(9), results.getString(10), results.getString(11), results.getString(12),
+						results.getString(13), results.getString(14), results.getString(15), results.getString(16),
+						results.getString(17), results.getBoolean(18), results.getBoolean(19));
+
+				searchResults.add(job);
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (NullPointerException npe) {
 			System.out.println("Error: Connection to database was not established!");
@@ -177,6 +249,12 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(fname) = '%s' order by lname;",
 					query.toUpperCase());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -188,7 +266,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -205,6 +282,12 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(lname) = '%s' order by lname;",
 					query.toUpperCase());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -216,7 +299,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -231,6 +313,12 @@ public class Search_Driver {
 		try {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where id = '%s' order by lname;", query);
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -241,7 +329,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -257,6 +344,12 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(date) = '%s' order by lname;",
 					query.toUpperCase());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -268,7 +361,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -285,6 +377,12 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(street) = '%s' order by lname;",
 					query.toUpperCase());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -296,7 +394,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -313,6 +410,12 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where zip_code = '%s' order by lname;",
 					query.toUpperCase());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -324,7 +427,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -340,6 +442,12 @@ public class Search_Driver {
 		try {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where phone_number = '%s' order by lname;", query);
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -351,7 +459,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -367,6 +474,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(city) = '%s' order by lname;",
 					query.toUpperCase());
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -378,7 +490,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -394,6 +505,12 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(state) = '%s' order by lname;",
 					query.toUpperCase());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Search_Driver -> Sent query " + searchName);
+			
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -405,7 +522,6 @@ public class Search_Driver {
 				searchResults.add(job);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

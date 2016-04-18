@@ -2,9 +2,9 @@ package Search_DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 
@@ -21,8 +21,7 @@ public class Editing_Driver {
 	private String dbPassword;
 	private Statement statement;
 	private Jobs job;
-	private String query;
-	private String search;
+
 
 	/**
 	 * Default constructor is here to handle accidental Instantiation of this
@@ -40,8 +39,9 @@ public class Editing_Driver {
 	 *            is the value enter to be searched for, of type string
 	 * @param s
 	 *            is the column we want to search through, of type string
+	 * @throws SQLException 
 	 */
-	public Editing_Driver(Jobs job) {
+	public Editing_Driver(Jobs job) throws SQLException {
 		this.job = job;
 
 		/*
@@ -75,11 +75,14 @@ public class Editing_Driver {
 
 	/**
 	 * This method will create the sql statement to edit a jobi in the db
+	 * @throws SQLException 
 	 */
-	public void edit() {
+	public void edit() throws SQLException {
 		try {
+			//connects to the database
 			statement = conn.createStatement();
 
+			// string to format the query
 			String insertStatement = String.format(
 					"update jobs set job_name = '%s', fname = '%s', lname = '%s',street = '%s', city = '%s', state = '%s',zip_code = '%s'"
 							+ ",phone_num = '%s', materials = '%s', date = '%s', hours = '%s', starttime = '%s',endtime = '%s', notes = '%s', pdfs = '%s', images = '%s', "
@@ -88,11 +91,15 @@ public class Editing_Driver {
 					job.getZip_code(), job.getPhone_number(), job.getMaterials(), job.getDate(), job.getHours(),
 					job.getStartTime(), job.getEndTime(), job.getNotes(),
 					job.getPDFs(), job.getImages(), job.isStartTimeAm(), job.isEndTimeAm(),job.getWork_Id());
+			
+			/*Log query*/
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+					.format(new java.util.Date()) + 
+					": Editing_Driver -> Sent query " + insertStatement);
+			
+			// sends the query to the database
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The database has been successfully updated", "Edit", 1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (NullPointerException npe) {
 			System.out.println("Error: Connection to database was not established!");
 		}
