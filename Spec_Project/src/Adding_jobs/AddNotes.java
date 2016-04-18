@@ -3,7 +3,6 @@ package Adding_jobs;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -15,8 +14,8 @@ import javax.swing.ImageIcon;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+@SuppressWarnings("serial")
 public class AddNotes extends JFrame {
-	private JTextField textField;
 	static AddNotes frame;
 	int row;
 	private JTextArea txtrNmn;
@@ -49,7 +48,6 @@ public class AddNotes extends JFrame {
 		btnSaveAddNotes.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
                         .format(new java.util.Date()) + 
                         ": AddNotes -> clicked save.");
