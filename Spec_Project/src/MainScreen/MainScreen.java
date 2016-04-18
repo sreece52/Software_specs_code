@@ -30,6 +30,7 @@ import javax.swing.JLabel;
  * Builds the home screen.
  * @author josh
  */
+@SuppressWarnings("serial")
 public class MainScreen extends JFrame {
 
 	private JPanel contentPane;

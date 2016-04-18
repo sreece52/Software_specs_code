@@ -2,7 +2,6 @@ package Search_DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -22,8 +21,7 @@ public class Editing_Driver {
 	private String dbPassword;
 	private Statement statement;
 	private Jobs job;
-	private String query;
-	private String search;
+
 
 	/**
 	 * Default constructor is here to handle accidental Instantiation of this

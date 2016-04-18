@@ -12,10 +12,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
 import Adding_jobs.AddJob;
 import Adding_jobs.EditJob;
 import javax.swing.border.BevelBorder;

@@ -10,18 +10,16 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Locale;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import Adding_jobs.AddJob;
 import Search_DB.Search_GUI;
 
+@SuppressWarnings("serial")
 public class JCalendarDialog extends JFrame {
 
 	public static final int OK_PRESSED = 1;
