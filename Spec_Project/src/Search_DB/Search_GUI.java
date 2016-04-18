@@ -3,6 +3,8 @@ package Search_DB;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
@@ -76,7 +78,7 @@ public class Search_GUI extends JFrame {
 		/* call the methods to add the components to the frame */
 		initSearchPanel();
 		initRefresh();
-		buildtable();
+		buildTable();
 		initButtonPanel();
 
 		// if there are no results prompt the use
@@ -93,20 +95,18 @@ public class Search_GUI extends JFrame {
 
 		// Creates a calendar button
 		JButton calendarButton = new JButton("Calendar");
-		
+
 		Color lightpurple = new Color(255, 220, 255);
 		calendarButton.setBackground(lightpurple);
-		  
-		  
+
 		calendarButton.addActionListener(new ActionListener() {
 
 			// when the button is clicked it creates a calendar dialog
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked calendar button");
-				
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked calendar button");
+
 				JCalendarDialog dialog = new JCalendarDialog();
 				dialog.setDialogTitle("HandyMan Calendar");
 				// dialog.setLocale(Locale.ENGLISH);
@@ -132,10 +132,9 @@ public class Search_GUI extends JFrame {
 			 * the refresh button
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked add job");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked add job");
 				newAddJob = new AddJob();
 				refresh.setEnabled(true);
 				return;
@@ -153,10 +152,9 @@ public class Search_GUI extends JFrame {
 			 * form is populated of the result that was passed in
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked view job");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked view job");
 				try {
 					if (driver.getResults().size() != 0) {
 						String workId = (String) table.getValueAt(table.getSelectedRow(), 0);
@@ -165,6 +163,7 @@ public class Search_GUI extends JFrame {
 					}
 				} catch (Exception table) {
 					JOptionPane.showMessageDialog(null, "Please select a value from the table.");
+					table.printStackTrace();
 				}
 
 				return;
@@ -186,17 +185,23 @@ public class Search_GUI extends JFrame {
 			 * table
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked remove job");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked remove job");
 
 				try {
 
 					if (driver.getResults().size() != 0) {
 
-						// holds the value of the row
-						String jobId = driver.getResults().get(table.getSelectedRow()).getWork_Id();
+						// the row of which the record is in
+						int rowNum = table.getSelectedRow();
+
+						// the column of the workid. We are going to use this to
+						// find the record to remove
+						int column = 0;
+
+						// the workid of of the record at the selected row
+						String jobId = table.getValueAt(rowNum, column).toString();
 
 						// asks the user if are sure they want to delete the
 						// record
@@ -210,7 +215,9 @@ public class Search_GUI extends JFrame {
 						 */
 						if (reply == JOptionPane.YES_OPTION) {
 							new Removing_Driver(jobId);
-							model.removeRow(table.getSelectedRow());
+							System.out.println(table.getSelectedRow());
+							// table.convert... makes sure we grab the right row
+							model.removeRow(table.convertRowIndexToModel(table.getSelectedRow()));
 							String numResults = String.format("Number of results: %s", model.getRowCount());
 							resultsLbl.setText(numResults);
 							repaint();
@@ -239,10 +246,9 @@ public class Search_GUI extends JFrame {
 		edit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked edit job");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked edit job");
 				try {
 					if (driver.getResults().size() != 0) {
 						editedJob = new EditJob(driver.getResults().get(table.getSelectedRow()));
@@ -289,10 +295,9 @@ public class Search_GUI extends JFrame {
 		refresh.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked refresh");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked refresh");
 				if (newAddJob.isNewJobAdd()) {
 					Search_Driver newJob = new Search_Driver("", "CURRENTID");
 					String workId = newJob.getResults().get(0).getWork_Id();
@@ -308,8 +313,6 @@ public class Search_GUI extends JFrame {
 					Object[] rowdata = { workId, jobName, fname, lname, street, city, state, zip, phone, date };
 					System.out.println(model.getRowCount());
 					model.addRow(rowdata);
-					System.out.println(model.getRowCount());
-					System.out.println(table.getRowCount());
 					String numResults = String.format("Numer of results: %s", model.getRowCount());
 					resultsLbl.setText(numResults);
 					repaint();
@@ -331,7 +334,7 @@ public class Search_GUI extends JFrame {
 	/**
 	 * This method builds the table where the results of the search are held
 	 */
-	public void buildtable() {
+	public void buildTable() {
 		Object[][] data = new Object[driver.getResults().size()][columnNames.length];
 		int j = 0;
 
@@ -357,11 +360,23 @@ public class Search_GUI extends JFrame {
 
 		model = new DefaultTableModel(data, columnNames);
 
-		// builds the table
+		// builds the table and configures iy
 		table = new JTable(model);
 		table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 		panel.setLayout(null);
 		table.setAutoCreateRowSorter(true);
+		table.getTableHeader().setReorderingAllowed(false);
+
+		table.addMouseListener(new MouseAdapter() {
+
+			/**
+			 * Lets us know the current row
+			 */
+			public void mouseClicked(MouseEvent e) {
+				System.out.println(table.getSelectedRow());
+			}
+
+		});
 
 		// Here I attach the table to a JScrollPane
 		contentPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -409,18 +424,23 @@ public class Search_GUI extends JFrame {
 			 * Searches the db
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": Search_GUI -> Clicked search");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": Search_GUI -> Clicked search");
 				remove(panel);
 				driver = new Search_Driver(valueTxt.getText(), searchFilters.getSelectedItem().toString());
 				panel.removeAll();
 				repaint();
 				revalidate();
-				buildtable();
+				buildTable();
 				String numResults = String.format("Numer of results: %s", driver.getResults().size());
 				resultsLbl.setText(numResults);
+
+				// if there are no results prompt the use
+				if (driver.getResults().size() == 0) {
+					String message = String.format("No results");
+					JOptionPane.showMessageDialog(null, message, "No records found", 2);
+				}
 			}
 		});
 		search.setBounds(245, 12, 89, 23);
