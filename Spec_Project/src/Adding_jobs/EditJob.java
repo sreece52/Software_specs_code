@@ -338,7 +338,7 @@ public class EditJob extends JFrame {
 		pdf_txt.setText(job.getPDFs());
 		images_txt.setText(job.getImages());
 		materials_txt.setText(job.getMaterials());
-		date_txt.setText(job.getDate());
+		
 		hours_spinner.setValue(new Double(Double.parseDouble(job.getHours())));
 		for (int i = 0; i < 48; i++) {
 			if (startTime_txt.getItem(i).equals(job.getStartTime()))
