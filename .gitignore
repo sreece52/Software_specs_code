@@ -27,6 +27,7 @@ Logs/
 *.project
 *.mv.db
 *.trace.db
+*.trace.db.old
 *.db
 *.mv
 *.txt
