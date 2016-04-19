@@ -25,42 +25,40 @@ public class EditNotes extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param string 
-	 * @param fromAddJob 
+	 * 
+	 * @param string
+	 * @param fromAddJob
 	 */
 	public EditNotes(String string) {
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
-		
+
 		setTitle("Edit Notes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	
+
 		setBounds(100, 100, 515, 619);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[] { 0, 0 };
+		gridBagLayout.rowHeights = new int[] { 0, 0, 0 };
+		gridBagLayout.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 1.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		
+
 		JButton btnSaveEditNotes = new JButton("Save Notes");
 		btnSaveEditNotes.addMouseListener(new MouseAdapter() {
 
-
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": EditNotes -> Clicked save");
-				
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditNotes -> Clicked save");
+
 				notes = txtrNmn.getText();
-				
-				dispose();		
+
+				dispose();
 			}
 
-			
 		});
-		
+
 		scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
@@ -68,10 +66,12 @@ public class EditNotes extends JFrame {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
-		
+
 		txtrNmn = new JTextArea();
 		txtrNmn.setFont(new Font("Monospaced", Font.PLAIN, 17));
 		txtrNmn.setText(string);
+		txtrNmn.setLineWrap(true);
+		txtrNmn.setWrapStyleWord(true);
 
 		scrollPane.setViewportView(txtrNmn);
 		btnSaveEditNotes.setForeground(Color.white);
@@ -82,8 +82,8 @@ public class EditNotes extends JFrame {
 		gbc_btnSaveEditNotes.gridy = 1;
 		getContentPane().add(btnSaveEditNotes, gbc_btnSaveEditNotes);
 
-		
 	}
+
 	/**
 	 * Launch the application.
 	 */
