@@ -1,6 +1,7 @@
 package Calendar;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -88,14 +89,20 @@ public class JCalendarDialog extends JFrame {
 		buttonPanel.setLayout(new FlowLayout());
 
 		JButton addButton = new JButton("Add Job");
+		Color lightgreen = new Color(200, 255, 225);
+		addButton.setBackground(lightgreen);
 		addButton.addActionListener(new addButtonActionListener());
 		buttonPanel.add(addButton);
 		
 		JButton okButton = new JButton("View");
+		Color yellow = new Color(255, 255, 204);
+		okButton.setBackground(yellow);
 		okButton.addActionListener(new OKButtonActionListener());
 		buttonPanel.add(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
+		Color red = new Color(255, 110, 110);
+		cancelButton.setBackground(red);
 		cancelButton.addActionListener(new CancelButtonActionListener());
 		buttonPanel.add(cancelButton);
 

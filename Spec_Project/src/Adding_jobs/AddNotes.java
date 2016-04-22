@@ -70,8 +70,9 @@ public class AddNotes extends JFrame {
 		txtrNmn.setWrapStyleWord(true);
 
 		scrollPane.setViewportView(txtrNmn);
-		btnSaveAddNotes.setForeground(Color.WHITE);
-		btnSaveAddNotes.setBackground(new Color(0, 102, 206));
+		Color green = new Color(150, 255, 150);
+		btnSaveAddNotes.setBackground(green);
+		btnSaveAddNotes.setForeground(Color.black);
 		btnSaveAddNotes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnSaveAddNotes = new GridBagConstraints();
 		gbc_btnSaveAddNotes.gridx = 0;

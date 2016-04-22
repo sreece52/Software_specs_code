@@ -215,8 +215,9 @@ public class EditJob extends JFrame {
 
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setBackground(Color.red);
+		btnCancel.setForeground(Color.black);
+		Color red = new Color(255, 110, 110);
+		btnCancel.setBackground(red);
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.gridwidth = 2;
@@ -235,8 +236,9 @@ public class EditJob extends JFrame {
 
 		// Save button and actionlistener
 		btnSave = new JButton("Save");
-		btnSave.setForeground(Color.WHITE);
-		btnSave.setBackground(new Color(0, 102, 206));
+		btnSave.setForeground(Color.black);
+		Color green = new Color(150, 255, 150);
+		btnSave.setBackground(green);
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		btnSave.addActionListener(new ActionListener() {
