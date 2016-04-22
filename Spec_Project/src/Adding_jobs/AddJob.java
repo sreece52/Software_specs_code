@@ -1,6 +1,5 @@
 package Adding_jobs;
 
-import java.awt.EventQueue;
 import java.awt.FileDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -9,13 +8,9 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
-import org.h2.jdbc.JdbcSQLException;
-
 import Search_DB.ImportJob;
 import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
-import Search_DB.Search_GUI;
-
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -32,10 +27,8 @@ import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
 
@@ -96,9 +89,8 @@ public class AddJob extends JFrame {
 	private JRadioButton rdbtnPm_end;
 	private JLabel lblJobName;
 	private JTextField job_name_txt;
-	private String query;
-	private String search;
 	private AddJob added = this;
+	@SuppressWarnings("unused")
 	private ImportJob importedJob;
 	private Jobs job;
 	private boolean newJobAdd = false;
@@ -111,8 +103,6 @@ public class AddJob extends JFrame {
 	 * @wbp.parser.constructor
 	 */
 	public AddJob(String date) {
-		this.query = query;
-		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -144,8 +134,6 @@ public class AddJob extends JFrame {
 	}
 
 	public AddJob() {
-		this.query = query;
-		this.search = search;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Add Job");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -173,7 +161,6 @@ public class AddJob extends JFrame {
 		IdAndImportSelction();
 
 	}
-
 
 	/**
 	 * This method sets up the JLables, Jtextfields, and Jbutton for Work ID and
@@ -209,9 +196,8 @@ public class AddJob extends JFrame {
 
 		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked add image..");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked add image..");
 
 				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
 				fd.setDirectory("C:\\");
@@ -244,9 +230,8 @@ public class AddJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked inport information");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked inport information");
 				importedJob = new ImportJob(added);
 			}
 		});
@@ -271,7 +256,7 @@ public class AddJob extends JFrame {
 		pdf_file_txt.setText(job.getPDFs());
 		image_txt.setText(job.getImages());
 		materials_txt.setText(job.getMaterials());
-		date_txt.setText(job.getDate());
+		
 		hours_spinner.setValue(new Double(Double.parseDouble(job.getHours())));
 		for (int i = 0; i < 48; i++) {
 			if (start_txt.getItem(i).equals(job.getStartTime()))
@@ -737,9 +722,8 @@ public class AddJob extends JFrame {
 		btnViewNotesIn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked add notes");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked add notes");
 
 				note = new AddNotes();
 				note.setVisible(true);
@@ -790,9 +774,8 @@ public class AddJob extends JFrame {
 
 		btnAddPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": className -> Add Pdf clicked");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": className -> Add Pdf clicked");
 
 				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
 				fd.setDirectory("C:\\");
@@ -849,8 +832,9 @@ public class AddJob extends JFrame {
 
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setBackground(Color.RED);
+		btnCancel.setForeground(Color.black);
+		Color red = new Color(255, 110, 110);
+		btnCancel.setBackground(red);
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
@@ -862,25 +846,24 @@ public class AddJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked cancel, Frame disposed");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked cancel, Frame disposed");
 				dispose();
-				
+
 			}
 		});
 
 		// Save button and actionlistener
 		btnSave = new JButton("Save");
-		btnSave.setForeground(Color.white);
-		btnSave.setBackground(new Color(0, 102, 206));
+		Color green = new Color(150, 255, 150);
+		btnSave.setBackground(green);
+		btnSave.setForeground(Color.black);
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked save, adding record to database");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked save, adding record to database");
 				String notes;
 				if (note == null) {
 					notes = "";

@@ -2,7 +2,6 @@ package Search_DB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -22,8 +21,7 @@ public class Editing_Driver {
 	private String dbPassword;
 	private Statement statement;
 	private Jobs job;
-	private String query;
-	private String search;
+
 
 	/**
 	 * Default constructor is here to handle accidental Instantiation of this
@@ -81,8 +79,10 @@ public class Editing_Driver {
 	 */
 	public void edit() throws SQLException {
 		try {
+			//connects to the database
 			statement = conn.createStatement();
 
+			// string to format the query
 			String insertStatement = String.format(
 					"update jobs set job_name = '%s', fname = '%s', lname = '%s',street = '%s', city = '%s', state = '%s',zip_code = '%s'"
 							+ ",phone_num = '%s', materials = '%s', date = '%s', hours = '%s', starttime = '%s',endtime = '%s', notes = '%s', pdfs = '%s', images = '%s', "
@@ -97,6 +97,7 @@ public class Editing_Driver {
 					.format(new java.util.Date()) + 
 					": Editing_Driver -> Sent query " + insertStatement);
 			
+			// sends the query to the database
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The database has been successfully updated", "Edit", 1);
 		} catch (NullPointerException npe) {

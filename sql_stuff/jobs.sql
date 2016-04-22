@@ -1,0 +1,21 @@
+create table jobs (
+work_id int primary key auto_increment,
+job_name varchar(100),
+fname varchar(100),
+lname varchar(100),
+street varchar(100),
+city varchar(100),
+state varchar(100),
+zip_code varchar(100),
+phone_num varchar(100),
+materials text,
+date varchar(100),
+hours real,
+starttime varchar(100),
+endtime varchar(100),
+notes text,
+pdfs varchar(100),
+images varchar(100),
+startam BOOLEAN,
+endam BOOLEAN
+)

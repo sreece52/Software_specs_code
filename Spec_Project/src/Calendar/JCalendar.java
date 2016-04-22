@@ -98,6 +98,8 @@ public class JCalendar{
         Font smallFont = buttonPanel.getFont().deriveFont(10.0F);
  
         JButton yearBackButton = new JButton("<<");
+        Color lightpurple = new Color(255, 220, 255);
+		yearBackButton.setBackground(lightpurple);
         yearBackButton.setFont(smallFont);
         yearBackButton.addActionListener(new ActionListener() {
             @Override
@@ -112,6 +114,8 @@ public class JCalendar{
         buttonPanel.add(yearBackButton);
  
         JButton monthBackButton = new JButton("<");
+        Color purple = new Color(255, 200, 255);
+		monthBackButton.setBackground(purple);
         monthBackButton.setFont(smallFont);
         monthBackButton.addActionListener(new ActionListener() {
             @Override
@@ -126,6 +130,7 @@ public class JCalendar{
         buttonPanel.add(monthBackButton);
  
         JButton monthForwardButton = new JButton(">");
+		monthForwardButton.setBackground(purple);
         monthForwardButton.setFont(smallFont);
         monthForwardButton.addActionListener(new ActionListener() {
             @Override
@@ -140,6 +145,7 @@ public class JCalendar{
         buttonPanel.add(monthForwardButton);
  
         JButton yearForwardButton = new JButton(">>");
+		yearForwardButton.setBackground(lightpurple);
         yearForwardButton.setFont(smallFont);
         yearForwardButton.addActionListener(new ActionListener() {
             @Override

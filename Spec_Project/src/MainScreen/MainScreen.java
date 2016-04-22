@@ -30,6 +30,7 @@ import javax.swing.JLabel;
  * Builds the home screen.
  * @author josh
  */
+@SuppressWarnings("serial")
 public class MainScreen extends JFrame {
 
 	private JPanel contentPane;
@@ -63,6 +64,9 @@ public class MainScreen extends JFrame {
 	            .getScaledInstance(64, 50,
 	                    java.awt.Image.SCALE_SMOOTH)))));
 		calendarButton.setBounds(10, 11, 64, 54);
+		Color lightpurple = new Color(255, 220, 255);
+		calendarButton.setBackground(lightpurple);
+	
 		panel.add(calendarButton);
 		calendarButton.setFont(new Font("Dialog", Font.BOLD, 14));
 		calendarButton.addActionListener(new ActionListener() {
@@ -104,6 +108,8 @@ public class MainScreen extends JFrame {
 		
 		/*Set up search button*/
 		JButton searchButton = new JButton("Search");
+		Color green = new Color(150, 255, 150);
+		searchButton.setBackground(green);
 		searchButton.setBounds(10, 11, 110, 27);
 		panel_2.add(searchButton);
 		searchButton.setFont(new Font("Dialog", Font.BOLD, 14));
@@ -120,6 +126,8 @@ public class MainScreen extends JFrame {
 		/*Set up exit button*/
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBounds(140, 11, 124, 27);
+		Color red = new Color(255, 110, 110);
+		btnExit.setBackground(red);
 		panel_2.add(btnExit);
 		btnExit.setFont(new Font("Dialog", Font.BOLD, 14));
 		btnExit.addActionListener(new ActionListener(){
