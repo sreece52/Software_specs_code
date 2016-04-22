@@ -4,6 +4,7 @@ import java.awt.FileDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -25,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
@@ -159,14 +161,27 @@ public class ViewJob extends JFrame {
 		btnViewImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File file = new File(jobs.getImages());
-					Desktop.getDesktop().open(file);
+					//File file = new File(jobs.getPDFs());
+				//	Desktop.getDesktop().open(file);
+					
+							File path = null;
+							JFileChooser chooser = new JFileChooser();
+							
+							chooser.setCurrentDirectory(new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
+							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+								path = chooser.getSelectedFile();
+							}
+							try {
+								Desktop.getDesktop().open(path);
+							} catch (IOException e1) {
+								System.out.println("File not found..");
+							}
+						
 					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
 	                        .format(new java.util.Date()) + 
-	                        ": ViewJob -> User clicked on view image");
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
+	                        ": ViewJob -> User clicked on the view PDF button");
+				} catch (Exception ev) {
+				
 				}
 			}
 		});
@@ -852,14 +867,27 @@ public class ViewJob extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					File file = new File(jobs.getPDFs());
-					Desktop.getDesktop().open(file);
+					//File file = new File(jobs.getPDFs());
+				//	Desktop.getDesktop().open(file);
+					
+							File path = null;
+							JFileChooser chooser = new JFileChooser();
+							
+							chooser.setCurrentDirectory(new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + jobs.getJob_name()));
+							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+								path = chooser.getSelectedFile();
+							}
+							try {
+								Desktop.getDesktop().open(path);
+							} catch (IOException e1) {
+								System.out.println("File not found..");
+							}
+						
 					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
 	                        .format(new java.util.Date()) + 
 	                        ": ViewJob -> User clicked on the view PDF button");
 				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
+				
 				}
 			}
 		});
