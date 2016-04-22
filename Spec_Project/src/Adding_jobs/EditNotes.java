@@ -74,8 +74,9 @@ public class EditNotes extends JFrame {
 		txtrNmn.setWrapStyleWord(true);
 
 		scrollPane.setViewportView(txtrNmn);
-		btnSaveEditNotes.setForeground(Color.white);
-		btnSaveEditNotes.setBackground(new Color(0, 102, 206));
+		Color green = new Color(150, 255, 150);
+		btnSaveEditNotes.setBackground(green);
+		btnSaveEditNotes.setForeground(Color.black);
 		btnSaveEditNotes.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GridBagConstraints gbc_btnSaveEditNotes = new GridBagConstraints();
 		gbc_btnSaveEditNotes.gridx = 0;

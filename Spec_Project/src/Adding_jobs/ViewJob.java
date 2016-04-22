@@ -179,8 +179,9 @@ public class ViewJob extends JFrame {
 
 		// Back Button and Actionlistener
 		btnCancel = new JButton("Back");
-		btnCancel.setForeground(Color.white);
-		btnCancel.setBackground(Color.BLACK);
+		btnCancel.setForeground(Color.black);
+		Color red = new Color(255, 110, 110);
+		btnCancel.setBackground(red);
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
@@ -201,9 +202,11 @@ public class ViewJob extends JFrame {
 
 		// edit button and actionlistener
 		btnSave = new JButton("Edit");
-		btnSave.setForeground(Color.white);
-		btnSave.setBackground(new Color(0, 102, 206));
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		Color lightblue = new Color(210, 255, 255);
+		btnSave.setBackground(lightblue);
+		btnSave.setForeground(Color.black);
+				btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

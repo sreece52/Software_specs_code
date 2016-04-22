@@ -19,6 +19,7 @@ import Adding_jobs.EditJob;
 import javax.swing.border.BevelBorder;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 /**
@@ -83,6 +84,8 @@ public class ImportJob extends JFrame {
 		value.setColumns(10);
 
 		search = new JButton("Search");
+		Color green = new Color(150, 255, 150);
+		search.setBackground(green);
 		ButtonPanel.add(search);
 		search.addActionListener(new ActionListener() {
 			@Override
@@ -113,6 +116,8 @@ public class ImportJob extends JFrame {
 		bottom_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		cancel = new JButton("Cancel");
+		Color red = new Color(255, 110, 110);
+		cancel.setBackground(red);
 		cancel.addActionListener(new ActionListener() {
 
 			@Override
@@ -126,6 +131,7 @@ public class ImportJob extends JFrame {
 		});
 
 		submit = new JButton("submit");
+		submit.setBackground(green);
 		submit.addActionListener(new ActionListener() {
 
 			@Override

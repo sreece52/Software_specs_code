@@ -123,7 +123,7 @@ public class Search_GUI extends JFrame {
 		 * this code below handles adding jobs
 		 */
 		add = new JButton("Add a Job");
-		Color lightgreen = new Color(230, 255, 235);
+		Color lightgreen = new Color(200, 255, 225);
 		add.setBackground(lightgreen);
 		add.addActionListener(new ActionListener() {
 			@Override
@@ -242,7 +242,7 @@ public class Search_GUI extends JFrame {
 		 * This code below handles editing jobs
 		 */
 		edit = new JButton("Edit Job");
-		Color lightblue = new Color(230, 255, 255);
+		Color lightblue = new Color(210, 255, 255);
 		edit.setBackground(lightblue);
 		edit.addActionListener(new ActionListener() {
 			@Override
@@ -297,6 +297,8 @@ public class Search_GUI extends JFrame {
 
 		// button that refreshes the table
 		refresh = new JButton("refresh");
+		Color green = new Color(150, 255, 150);
+		refresh.setBackground(green);
 		refresh.setEnabled(false);
 		refresh.addActionListener(new ActionListener() {
 			@Override

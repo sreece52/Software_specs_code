@@ -46,6 +46,7 @@ public class ViewNotes extends JFrame{
 		getContentPane().setLayout(gridBagLayout);
 		
 		JButton btnCloseNotes = new JButton("Close Notes");
+		
 		btnCloseNotes.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("You pressed SaveNotes");
@@ -75,8 +76,9 @@ public class ViewNotes extends JFrame{
 		System.out.println(noteText);
 		txtrNmn.setEditable(false);
 		scrollPane.setViewportView(txtrNmn);
-		btnCloseNotes.setForeground(Color.white);
-		btnCloseNotes.setBackground(Color.black);
+		btnCloseNotes.setForeground(Color.black);
+		Color red = new Color(255, 110, 110);
+		btnCloseNotes.setBackground(red);
 		btnCloseNotes.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		GridBagConstraints gbc_btnSaveViewNotes = new GridBagConstraints();
 		gbc_btnSaveViewNotes.gridx = 0;
