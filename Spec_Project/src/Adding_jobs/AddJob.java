@@ -162,7 +162,6 @@ public class AddJob extends JFrame {
 
 	}
 
-
 	/**
 	 * This method sets up the JLables, Jtextfields, and Jbutton for Work ID and
 	 * Import Information Button
@@ -197,9 +196,8 @@ public class AddJob extends JFrame {
 
 		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked add image..");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked add image..");
 
 				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
 				fd.setDirectory("C:\\");
@@ -232,9 +230,8 @@ public class AddJob extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked inport information");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked inport information");
 				importedJob = new ImportJob(added);
 			}
 		});
@@ -259,7 +256,7 @@ public class AddJob extends JFrame {
 		pdf_file_txt.setText(job.getPDFs());
 		image_txt.setText(job.getImages());
 		materials_txt.setText(job.getMaterials());
-		date_txt.setText(job.getDate());
+		
 		hours_spinner.setValue(new Double(Double.parseDouble(job.getHours())));
 		for (int i = 0; i < 48; i++) {
 			if (start_txt.getItem(i).equals(job.getStartTime()))
@@ -725,9 +722,8 @@ public class AddJob extends JFrame {
 		btnViewNotesIn.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked add notes");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked add notes");
 
 				note = new AddNotes();
 				note.setVisible(true);
@@ -778,9 +774,8 @@ public class AddJob extends JFrame {
 
 		btnAddPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": className -> Add Pdf clicked");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": className -> Add Pdf clicked");
 
 				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
 				fd.setDirectory("C:\\");
@@ -850,11 +845,10 @@ public class AddJob extends JFrame {
 		getContentPane().add(btnCancel, gbc_btnCancel);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked cancel, Frame disposed");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked cancel, Frame disposed");
 				dispose();
-				
+
 			}
 		});
 
@@ -866,9 +860,8 @@ public class AddJob extends JFrame {
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": AddJob -> clicked save, adding record to database");
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": AddJob -> clicked save, adding record to database");
 				String notes;
 				if (note == null) {
 					notes = "";
