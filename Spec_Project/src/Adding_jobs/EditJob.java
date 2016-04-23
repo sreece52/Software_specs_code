@@ -872,19 +872,21 @@ public class EditJob extends JFrame {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": EditJob -> clicked add pdf");
 
+				String username = System.getProperty("user.name");
+				
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				
 		        int returnValue = fileChooser.showOpenDialog(frame);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
-		        	File dir = new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		        	File dir = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
 		            dir.mkdir();
 		          File selectedFile = fileChooser.getSelectedFile();
-		          File fileToGoTo = new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          File fileToGoTo = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
 		          selectedFile.renameTo(fileToGoTo);
 		          filename = fileToGoTo.getAbsolutePath();
 		          if(filename != null){
-		        	  pdf_txt.setText("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\");
+		        	  pdf_txt.setText("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\");
 		          }
 		       }
 			}
@@ -942,19 +944,21 @@ public class EditJob extends JFrame {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": EditJob -> Clicked add Image");
 
+				String username = System.getProperty("user.name");
+				
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				
 		        int returnValue = fileChooser.showOpenDialog(frame);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
-		        	File dir = new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + job_name_txt.getText());
+		        	File dir = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
 		            dir.mkdir();
 		          File selectedFile = fileChooser.getSelectedFile();
-		          File fileToGoTo = new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          File fileToGoTo = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
 		          selectedFile.renameTo(fileToGoTo);
 		          filename = fileToGoTo.getAbsolutePath();
 		          if(filename != null){
-		        	  images_txt.setText("C:\\Users\\Matt\\Documents\\Pics for Handyman\\");
+		        	  images_txt.setText("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\");
 		          }
 		       }
 			}
