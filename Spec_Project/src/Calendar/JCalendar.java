@@ -9,9 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -101,45 +98,63 @@ public class JCalendar{
         Font smallFont = buttonPanel.getFont().deriveFont(10.0F);
  
         JButton yearBackButton = new JButton("<<");
+        Color lightpurple = new Color(255, 220, 255);
+		yearBackButton.setBackground(lightpurple);
         yearBackButton.setFont(smallFont);
         yearBackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.YEAR, -1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go back a year");
             }
         });
         buttonPanel.add(yearBackButton);
  
         JButton monthBackButton = new JButton("<");
+        Color purple = new Color(255, 200, 255);
+		monthBackButton.setBackground(purple);
         monthBackButton.setFont(smallFont);
         monthBackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.MONTH, -1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go back a month");
             }
         });
         buttonPanel.add(monthBackButton);
  
         JButton monthForwardButton = new JButton(">");
+		monthForwardButton.setBackground(purple);
         monthForwardButton.setFont(smallFont);
         monthForwardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.MONTH, 1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go forward a month");
             }
         });
         buttonPanel.add(monthForwardButton);
  
         JButton yearForwardButton = new JButton(">>");
+		yearForwardButton.setBackground(lightpurple);
         yearForwardButton.setFont(smallFont);
         yearForwardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 calendar.add(Calendar.YEAR, 1);
                 updatePartControl();
+                System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": JCalendar -> User selected to go forward a year");
             }
         });
         buttonPanel.add(yearForwardButton);
@@ -311,6 +326,9 @@ public class JCalendar{
                     getSelectedDate(s);
                 }
             }
+            System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendar -> User clicked his mouse");
         }
  
         private void getSelectedDate(String s) {

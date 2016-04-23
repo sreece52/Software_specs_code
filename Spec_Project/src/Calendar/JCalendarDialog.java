@@ -1,6 +1,7 @@
 package Calendar;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,19 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Locale;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import Adding_jobs.AddJob;
 import Search_DB.Search_GUI;
 
+@SuppressWarnings("serial")
 public class JCalendarDialog extends JFrame {
 
 	public static final int OK_PRESSED = 1;
@@ -89,14 +89,20 @@ public class JCalendarDialog extends JFrame {
 		buttonPanel.setLayout(new FlowLayout());
 
 		JButton addButton = new JButton("Add Job");
+		Color lightgreen = new Color(200, 255, 225);
+		addButton.setBackground(lightgreen);
 		addButton.addActionListener(new addButtonActionListener());
 		buttonPanel.add(addButton);
 		
 		JButton okButton = new JButton("View");
+		Color yellow = new Color(255, 255, 204);
+		okButton.setBackground(yellow);
 		okButton.addActionListener(new OKButtonActionListener());
 		buttonPanel.add(okButton);
 
 		JButton cancelButton = new JButton("Cancel");
+		Color red = new Color(255, 110, 110);
+		cancelButton.setBackground(red);
 		cancelButton.addActionListener(new CancelButtonActionListener());
 		buttonPanel.add(cancelButton);
 
@@ -131,6 +137,9 @@ public class JCalendarDialog extends JFrame {
 		public void actionPerformed(ActionEvent event) {
 			returnCode = CANCEL_PRESSED;
 			dialog.dispose();
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendarDialog -> User clicked on the cancel button");
 		}
 	}
 
@@ -165,6 +174,9 @@ public class JCalendarDialog extends JFrame {
 
 			returnCode = OK_PRESSED;
 			dialog.dispose();
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendarDialog -> User clicked on the OK button");
 		}
 	}
 	private class addButtonActionListener implements ActionListener {
@@ -198,6 +210,9 @@ public class JCalendarDialog extends JFrame {
 
 			returnCode = OK_PRESSED;
 			dialog.dispose();
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                    .format(new java.util.Date()) + 
+                    ": JCalendarDialog -> User clicked on the addJob Button");
 		}
 	}
 }

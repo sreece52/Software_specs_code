@@ -4,13 +4,12 @@ import java.awt.FileDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import Search_DB.Jobs;
-import Search_DB.Search_GUI;
-
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
@@ -27,6 +26,8 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
@@ -38,6 +39,7 @@ import javax.swing.JRadioButton;
  *
  */
 
+@SuppressWarnings({ "serial" })
 public class ViewJob extends JFrame {
 	private JTextField fname_text;
 	private JLabel lblFirstName;
@@ -86,12 +88,10 @@ public class ViewJob extends JFrame {
 	private JTextField job_text;
 	static int row;
 	private Jobs jobs;
-	private String pdfFile;
-	private String query;
-	private String searchType;
 
 	private JButton btnViewPdf;
 	private JButton btnViewImage;
+	@SuppressWarnings("unused")
 	private String pdf_text;
 
 	/**
@@ -107,8 +107,6 @@ public class ViewJob extends JFrame {
 	 */
 	public ViewJob(Jobs jobs) {
 		this.jobs = jobs;
-		this.query = query;
-		this.searchType = searchType;
 
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("View Job");
@@ -163,12 +161,27 @@ public class ViewJob extends JFrame {
 		btnViewImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					File file = new File(jobs.getImages());
-					Desktop.getDesktop().open(file);
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
+					//File file = new File(jobs.getPDFs());
+				//	Desktop.getDesktop().open(file);
+					
+							File path = null;
+							JFileChooser chooser = new JFileChooser();
+							
+							chooser.setCurrentDirectory(new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
+							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+								path = chooser.getSelectedFile();
+							}
+							try {
+								Desktop.getDesktop().open(path);
+							} catch (IOException e1) {
+								System.out.println("File not found..");
+							}
+						
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                        .format(new java.util.Date()) + 
+	                        ": ViewJob -> User clicked on the view PDF button");
+				} catch (Exception ev) {
+				
 				}
 			}
 		});
@@ -181,8 +194,9 @@ public class ViewJob extends JFrame {
 
 		// Back Button and Actionlistener
 		btnCancel = new JButton("Back");
-		btnCancel.setForeground(Color.white);
-		btnCancel.setBackground(Color.BLACK);
+		btnCancel.setForeground(Color.black);
+		Color red = new Color(255, 110, 110);
+		btnCancel.setBackground(red);
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.fill = GridBagConstraints.HORIZONTAL;
@@ -195,14 +209,19 @@ public class ViewJob extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the Cancel button");
 			}
 		});
 
 		// edit button and actionlistener
 		btnSave = new JButton("Edit");
-		btnSave.setForeground(Color.white);
-		btnSave.setBackground(new Color(0, 102, 206));
-		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		Color lightblue = new Color(210, 255, 255);
+		btnSave.setBackground(lightblue);
+		btnSave.setForeground(Color.black);
+				btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -211,6 +230,9 @@ public class ViewJob extends JFrame {
 				EditJob editjob = new EditJob(jobs);
 				editjob.setVisible(true);
 				dispose();
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the Save button");
 			}
 		});
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -503,6 +525,9 @@ public class ViewJob extends JFrame {
 				// opens the View Notes window
 				ViewNotes editjob = new ViewNotes(jobs.getNotes());
 				editjob.setVisible(true);
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the View Notes button");
 
 			}
 		});
@@ -804,6 +829,9 @@ public class ViewJob extends JFrame {
 					pdf.setText(filename);
 
 				}
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User selected the add PDF button");
 			}
 		});
 		
@@ -839,12 +867,27 @@ public class ViewJob extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					File file = new File(jobs.getPDFs());
-					Desktop.getDesktop().open(file);
+					//File file = new File(jobs.getPDFs());
+				//	Desktop.getDesktop().open(file);
+					
+							File path = null;
+							JFileChooser chooser = new JFileChooser();
+							
+							chooser.setCurrentDirectory(new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + jobs.getJob_name()));
+							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+								path = chooser.getSelectedFile();
+							}
+							try {
+								Desktop.getDesktop().open(path);
+							} catch (IOException e1) {
+								System.out.println("File not found..");
+							}
+						
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                        .format(new java.util.Date()) + 
+	                        ": ViewJob -> User clicked on the view PDF button");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
+				
 				}
 			}
 		});
@@ -887,6 +930,9 @@ public class ViewJob extends JFrame {
 					images.setText(filename);
 
 				}
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+                        .format(new java.util.Date()) + 
+                        ": ViewJob -> User clicked on the add Image button");
 			}
 		});
 

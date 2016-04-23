@@ -4,11 +4,10 @@ import java.awt.FileDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
-
-import MainScreen.MainScreen;
 
 import java.awt.Color;
 import java.awt.Desktop;
@@ -16,16 +15,12 @@ import java.awt.Font;
 
 import Search_DB.Editing_Driver;
 import Search_DB.ImportJob;
-import Search_DB.Inserting_Driver;
 import Search_DB.Jobs;
-import Search_DB.Search_GUI;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 
@@ -50,6 +45,7 @@ import javax.swing.JRadioButton;
  *
  */
 
+@SuppressWarnings("serial")
 public class EditJob extends JFrame {
 	private EditNotes note;
 	private JTextField fname_txt;
@@ -97,16 +93,13 @@ public class EditJob extends JFrame {
 	private JLabel lblJobName;
 	private JTextField job_name_txt;
 	private Jobs editedJob;
-	private String query;
-	private String search;
-	private JButton btnOpenPdf;
-	private JButton btnOpenImage;
 	private String pdf;
 	private String image;
 	private ImportJob importedJob;
 	private EditJob edit = this;
 	private Jobs job;
 	private boolean isEdited = false;
+	private String workId;
 
 	/**
 	 * Frame Created
@@ -114,9 +107,40 @@ public class EditJob extends JFrame {
 	 * Methods must be called by constructor
 	 * 
 	 * @param editedJob
+	 * @wbp.parser.constructor
 	 * 
 	 */
 	public EditJob(Jobs editedJob) {
+		this.editedJob = editedJob;
+		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		setTitle("Edit Job");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+
+		setBounds(100, 100, 779, 739);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[] { 76, 25, 130, 36, 90, 130, 80, 130, 61, 0 };
+		gridBagLayout.rowHeights = new int[] { 31, 0, 0, 31, 31, 31, 29, 20, 31, 0, 56, 29, 29, 29, 29, 56, 35, 29, 35,
+				29, 35, 32, 49, 0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		getContentPane().setLayout(gridBagLayout);
+		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		this.setIconImage(img.getImage());
+		this.setVisible(true);
+		NameSection();
+		AddressSection();
+		MaterialsAndNotesSection();
+		DateAndTimeSection();
+		PdfAndImagesSection();
+		CancelSaveSection();
+		IdAndImportSelction();
+
+	}
+
+	public EditJob(Jobs editedJob, String workId) {
+		this.workId = workId;
 		this.editedJob = editedJob;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Edit Job");
@@ -166,34 +190,11 @@ public class EditJob extends JFrame {
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
 
-		btnOpenImage = new JButton("Open Image");
-		btnOpenImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-						+ ": EditJob -> clicked open image");
-				try {
-					File file = new File(image);
-					Desktop.getDesktop().open(file);
-				} catch (Exception e1) {
-					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-							+ ": EditJob -> Excpetion stacktrace");
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
-				}
-			}
-		});
-		btnOpenImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnOpenImage = new GridBagConstraints();
-		gbc_btnOpenImage.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOpenImage.gridx = 5;
-		gbc_btnOpenImage.gridy = 19;
-		getContentPane().add(btnOpenImage, gbc_btnOpenImage);
-
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
-		btnCancel.setForeground(Color.WHITE);
-		btnCancel.setBackground(Color.red);
+		btnCancel.setForeground(Color.black);
+		Color red = new Color(255, 110, 110);
+		btnCancel.setBackground(red);
 		btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GridBagConstraints gbc_btnCancel = new GridBagConstraints();
 		gbc_btnCancel.gridwidth = 2;
@@ -206,13 +207,15 @@ public class EditJob extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				return;
 			}
 		});
 
 		// Save button and actionlistener
 		btnSave = new JButton("Save");
-		btnSave.setForeground(Color.WHITE);
-		btnSave.setBackground(new Color(0, 102, 206));
+		btnSave.setForeground(Color.black);
+		Color green = new Color(150, 255, 150);
+		btnSave.setBackground(green);
 		btnSave.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		btnSave.addActionListener(new ActionListener() {
@@ -314,7 +317,7 @@ public class EditJob extends JFrame {
 		pdf_txt.setText(job.getPDFs());
 		images_txt.setText(job.getImages());
 		materials_txt.setText(job.getMaterials());
-		date_txt.setText(job.getDate());
+		
 		hours_spinner.setValue(new Double(Double.parseDouble(job.getHours())));
 		for (int i = 0; i < 48; i++) {
 			if (startTime_txt.getItem(i).equals(job.getStartTime()))
@@ -865,56 +868,27 @@ public class EditJob extends JFrame {
 
 		btnAddPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//logging event
+				// logging event
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": EditJob -> clicked add pdf");
 
-				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.pdf");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				pdf = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
-
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					pdf_txt.setText(filename);
-
-				}
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+		        int returnValue = fileChooser.showOpenDialog(frame);
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		        	File dir = new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		            dir.mkdir();
+		          File selectedFile = fileChooser.getSelectedFile();
+		          File fileToGoTo = new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          selectedFile.renameTo(fileToGoTo);
+		          filename = fileToGoTo.getAbsolutePath();
+		          if(filename != null){
+		        	  pdf_txt.setText("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\");
+		          }
+		       }
 			}
 		});
-
-		btnOpenPdf = new JButton("Open PDF");
-		btnOpenPdf.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				//logging event
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-						+ ": EditJob -> clicker open pdf");
-
-				try {
-					File file = new File(pdf);
-					Desktop.getDesktop().open(file);
-				} catch (Exception e) {
-					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-							+ ": EditJob -> exception stack track:");
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
-				}
-			}
-		});
-		btnOpenPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnOpenPdf = new GridBagConstraints();
-		gbc_btnOpenPdf.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOpenPdf.gridx = 5;
-		gbc_btnOpenPdf.gridy = 17;
-		getContentPane().add(btnOpenPdf, gbc_btnOpenPdf);
 
 		lblImages = new JLabel("Images:");
 		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -964,29 +938,25 @@ public class EditJob extends JFrame {
 
 		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//logging event
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-                        .format(new java.util.Date()) + 
-                        ": EditJob -> Clicked add Image");
-				
-				
-				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.jpg");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				image = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
+				// logging event
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": EditJob -> Clicked add Image");
 
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					images_txt.setText(filename);
-
-				}
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+		        int returnValue = fileChooser.showOpenDialog(frame);
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		        	File dir = new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + job_name_txt.getText());
+		            dir.mkdir();
+		          File selectedFile = fileChooser.getSelectedFile();
+		          File fileToGoTo = new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          selectedFile.renameTo(fileToGoTo);
+		          filename = fileToGoTo.getAbsolutePath();
+		          if(filename != null){
+		        	  images_txt.setText("C:\\Users\\Matt\\Documents\\Pics for Handyman\\");
+		          }
+		       }
 			}
 		});
 	}
@@ -1020,5 +990,417 @@ public class EditJob extends JFrame {
 
 	public void setEdited(boolean isEdited) {
 		this.isEdited = isEdited;
+	}
+
+	public EditNotes getNote() {
+		return note;
+	}
+
+	public void setNote(EditNotes note) {
+		this.note = note;
+	}
+
+	public JTextField getFname_txt() {
+		return fname_txt;
+	}
+
+	public void setFname_txt(JTextField fname_txt) {
+		this.fname_txt = fname_txt;
+	}
+
+	public JLabel getLblFirstName() {
+		return lblFirstName;
+	}
+
+	public void setLblFirstName(JLabel lblFirstName) {
+		this.lblFirstName = lblFirstName;
+	}
+
+	public JLabel getLblLastName() {
+		return lblLastName;
+	}
+
+	public void setLblLastName(JLabel lblLastName) {
+		this.lblLastName = lblLastName;
+	}
+
+	public JTextField getLname_txt() {
+		return lname_txt;
+	}
+
+	public void setLname_txt(JTextField lname_txt) {
+		this.lname_txt = lname_txt;
+	}
+
+	public JLabel getLblPhoneNumber() {
+		return lblPhoneNumber;
+	}
+
+	public void setLblPhoneNumber(JLabel lblPhoneNumber) {
+		this.lblPhoneNumber = lblPhoneNumber;
+	}
+
+	public JTextField getPhone_txt() {
+		return phone_txt;
+	}
+
+	public void setPhone_txt(JTextField phone_txt) {
+		this.phone_txt = phone_txt;
+	}
+
+	public JLabel getLblMaterials() {
+		return lblMaterials;
+	}
+
+	public void setLblMaterials(JLabel lblMaterials) {
+		this.lblMaterials = lblMaterials;
+	}
+
+	public JLabel getLblHours() {
+		return lblHours;
+	}
+
+	public void setLblHours(JLabel lblHours) {
+		this.lblHours = lblHours;
+	}
+
+	public JLabel getLblNotes() {
+		return lblNotes;
+	}
+
+	public void setLblNotes(JLabel lblNotes) {
+		this.lblNotes = lblNotes;
+	}
+
+	public JButton getBtnViewNotesIn() {
+		return btnViewNotesIn;
+	}
+
+	public void setBtnViewNotesIn(JButton btnViewNotesIn) {
+		this.btnViewNotesIn = btnViewNotesIn;
+	}
+
+	public JLabel getLblPdf() {
+		return lblPdf;
+	}
+
+	public void setLblPdf(JLabel lblPdf) {
+		this.lblPdf = lblPdf;
+	}
+
+	public JTextField getPdf_txt() {
+		return pdf_txt;
+	}
+
+	public void setPdf_txt(JTextField pdf_txt) {
+		this.pdf_txt = pdf_txt;
+	}
+
+	public JButton getBtnAddPdf() {
+		return btnAddPdf;
+	}
+
+	public void setBtnAddPdf(JButton btnAddPdf) {
+		this.btnAddPdf = btnAddPdf;
+	}
+
+	public JLabel getLblImages() {
+		return lblImages;
+	}
+
+	public void setLblImages(JLabel lblImages) {
+		this.lblImages = lblImages;
+	}
+
+	public JTextField getImages_txt() {
+		return images_txt;
+	}
+
+	public void setImages_txt(JTextField images_txt) {
+		this.images_txt = images_txt;
+	}
+
+	public JButton getBtnAddImage() {
+		return btnAddImage;
+	}
+
+	public void setBtnAddImage(JButton btnAddImage) {
+		this.btnAddImage = btnAddImage;
+	}
+
+	public JButton getBtnSave() {
+		return btnSave;
+	}
+
+	public void setBtnSave(JButton btnSave) {
+		this.btnSave = btnSave;
+	}
+
+	public JButton getBtnCancel() {
+		return btnCancel;
+	}
+
+	public void setBtnCancel(JButton btnCancel) {
+		this.btnCancel = btnCancel;
+	}
+
+	public static EditJob getFrame() {
+		return frame;
+	}
+
+	public static void setFrame(EditJob frame) {
+		EditJob.frame = frame;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
+	}
+
+	public JTextArea getMaterials_txt() {
+		return materials_txt;
+	}
+
+	public void setMaterials_txt(JTextArea materials_txt) {
+		this.materials_txt = materials_txt;
+	}
+
+	public JSpinner getHours_spinner() {
+		return hours_spinner;
+	}
+
+	public void setHours_spinner(JSpinner hours_spinner) {
+		this.hours_spinner = hours_spinner;
+	}
+
+	public JLabel getLblStartTime() {
+		return lblStartTime;
+	}
+
+	public void setLblStartTime(JLabel lblStartTime) {
+		this.lblStartTime = lblStartTime;
+	}
+
+	public JLabel getLblEndTime() {
+		return lblEndTime;
+	}
+
+	public void setLblEndTime(JLabel lblEndTime) {
+		this.lblEndTime = lblEndTime;
+	}
+
+	public JLabel getLblDate_1() {
+		return lblDate_1;
+	}
+
+	public void setLblDate_1(JLabel lblDate_1) {
+		this.lblDate_1 = lblDate_1;
+	}
+
+	public JLabel getLblStreetName() {
+		return lblStreetName;
+	}
+
+	public void setLblStreetName(JLabel lblStreetName) {
+		this.lblStreetName = lblStreetName;
+	}
+
+	public JLabel getLblCity() {
+		return lblCity;
+	}
+
+	public void setLblCity(JLabel lblCity) {
+		this.lblCity = lblCity;
+	}
+
+	public JTextField getCity_txt() {
+		return city_txt;
+	}
+
+	public void setCity_txt(JTextField city_txt) {
+		this.city_txt = city_txt;
+	}
+
+	public JTextField getStreet_txt() {
+		return street_txt;
+	}
+
+	public void setStreet_txt(JTextField street_txt) {
+		this.street_txt = street_txt;
+	}
+
+	public JLabel getLblState() {
+		return lblState;
+	}
+
+	public void setLblState(JLabel lblState) {
+		this.lblState = lblState;
+	}
+
+	public JTextField getState_txt() {
+		return state_txt;
+	}
+
+	public void setState_txt(JTextField state_txt) {
+		this.state_txt = state_txt;
+	}
+
+	public JLabel getLblZip() {
+		return lblZip;
+	}
+
+	public void setLblZip(JLabel lblZip) {
+		this.lblZip = lblZip;
+	}
+
+	public JTextField getZip_txt() {
+		return zip_txt;
+	}
+
+	public void setZip_txt(JTextField zip_txt) {
+		this.zip_txt = zip_txt;
+	}
+
+	public JButton getBtnImportInformationFrom() {
+		return btnImportInformationFrom;
+	}
+
+	public void setBtnImportInformationFrom(JButton btnImportInformationFrom) {
+		this.btnImportInformationFrom = btnImportInformationFrom;
+	}
+
+	public JTextField getDate_txt() {
+		return date_txt;
+	}
+
+	public void setDate_txt(JTextField date_txt) {
+		this.date_txt = date_txt;
+	}
+
+	public Choice getStartTime_txt() {
+		return startTime_txt;
+	}
+
+	public void setStartTime_txt(Choice startTime_txt) {
+		this.startTime_txt = startTime_txt;
+	}
+
+	public Choice getEnd_txt() {
+		return end_txt;
+	}
+
+	public void setEnd_txt(Choice end_txt) {
+		this.end_txt = end_txt;
+	}
+
+	public JRadioButton getRdbtnAmStart() {
+		return rdbtnAmStart;
+	}
+
+	public void setRdbtnAmStart(JRadioButton rdbtnAmStart) {
+		this.rdbtnAmStart = rdbtnAmStart;
+	}
+
+	public JRadioButton getRdbtnPmStart() {
+		return rdbtnPmStart;
+	}
+
+	public void setRdbtnPmStart(JRadioButton rdbtnPmStart) {
+		this.rdbtnPmStart = rdbtnPmStart;
+	}
+
+	public JRadioButton getRdbtnAmEnd() {
+		return rdbtnAmEnd;
+	}
+
+	public void setRdbtnAmEnd(JRadioButton rdbtnAmEnd) {
+		this.rdbtnAmEnd = rdbtnAmEnd;
+	}
+
+	public JRadioButton getRdbtnPmEnd() {
+		return rdbtnPmEnd;
+	}
+
+	public void setRdbtnPmEnd(JRadioButton rdbtnPmEnd) {
+		this.rdbtnPmEnd = rdbtnPmEnd;
+	}
+
+	public JLabel getLblJobName() {
+		return lblJobName;
+	}
+
+	public void setLblJobName(JLabel lblJobName) {
+		this.lblJobName = lblJobName;
+	}
+
+	public JTextField getJob_name_txt() {
+		return job_name_txt;
+	}
+
+	public void setJob_name_txt(JTextField job_name_txt) {
+		this.job_name_txt = job_name_txt;
+	}
+
+	public Jobs getEditedJob() {
+		return editedJob;
+	}
+
+	public void setEditedJob(Jobs editedJob) {
+		this.editedJob = editedJob;
+	}
+	
+	public String getPdf() {
+		return pdf;
+	}
+
+	public void setPdf(String pdf) {
+		this.pdf = pdf;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public ImportJob getImportedJob() {
+		return importedJob;
+	}
+
+	public void setImportedJob(ImportJob importedJob) {
+		this.importedJob = importedJob;
+	}
+
+	public EditJob getEdit() {
+		return edit;
+	}
+
+	public void setEdit(EditJob edit) {
+		this.edit = edit;
+	}
+
+	public Jobs getJob() {
+		return job;
+	}
+
+	public String getWorkId() {
+		return workId;
+	}
+
+	public void setWorkId(String workId) {
+		this.workId = workId;
 	}
 }
