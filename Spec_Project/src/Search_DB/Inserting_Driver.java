@@ -86,7 +86,7 @@ public class Inserting_Driver {
 			/*Handle names with single quotes*/
 			if(job.getFname().contains("'") || job.getLname().contains("'")){
 				job.setFname(job.getFname().replace("'", "''"));
-				job.setLname(job.getFname().replace("'", "''"));
+				job.setLname(job.getLname().replace("'", "''"));
 			}
 			
 			/*Create query*/
