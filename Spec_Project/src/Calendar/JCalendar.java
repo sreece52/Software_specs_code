@@ -21,9 +21,18 @@ import javax.swing.border.Border;
 
 import Search_DB.Search_Driver;
  
+/**
+ * This class creates the panel that runs the calendar. 
+ * 
+ * @author Matthew Reilly DATE: 3/23/2016
+ *
+ * 
+ */
 
 public class JCalendar{
  
+	/*Instance Variables*/
+	
     private static final int DAYS_IN_WEEK = 7;
  
     private int startOfWeek;
@@ -45,13 +54,13 @@ public class JCalendar{
     private SimpleDateFormat dateFormat;
  
     private String dateString;
- 
+ /*Constructor for the JCalendar class */
     public JCalendar() {
         this.calendar = Calendar.getInstance();
         this.locale = Locale.getDefault();
         this.startOfWeek = Calendar.SUNDAY;
         this.dateFormat = new SimpleDateFormat("YYYY-MM-DD");
- 
+        //gets the day of 
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);

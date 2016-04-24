@@ -208,14 +208,14 @@ public class AddJob extends JFrame {
 				
 		        int returnValue = fileChooser.showOpenDialog(frame);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
-		        	File dir = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		        	File dir = new File("C:\\Users\\" + username  + "\\Documents\\Pics for Handyman\\" + job_name_txt.getText());
 		            dir.mkdir();
 		          File selectedFile = fileChooser.getSelectedFile();
-		          File fileToGoTo = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          File fileToGoTo = new File("C:\\Users\\" + username  + "\\Documents\\Pics for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
 		          selectedFile.renameTo(fileToGoTo);
 		          filename = fileToGoTo.getAbsolutePath();
 		          if(filename != null){
-		        	  image_txt.setText("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\");
+		        	  image_txt.setText("C:\\Users\\" + username  + "\\Documents\\Pics for Handyman\\");
 		          }
 		       }
 			}

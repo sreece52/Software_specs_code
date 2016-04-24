@@ -167,7 +167,7 @@ public class ViewJob extends JFrame {
 							File path = null;
 							JFileChooser chooser = new JFileChooser();
 							
-							chooser.setCurrentDirectory(new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + jobs.getJob_name()));
+							chooser.setCurrentDirectory(new File("C:\\Users\\" + username + "\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
 							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
 								path = chooser.getSelectedFile();
 							}
