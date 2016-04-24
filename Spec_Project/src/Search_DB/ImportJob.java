@@ -46,6 +46,10 @@ public class ImportJob extends JFrame {
 	private AddJob add;
 	private boolean isEdit = true;
 
+	/**
+	 * Constructor for the class for an existing job
+	 * @param edit a job we wish to edit is passed here
+	 */
 	public ImportJob(EditJob edit) {
 		this.edit = edit;
 		getContentPane().setLayout(null);
@@ -55,6 +59,10 @@ public class ImportJob extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Constructor for the class for a new job
+	 * @param add the new job we wish to create
+	 */
 	public ImportJob(AddJob add) {
 		this.add = add;
 		isEdit = false;
@@ -65,6 +73,9 @@ public class ImportJob extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * this method Puts the frame together
+	 */
 	private void initComponents() {
 		JPanel ButtonPanel = new JPanel();
 		ButtonPanel.setBounds(10, 11, 764, 41);
@@ -88,7 +99,10 @@ public class ImportJob extends JFrame {
 		search.setBackground(green);
 		ButtonPanel.add(search);
 		search.addActionListener(new ActionListener() {
-			@Override
+			
+			/**
+			 * Call the search method
+			 */
 			public void actionPerformed(ActionEvent e) {
 				/*Log action*/
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
@@ -120,7 +134,9 @@ public class ImportJob extends JFrame {
 		cancel.setBackground(red);
 		cancel.addActionListener(new ActionListener() {
 
-			@Override
+			/**
+			 * if the user hits cancel the frame will be disposed.
+			 */
 			public void actionPerformed(ActionEvent e) {
 				/*Log action*/
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
@@ -134,7 +150,9 @@ public class ImportJob extends JFrame {
 		submit.setBackground(green);
 		submit.addActionListener(new ActionListener() {
 
-			@Override
+			/**
+			 * Submits the selected job back to add or edit job frame
+			 */
 			public void actionPerformed(ActionEvent e) {
 				/*Log action*/
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
@@ -155,18 +173,26 @@ public class ImportJob extends JFrame {
 		bottom_panel.add(cancel);
 	}
 
+	/**
+	 * This method will query the database based off the given values
+	 */
 	private void search() {
+		//removes the previous table if any
 		searchResultsPanel.removeAll();
+		// gets the selected search filter
 		String query = querytype.getSelectedItem().toString().toUpperCase().trim();
 		System.out.println(query);
 
+		//Search the database
 		driver = new Search_Driver(value.getText(), query);
 
+		//If there are no results tell the user
 		if (driver.getResults().size() == 0) {
 			JOptionPane.showMessageDialog(null, "No results!", "No Results", 2);
 		}
 
 		System.out.println(driver.getResults().size());
+		// array to hold the tables data
 		Object[][] data = new Object[driver.getResults().size()][columnNames.length];
 		int j = 0;
 
