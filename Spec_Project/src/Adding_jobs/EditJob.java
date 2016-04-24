@@ -4,6 +4,7 @@ import java.awt.FileDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
@@ -29,6 +30,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -91,8 +93,6 @@ public class EditJob extends JFrame {
 	private JLabel lblJobName;
 	private JTextField job_name_txt;
 	private Jobs editedJob;
-	private JButton btnOpenPdf;
-	private JButton btnOpenImage;
 	private String pdf;
 	private String image;
 	private ImportJob importedJob;
@@ -107,6 +107,7 @@ public class EditJob extends JFrame {
 	 * Methods must be called by constructor
 	 * 
 	 * @param editedJob
+	 * @wbp.parser.constructor
 	 * 
 	 */
 	public EditJob(Jobs editedJob) {
@@ -188,30 +189,6 @@ public class EditJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
-
-		btnOpenImage = new JButton("Open Image");
-		btnOpenImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-						+ ": EditJob -> clicked open image");
-				try {
-					File file = new File(image);
-					Desktop.getDesktop().open(file);
-				} catch (Exception e1) {
-					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-							+ ": EditJob -> Excpetion stacktrace");
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
-				}
-			}
-		});
-		btnOpenImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnOpenImage = new GridBagConstraints();
-		gbc_btnOpenImage.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOpenImage.gridx = 5;
-		gbc_btnOpenImage.gridy = 19;
-		getContentPane().add(btnOpenImage, gbc_btnOpenImage);
 
 		// Cancel Button and Actionlistener
 		btnCancel = new JButton("Cancel");
@@ -895,52 +872,25 @@ public class EditJob extends JFrame {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": EditJob -> clicked add pdf");
 
-				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.pdf");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				pdf = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
-
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					pdf_txt.setText(filename);
-
-				}
+				String username = System.getProperty("user.name");
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+		        int returnValue = fileChooser.showOpenDialog(frame);
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		        	File dir = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		            dir.mkdir();
+		          File selectedFile = fileChooser.getSelectedFile();
+		          File fileToGoTo = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          selectedFile.renameTo(fileToGoTo);
+		          filename = fileToGoTo.getAbsolutePath();
+		          if(filename != null){
+		        	  pdf_txt.setText("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\");
+		          }
+		       }
 			}
 		});
-
-		btnOpenPdf = new JButton("Open PDF");
-		btnOpenPdf.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				// logging event
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-						+ ": EditJob -> clicker open pdf");
-
-				try {
-					File file = new File(pdf);
-					Desktop.getDesktop().open(file);
-				} catch (Exception e) {
-					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
-							+ ": EditJob -> exception stack track:");
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "File was not found. Make sure file is on the computer",
-							"File not Found", 2);
-				}
-			}
-		});
-		btnOpenPdf.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnOpenPdf = new GridBagConstraints();
-		gbc_btnOpenPdf.insets = new Insets(0, 0, 5, 5);
-		gbc_btnOpenPdf.gridx = 5;
-		gbc_btnOpenPdf.gridy = 17;
-		getContentPane().add(btnOpenPdf, gbc_btnOpenPdf);
 
 		lblImages = new JLabel("Images:");
 		lblImages.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -994,23 +944,23 @@ public class EditJob extends JFrame {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": EditJob -> Clicked add Image");
 
-				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.jpg");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				image = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
-
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					images_txt.setText(filename);
-
-				}
+				String username = System.getProperty("user.name");
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+		        int returnValue = fileChooser.showOpenDialog(frame);
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		        	File dir = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		            dir.mkdir();
+		          File selectedFile = fileChooser.getSelectedFile();
+		          File fileToGoTo = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          selectedFile.renameTo(fileToGoTo);
+		          filename = fileToGoTo.getAbsolutePath();
+		          if(filename != null){
+		        	  images_txt.setText("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\");
+		          }
+		       }
 			}
 		});
 	}
@@ -1413,23 +1363,7 @@ public class EditJob extends JFrame {
 	public void setEditedJob(Jobs editedJob) {
 		this.editedJob = editedJob;
 	}
-
-	public JButton getBtnOpenPdf() {
-		return btnOpenPdf;
-	}
-
-	public void setBtnOpenPdf(JButton btnOpenPdf) {
-		this.btnOpenPdf = btnOpenPdf;
-	}
-
-	public JButton getBtnOpenImage() {
-		return btnOpenImage;
-	}
-
-	public void setBtnOpenImage(JButton btnOpenImage) {
-		this.btnOpenImage = btnOpenImage;
-	}
-
+	
 	public String getPdf() {
 		return pdf;
 	}

@@ -25,12 +25,14 @@ import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import java.awt.Choice;
 import javax.swing.JRadioButton;
+import javax.swing.JFileChooser;
 
 /**
  * This class creates the window Add Job
@@ -199,22 +201,23 @@ public class AddJob extends JFrame {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": AddJob -> clicked add image..");
 
-				FileDialog fd = new FileDialog(frame, "Choose an Image", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.jpg");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
-
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					image_txt.setText(filename);
-
-				}
+				String username = System.getProperty("user.name");
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+		        int returnValue = fileChooser.showOpenDialog(frame);
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		        	File dir = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		            dir.mkdir();
+		          File selectedFile = fileChooser.getSelectedFile();
+		          File fileToGoTo = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          selectedFile.renameTo(fileToGoTo);
+		          filename = fileToGoTo.getAbsolutePath();
+		          if(filename != null){
+		        	  image_txt.setText("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\");
+		          }
+		       }
 			}
 		});
 
@@ -777,22 +780,23 @@ public class AddJob extends JFrame {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
 						+ ": className -> Add Pdf clicked");
 
-				FileDialog fd = new FileDialog(frame, "Choose a file", FileDialog.LOAD);
-				fd.setDirectory("C:\\");
-				fd.setFile("*.pdf");
-				fd.setVisible(true);
-				filename = fd.getDirectory() + fd.getFile();
-				if (filename == null)
-					System.out.println("You cancelled the choice");
-				else {
-					System.out.println("You chose " + filename);
-
-				}
-				if (filename != null) {
-					System.out.println(filename);
-					pdf_file_txt.setText(filename);
-
-				}
+				String username = System.getProperty("user.name");
+				
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				
+		        int returnValue = fileChooser.showOpenDialog(frame);
+		        if (returnValue == JFileChooser.APPROVE_OPTION) {
+		        	File dir = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
+		            dir.mkdir();
+		          File selectedFile = fileChooser.getSelectedFile();
+		          File fileToGoTo = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText() + "\\" + selectedFile.getName());
+		          selectedFile.renameTo(fileToGoTo);
+		          filename = fileToGoTo.getAbsolutePath();
+		          if(filename != null){
+		        	  pdf_file_txt.setText("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\");
+		          }
+		       }
 			}
 		});
 
