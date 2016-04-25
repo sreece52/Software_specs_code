@@ -20,6 +20,13 @@ import javax.swing.JPanel;
 import Adding_jobs.AddJob;
 import Search_DB.Search_GUI;
 
+/**
+ * This class creates the panel that runs the calendar. 
+ * 
+ * @author Matthew Reilly DATE: 3/23/2016
+ *
+ */
+//class to make the dialog of the calendar
 @SuppressWarnings("serial")
 public class JCalendarDialog extends JFrame {
 
@@ -37,7 +44,7 @@ public class JCalendarDialog extends JFrame {
 	private String dateString;
 	private String dialogTitle;
 	private String simpleDateFormat;
-
+	//constructor for the dialog
 	public JCalendarDialog() {
 		this.locale = Locale.getDefault();
 		this.calendar = Calendar.getInstance();
@@ -47,7 +54,7 @@ public class JCalendarDialog extends JFrame {
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 	}
-
+	
 	public void setStartOfWeek(int startOfWeek) {
 		this.startOfWeek = startOfWeek;
 	}
@@ -67,7 +74,7 @@ public class JCalendarDialog extends JFrame {
 	public void setSimpleDateFormat(String simpleDateFormat) {
 		this.simpleDateFormat = simpleDateFormat;
 	}
-
+	//constructor to create the dialog
 	public void createDialog() {
 		dialog = new JDialog(frame);
 		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -75,7 +82,7 @@ public class JCalendarDialog extends JFrame {
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BorderLayout());
-
+		//sets the start of week locale an the date format
 		jcalendar = new JCalendar();
 		jcalendar.setCalendar(calendar);
 		jcalendar.setDateFormat(simpleDateFormat);
@@ -84,7 +91,7 @@ public class JCalendarDialog extends JFrame {
 		jcalendar.createPanel();
 
 		mainPanel.add(jcalendar.getPanel(), BorderLayout.CENTER);
-
+		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new FlowLayout());
 
@@ -111,7 +118,7 @@ public class JCalendarDialog extends JFrame {
 		mainPanel.add(buttonPanel, BorderLayout.SOUTH);
 
 		dialog.add(mainPanel);
-
+		//sets dimensions and the size and logo
 		dialog.setSize(new Dimension(700, 550));
 		dialog.setLocationRelativeTo(frame);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
@@ -131,7 +138,7 @@ public class JCalendarDialog extends JFrame {
 	public Calendar getSelectedDate() {
 		return selectedDate;
 	}
-
+	//handles when the cancel button is selected
 	private class CancelButtonActionListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent event) {
@@ -142,9 +149,9 @@ public class JCalendarDialog extends JFrame {
                     ": JCalendarDialog -> User clicked on the cancel button");
 		}
 	}
-
+	//handles when the Ok button is selected
 	private class OKButtonActionListener implements ActionListener {
-
+		//builds a query 
 		public void actionPerformed(ActionEvent event) {
 			/* Build query date */
 			String s = String.format("%d-%02d-%02d", 
