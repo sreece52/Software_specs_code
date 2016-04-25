@@ -122,6 +122,7 @@ public class ViewJob extends JFrame {
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
 
+		//icon for window
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 		NameSection();
@@ -129,7 +130,6 @@ public class ViewJob extends JFrame {
 		MaterialsAndNotesSection();
 		DateAndTimeSection();
 		PdfAndImagesSection();
-		BackEditSection();
 		IdAndImportSelction();
 		this.setVisible(true);
 
@@ -137,11 +137,8 @@ public class ViewJob extends JFrame {
 
 	/**
 	 * This method sets up the JLables, Jtextfields, and Jbutton for Work ID and
-	 * Import Information Button
+	 * Import Information Button and back and edit
 	 * 
-	 * Work ID is currently editable
-	 * 
-	 * Import Information Button does not have an action listener
 	 * 
 	 */
 	public void IdAndImportSelction() {
@@ -156,41 +153,7 @@ public class ViewJob extends JFrame {
 		gbc_btnImportInformationFrom.gridx = 2;
 		gbc_btnImportInformationFrom.gridy = 2;
 		getContentPane().add(btnImportInformationFrom, gbc_btnImportInformationFrom);
-		
-		btnViewImage = new JButton("View Image");
-		btnViewImage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					
-					String username = System.getProperty("user.name");
-					
-							File path = null;
-							JFileChooser chooser = new JFileChooser();
-							
-							chooser.setCurrentDirectory(new File("C:\\Users\\" + username + "\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
-							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
-								path = chooser.getSelectedFile();
-							}
-							try {
-								Desktop.getDesktop().open(path);
-							} catch (IOException e1) {
-								System.out.println("File not found..");
-							}
-						
-					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-	                        .format(new java.util.Date()) + 
-	                        ": ViewJob -> User clicked on the view PDF button");
-				} catch (Exception ev) {
-				
-				}
-			}
-		});
-		btnViewImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_btnViewImage = new GridBagConstraints();
-		gbc_btnViewImage.insets = new Insets(0, 0, 5, 5);
-		gbc_btnViewImage.gridx = 5;
-		gbc_btnViewImage.gridy = 20;
-		getContentPane().add(btnViewImage, gbc_btnViewImage);
+	
 
 		// Back Button and Actionlistener
 		btnCancel = new JButton("Back");
@@ -457,7 +420,7 @@ public class ViewJob extends JFrame {
 	 * This method sets up the Jlabels, JScroolPane, and Jtextfields for
 	 * materials and
 	 * 
-	 * "Add Notes" button has an action listener which opens a second window
+	 * "View Notes" button has an action listener which opens a second window to view the notes
 	 * 
 	 */
 	public void MaterialsAndNotesSection() {
@@ -766,7 +729,7 @@ public class ViewJob extends JFrame {
 	 * This method sets up the Jlabels, Jtextfields, actionlisteners, and
 	 * buttons for PDF and Images
 	 * 
-	 * "Add PDF" and "Add Image" open a FileDialog when selected
+	 * "View PDF" and "View Image" open a FileDialog when selected to view images/pdf
 	 * 
 	 */
 	public void PdfAndImagesSection() {
@@ -861,7 +824,8 @@ public class ViewJob extends JFrame {
 		images.setColumns(10);
 		images.setText(jobs.getImages());
 		
-		
+		//view the PDF's saved in the specified folder for that job
+		//specified folder for a job is named after the jobtitle and the type of file
 		btnViewPdf = new JButton("View PDF");
 		btnViewPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -897,6 +861,43 @@ public class ViewJob extends JFrame {
 		gbc_btnViewPdf1.gridx = 5;
 		gbc_btnViewPdf1.gridy = 18;
 		getContentPane().add(btnViewPdf, gbc_btnViewPdf1);
+		
+		//view the images's saved in the specified folder for that job
+		//specified folder for a job is named after the jobtitle
+		btnViewImage = new JButton("View Image");
+		btnViewImage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					
+					String username = System.getProperty("user.name");
+					
+							File path = null;
+							JFileChooser chooser = new JFileChooser();
+							
+							chooser.setCurrentDirectory(new File("C:\\Users\\" + username + "\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
+							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+								path = chooser.getSelectedFile();
+							}
+							try {
+								Desktop.getDesktop().open(path);
+							} catch (IOException e1) {
+								System.out.println("File not found..");
+							}
+						
+					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
+	                        .format(new java.util.Date()) + 
+	                        ": ViewJob -> User clicked on the view PDF button");
+				} catch (Exception ev) {
+				
+				}
+			}
+		});
+		btnViewImage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnViewImage = new GridBagConstraints();
+		gbc_btnViewImage.insets = new Insets(0, 0, 5, 5);
+		gbc_btnViewImage.gridx = 5;
+		gbc_btnViewImage.gridy = 20;
+		getContentPane().add(btnViewImage, gbc_btnViewImage);
 
 		// "Add Image" button and actionlistener
 		btnAddImage = new JButton("Add Image");
@@ -938,10 +939,4 @@ public class ViewJob extends JFrame {
 
 	}
 
-	/**
-	 * This method sets up the Jbuttons and acitonlisteners for Back and Edit
-	 * 
-	 */
-	public void BackEditSection() {
-	}
 }
