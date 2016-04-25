@@ -1,6 +1,6 @@
 package Adding_jobs;
 
-import java.awt.FileDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;

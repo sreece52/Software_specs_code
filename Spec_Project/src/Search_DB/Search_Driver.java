@@ -53,7 +53,7 @@ public class Search_Driver {
 		 */
 		dbUserName = "admin";
 		dbPassword = "password";
-		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "/Database/JobsDataBase";
+		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "/JobsDataBase";
 		System.out.println(dataBaseURL);
 		/*
 		 * The following code handle connecting to the db using the above

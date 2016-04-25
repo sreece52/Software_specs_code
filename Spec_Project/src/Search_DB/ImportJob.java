@@ -17,8 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 import Adding_jobs.AddJob;
 import Adding_jobs.EditJob;
-import MainScreen.MainScreen;
-
 import javax.swing.border.BevelBorder;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
