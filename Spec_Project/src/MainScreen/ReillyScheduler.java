@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 
+
 public class ReillyScheduler {
 	public static void main(String[] args){
 		File logDir = new File("Logs");
@@ -26,6 +27,9 @@ public class ReillyScheduler {
 			System.out.println("Failed to change stdout");
 			e.printStackTrace();
 		}
+	
+		@SuppressWarnings("unused")
+		mySplash splash = new mySplash();
 		MainScreen frame = new MainScreen();
 		frame.setVisible(true);
 	}
