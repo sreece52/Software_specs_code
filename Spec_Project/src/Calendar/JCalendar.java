@@ -60,7 +60,7 @@ public class JCalendar{
         this.locale = Locale.getDefault();
         this.startOfWeek = Calendar.SUNDAY;
         this.dateFormat = new SimpleDateFormat("YYYY-MM-DD");
-        //gets the day of 
+        //gets the current day of the year and the time
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
@@ -69,11 +69,11 @@ public class JCalendar{
         this.dateString = "";
         this.selectedDate = null;
     }
- 
+    //gets the start of the week
     public void setStartOfWeek(int startOfWeek) {
         this.startOfWeek = startOfWeek;
     }
- 
+    //sets the current calendar time
     public void setCalendar(Calendar calendar) {
         this.calendar = (Calendar) calendar.clone();
  
@@ -83,17 +83,17 @@ public class JCalendar{
         this.calendar.set(Calendar.MILLISECOND, 0);
     }
  
- 
+    //set the locale to english
     public void setLocale(Locale locale) {
         this.locale = locale;
     }
     public void setDateFormat(String simpleDateFormat) {
         this.dateFormat = new SimpleDateFormat(simpleDateFormat);
     }
-    
+    //method to create the calendar panel
     public void createPanel() {
         blackLineBorder = BorderFactory.createLineBorder(Color.BLACK);
- 
+        
         panel = new JPanel();
         panel.setBorder(blackLineBorder);
         panel.setLayout(new BorderLayout());
@@ -105,7 +105,7 @@ public class JCalendar{
         buttonPanel.setBorder(blackLineBorder);
  
         Font smallFont = buttonPanel.getFont().deriveFont(10.0F);
- 
+        //sets the year back one year
         JButton yearBackButton = new JButton("<<");
         Color lightpurple = new Color(255, 220, 255);
 		yearBackButton.setBackground(lightpurple);
@@ -121,7 +121,7 @@ public class JCalendar{
             }
         });
         buttonPanel.add(yearBackButton);
- 
+        //sets the month back by one
         JButton monthBackButton = new JButton("<");
         Color purple = new Color(255, 200, 255);
 		monthBackButton.setBackground(purple);
@@ -137,7 +137,7 @@ public class JCalendar{
             }
         });
         buttonPanel.add(monthBackButton);
- 
+        //sets the month forward by one month
         JButton monthForwardButton = new JButton(">");
 		monthForwardButton.setBackground(purple);
         monthForwardButton.setFont(smallFont);
@@ -152,7 +152,7 @@ public class JCalendar{
             }
         });
         buttonPanel.add(monthForwardButton);
- 
+        //sets the year forward by one year
         JButton yearForwardButton = new JButton(">>");
 		yearForwardButton.setBackground(lightpurple);
         yearForwardButton.setFont(smallFont);
@@ -187,25 +187,25 @@ public class JCalendar{
         
         
     }
- 
+    //panel to have the day grid on
     private JPanel createDayGrid() {
         JPanel panel = new JPanel();
         panel.setBorder(blackLineBorder);
         panel.setLayout(new GridLayout(0, DAYS_IN_WEEK));
- 
+        //gets the days of the week in a string array
         String[] daysOfWeek = getDaysOfWeek();
         for (int i = 0; i < daysOfWeek.length; i++) {
             JPanel weekdayPanel = new JPanel();
-            weekdayPanel.setBackground(Color.WHITE);
+            weekdayPanel.setBackground(Color.WHITE);//set the days into the panel with white background
             weekdayPanel.setBorder(blackLineBorder);
  
-            String s = daysOfWeek[i].substring(0, 1);
+            String s = daysOfWeek[i].substring(0, 1);//gets first letter of the day
             JLabel weekdayLabel = new JLabel(s);
             weekdayPanel.add(weekdayLabel);
  
             panel.add(weekdayPanel);
         }
- 
+        //gets the days for panel
         JCalendarDay[] days = getDays();
         dayPanel = new DayPanel[days.length];
         for (int i = 0; i < days.length; i++) {
@@ -217,7 +217,7 @@ public class JCalendar{
  
         return panel;
     }
- 
+    //update when the month or year is changed
     private void updatePartControl() {
         monthLabel.setText(getDisplayMonthYear());
  
@@ -227,7 +227,7 @@ public class JCalendar{
             dayPanel[i].updatePartControl();
         }
     }
- 
+    //gets the days of the week to get the displayed name
     private String[] getDaysOfWeek() {
         String[] daysOfWeek = new String[DAYS_IN_WEEK];
         Calendar temp = (Calendar) calendar.clone();
@@ -241,7 +241,7 @@ public class JCalendar{
  
         return daysOfWeek;
     }
- 
+    //method to set the current day background and the selected day background
     private JCalendarDay[] getDays() {
         JCalendarDay[] days = new JCalendarDay[DAYS_IN_WEEK * 6];
         Calendar today = Calendar.getInstance(locale);
@@ -272,7 +272,7 @@ public class JCalendar{
  
         return days;
     }
- 
+    //sets true or false based upon if a day is the current day
     private boolean isToday(Calendar c1, Calendar c2) {
         if ((c1 == null) || (c2 == null)) {
             return false;
@@ -288,7 +288,7 @@ public class JCalendar{
  
         return (day1 == day2) && (month1 == month2) && (year1 == year2);
     }
- 
+    //gets the first date of the week
     private void getFirstDate(Calendar calendar) {
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) % DAYS_IN_WEEK;
         int amount = 0;
@@ -301,7 +301,7 @@ public class JCalendar{
         }
         calendar.add(Calendar.DAY_OF_MONTH, amount);
     }
- 
+    //displays the current month being looked at
     private String getDisplayMonthYear() {
         int year = calendar.get(Calendar.YEAR);
         String s = calendar.getDisplayName(Calendar.MONTH,
@@ -321,7 +321,7 @@ public class JCalendar{
     public Calendar getSelectedDate() {
         return selectedDate;
     }
- 
+    //class to listen to the mouse clicking on certain classes
     private class DayMouseListener extends MouseAdapter {
  
         @Override
@@ -339,7 +339,7 @@ public class JCalendar{
                     .format(new java.util.Date()) + 
                     ": JCalendar -> User clicked his mouse");
         }
- 
+        //sets the selected day
         private void getSelectedDate(String s) {
             selectedDate = Calendar.getInstance();
             selectedDate.set(calendar.get(Calendar.YEAR),
@@ -349,7 +349,7 @@ public class JCalendar{
         }
  
     }
- 
+    //panel with all the parts on it
     private class DayPanel extends JPanel {
  
 		private static final long serialVersionUID = 1L;
