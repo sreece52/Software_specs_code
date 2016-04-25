@@ -44,7 +44,7 @@ public class JCalendarDialog extends JFrame {
 		this.dialogTitle = "Date Selector";
 		this.simpleDateFormat = "YYYY-MM-DD";
 		this.startOfWeek = Calendar.SUNDAY;
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(JCalendarDialog.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 	}
 
@@ -115,7 +115,7 @@ public class JCalendarDialog extends JFrame {
 		dialog.setSize(new Dimension(700, 550));
 		dialog.setLocationRelativeTo(frame);
 		dialog.setModalityType(ModalityType.APPLICATION_MODAL);
-		ImageIcon img = new ImageIcon("Handyman Scheduler logo 1.png");
+		ImageIcon img = new ImageIcon(JCalendarDialog.class.getResource("Handyman Scheduler Logo 1.png"));
 		dialog.setIconImage(img.getImage());
 		dialog.setVisible(true);
 	}

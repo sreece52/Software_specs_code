@@ -47,7 +47,7 @@ public class MainScreen extends JFrame {
 		setContentPane(contentPane);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(MainScreen.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		contentPane.setLayout(null);
 		
@@ -60,7 +60,7 @@ public class MainScreen extends JFrame {
 		
 		/*Button opens calendar*/
 		JButton calendarButton = new JButton(new ImageIcon(((new ImageIcon(
-	            "calendarIcon.png").getImage()
+	            JCalendarDialog.class.getResource("calendarIcon.png")).getImage()
 	            .getScaledInstance(64, 50,
 	                    java.awt.Image.SCALE_SMOOTH)))));
 		calendarButton.setBounds(10, 11, 64, 54);
