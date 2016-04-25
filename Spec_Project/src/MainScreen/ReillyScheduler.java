@@ -29,7 +29,7 @@ public class ReillyScheduler {
 		}
 	
 		@SuppressWarnings("unused")
-		mySplash splash = new mySplash();
+		MySplash splash = new MySplash();
 		MainScreen frame = new MainScreen();
 		frame.setVisible(true);
 	}
