@@ -78,8 +78,18 @@ public class Inserting_Driver {
 	 */
 	public void insert() throws SQLException {
 		try {
+			/*Create statement var*/
 			statement = conn.createStatement();
+			
 			System.out.println(job.getImages());
+			
+			/*Handle names with single quotes*/
+			if(job.getFname().contains("'") || job.getLname().contains("'")){
+				job.setFname(job.getFname().replace("'", "''"));
+				job.setLname(job.getLname().replace("'", "''"));
+			}
+			
+			/*Create query*/
 			String insertStatement = String.format(
 					"insert into jobs (job_name,fname,lname,street,city,state,zip_code,"
 							+ "phone_num,materials,date,hours,starttime,endtime,notes,pdfs,images,startam,endam) "
@@ -94,6 +104,7 @@ public class Inserting_Driver {
 					.format(new java.util.Date()) + 
 					": Inserting_Driver -> Sent query " + insertStatement);
 			
+			/*Submit query*/
 			statement.execute(insertStatement);
 			JOptionPane.showMessageDialog(null, "The record has been added to the database", "Inserting", 1);
 

@@ -82,6 +82,12 @@ public class Editing_Driver {
 			//connects to the database
 			statement = conn.createStatement();
 
+			/*Handle names with single quotes*/
+			if(job.getFname().contains("'") || job.getLname().contains("'")){
+				job.setFname(job.getFname().replace("'", "''"));
+				job.setLname(job.getLname().replace("'", "''"));
+			}
+			
 			// string to format the query
 			String insertStatement = String.format(
 					"update jobs set job_name = '%s', fname = '%s', lname = '%s',street = '%s', city = '%s', state = '%s',zip_code = '%s'"

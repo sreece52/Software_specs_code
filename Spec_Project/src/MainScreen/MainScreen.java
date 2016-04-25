@@ -84,6 +84,16 @@ public class MainScreen extends JFrame {
 			
 		});
 		
+		String username = System.getProperty("user.name");
+		File dir = new File("C:\\Users\\" + username  + "\\Documents\\PDFS for Handyman\\");
+		if(!dir.exists()){
+			dir.mkdir();
+		}
+		File dir1 = new File("C:\\Users\\" + username  + "\\Documents\\Pics for Handyman\\");
+		if(!dir1.exists()){
+			dir1.mkdir();
+		}
+		
 		/*Subsection for search parameters*/
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));

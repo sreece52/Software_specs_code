@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * This class is used to build an sql to script to populate a test database;
+ * NOT used in the program is function.
+ */
 public class ScriptGen {
 
 	public static void main(String[] args) {

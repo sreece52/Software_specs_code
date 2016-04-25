@@ -161,13 +161,13 @@ public class ViewJob extends JFrame {
 		btnViewImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					//File file = new File(jobs.getPDFs());
-				//	Desktop.getDesktop().open(file);
+					
+					String username = System.getProperty("user.name");
 					
 							File path = null;
 							JFileChooser chooser = new JFileChooser();
 							
-							chooser.setCurrentDirectory(new File("C:\\Users\\Matt\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
+							chooser.setCurrentDirectory(new File("C:\\Users\\" + username + "\\Documents\\Pics for Handyman\\" + jobs.getJob_name()));
 							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
 								path = chooser.getSelectedFile();
 							}
@@ -867,21 +867,21 @@ public class ViewJob extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				try {
-					//File file = new File(jobs.getPDFs());
-				//	Desktop.getDesktop().open(file);
 					
-							File path = null;
-							JFileChooser chooser = new JFileChooser();
+					String username = System.getProperty("user.name");
+					
+						File path = null;
+						JFileChooser chooser = new JFileChooser();
 							
-							chooser.setCurrentDirectory(new File("C:\\Users\\Matt\\Documents\\PDFS for Handyman\\" + jobs.getJob_name()));
-							if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
-								path = chooser.getSelectedFile();
-							}
-							try {
-								Desktop.getDesktop().open(path);
-							} catch (IOException e1) {
-								System.out.println("File not found..");
-							}
+						chooser.setCurrentDirectory(new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + jobs.getJob_name()));
+						if (chooser.showOpenDialog(chooser) == JFileChooser.APPROVE_OPTION) {
+							path = chooser.getSelectedFile();
+						}
+						try {
+							Desktop.getDesktop().open(path);
+						} catch (IOException e1) {
+							System.out.println("File not found..");
+						}
 						
 					System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
 	                        .format(new java.util.Date()) + 
