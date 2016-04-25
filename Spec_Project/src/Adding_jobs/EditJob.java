@@ -110,7 +110,7 @@ public class EditJob extends JFrame {
 	 * @wbp.parser.constructor
 	 * 
 	 */
-	public EditJob(Jobs editedJob) {
+  public EditJob(Jobs editedJob) {
 		this.editedJob = editedJob;
 		getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 14));
 		setTitle("Edit Job");
@@ -134,11 +134,12 @@ public class EditJob extends JFrame {
 		MaterialsAndNotesSection();
 		DateAndTimeSection();
 		PdfAndImagesSection();
-		CancelSaveSection();
+		AddImage();
 		IdAndImportSelction();
 
 	}
 
+//Used to check if selecting right job
 	public EditJob(Jobs editedJob, String workId) {
 		this.workId = workId;
 		this.editedJob = editedJob;
@@ -164,18 +165,17 @@ public class EditJob extends JFrame {
 		MaterialsAndNotesSection();
 		DateAndTimeSection();
 		PdfAndImagesSection();
-		CancelSaveSection();
+		AddImage();
 		IdAndImportSelction();
 
 	}
 
 	/**
 	 * This method sets up the JLables, Jtextfields, and Jbutton for Work ID and
-	 * Import Information Button
+	 * Import Information Button and cancel and save
 	 * 
 	 * Work ID is currently editable
 	 * 
-	 * Import Information Button does not have an action listener
 	 * 
 	 */
 	public void IdAndImportSelction() {
@@ -245,7 +245,7 @@ public class EditJob extends JFrame {
 									"Are you sure you want to edit this record? This cannot be undone.", "Confirm Edit",
 									JOptionPane.YES_NO_OPTION);
 							if (reply == JOptionPane.YES_OPTION) {
-
+								//gets information from database
 								Jobs newJob = new Jobs(editedJob.getWork_Id(), job_name_txt.getText(),
 										fname_txt.getText(), lname_txt.getText(), street_txt.getText(),
 										city_txt.getText(), state_txt.getText(), zip_txt.getText(), phone_txt.getText(),
@@ -305,6 +305,7 @@ public class EditJob extends JFrame {
 		revalidate();
 	}
 
+	//Fulls the window with previously saved information
 	private void setDocText() {
 		job_name_txt.setText(job.getJob_name());
 		fname_txt.setText(job.getFname());
@@ -866,6 +867,7 @@ public class EditJob extends JFrame {
 		gbc_btnAddPdf.gridy = 17;
 		getContentPane().add(btnAddPdf, gbc_btnAddPdf);
 
+		//adds pdf to specified folder on the users workspace 
 		btnAddPdf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// logging event
@@ -920,12 +922,12 @@ public class EditJob extends JFrame {
 	}
 
 	/**
-	 * This method sets up the Jbuttons and acitonlisteners for Cancel and Save
+	 * This method sets up the Jbuttons and acitonlisteners for AddImage
 	 * 
-	 * Needs to be setup so values are only saved when "Save" is pressed
+	 *Images get saved in a folder on users computer
 	 * 
 	 */
-	public void CancelSaveSection() {
+	public void AddImage() {
 
 		// "Add Image" button and actionlistener
 		btnAddImage = new JButton("Add Image");
@@ -949,6 +951,7 @@ public class EditJob extends JFrame {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 				
+				//opens file choose
 		        int returnValue = fileChooser.showOpenDialog(frame);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
 		        	File dir = new File("C:\\Users\\" + username + "\\Documents\\PDFS for Handyman\\" + job_name_txt.getText());
@@ -988,6 +991,7 @@ public class EditJob extends JFrame {
 		startTime_txt.select(0);
 	}
 
+	//gets and setters for class
 	public boolean isEdited() {
 		return isEdited;
 	}

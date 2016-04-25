@@ -166,11 +166,8 @@ public class AddJob extends JFrame {
 
 	/**
 	 * This method sets up the JLables, Jtextfields, and Jbutton for Work ID and
-	 * Import Information Button
+	 * Import Information Button and Add Image Button
 	 * 
-	 * Work ID is currently editable
-	 * 
-	 * Import Information Button does not have an action listener
 	 * 
 	 */
 	public void IdAndImportSelction() {
@@ -196,6 +193,7 @@ public class AddJob extends JFrame {
 		gbc_btnAddImage.gridy = 19;
 		getContentPane().add(btnAddImage, gbc_btnAddImage);
 
+		//Adds the image to a created folder on the users computer. Referenced by the work title
 		btnAddImage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
@@ -205,7 +203,7 @@ public class AddJob extends JFrame {
 				
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				
+				//opens a file chooser
 		        int returnValue = fileChooser.showOpenDialog(frame);
 		        if (returnValue == JFileChooser.APPROVE_OPTION) {
 		        	File dir = new File("C:\\Users\\" + username  + "\\Documents\\Pics for Handyman\\" + job_name_txt.getText());
@@ -247,6 +245,7 @@ public class AddJob extends JFrame {
 		revalidate();
 	}
 
+	//Sets the next for the form
 	private void setDocText() {
 		job_name_txt.setText(job.getJob_name());
 		fname_txt.setText(job.getFname());
@@ -714,7 +713,7 @@ public class AddJob extends JFrame {
 	 * This method sets up the Jlabels, Jtextfields, actionlisteners, and
 	 * buttons for PDF and Images
 	 * 
-	 * "Add PDF" and "Add Image" open a FileDialog when selected
+	 * "Add Image" open a FileDialog when selected
 	 * 
 	 */
 	public void PdfAndImagesSection() {
