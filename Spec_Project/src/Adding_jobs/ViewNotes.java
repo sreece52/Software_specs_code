@@ -27,10 +27,17 @@ public class ViewNotes extends JFrame{
 	
 
 	/**
-	 * Create the frame.
-	 * @param string 
+	 * Create the frame for View Notes window
+	 * 
+	 *Close button and action handler for button
+	 *
+	 *Takes in Notes from database and projects them in a larger window
+	 *
+	 *uneditable
+	 * 
 	 */
 	public ViewNotes(String string) {
+		//icon in top left hand corner
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 		

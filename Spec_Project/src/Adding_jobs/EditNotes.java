@@ -24,12 +24,21 @@ public class EditNotes extends JFrame {
 	private String notes;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for Edit Notes window
+	 * 
+	 *Save button and action handler for button
+	 *
+	 *Takes in Notes from database and projects them in a larger window
+	 *
+	 *gets passed in a string from EditNotes
+	 *
+	 *Editable
 	 * 
 	 * @param string
 	 * @param fromAddJob
 	 */
 	public EditNotes(String string) {
+		//icon in top corner
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 
