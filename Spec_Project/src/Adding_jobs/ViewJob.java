@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.GridBagLayout;
 import javax.swing.ButtonGroup;
@@ -123,7 +122,7 @@ public class ViewJob extends JFrame {
 		getContentPane().setLayout(gridBagLayout);
 
 		//icon for window
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(ViewJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		NameSection();
 		AddressSection();

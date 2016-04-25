@@ -1,6 +1,6 @@
 package Adding_jobs;
 
-import java.awt.FileDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -120,7 +120,7 @@ public class AddJob extends JFrame {
 
 		getContentPane().setLayout(gridBagLayout);
 		this.setVisible(true);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(AddJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 
 		NameSection();
@@ -151,7 +151,7 @@ public class AddJob extends JFrame {
 
 		getContentPane().setLayout(gridBagLayout);
 		this.setVisible(true);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(AddJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 
 		NameSection();

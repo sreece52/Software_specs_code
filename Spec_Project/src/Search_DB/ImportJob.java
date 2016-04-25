@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
@@ -48,7 +49,9 @@ public class ImportJob extends JFrame {
 
 	/**
 	 * Constructor for the class for an existing job
-	 * @param edit a job we wish to edit is passed here
+	 * 
+	 * @param edit
+	 *            a job we wish to edit is passed here
 	 */
 	public ImportJob(EditJob edit) {
 		this.edit = edit;
@@ -57,11 +60,15 @@ public class ImportJob extends JFrame {
 		this.setTitle("Import job information");
 		this.setSize(800, 546);
 		this.setVisible(true);
+		ImageIcon img = new ImageIcon(ImportJob.class.getResource("Handyman Scheduler Logo 1.png"));
+		this.setIconImage(img.getImage());
 	}
 
 	/**
 	 * Constructor for the class for a new job
-	 * @param add the new job we wish to create
+	 * 
+	 * @param add
+	 *            the new job we wish to create
 	 */
 	public ImportJob(AddJob add) {
 		this.add = add;
@@ -71,6 +78,8 @@ public class ImportJob extends JFrame {
 		this.setTitle("Import job information");
 		this.setSize(800, 546);
 		this.setVisible(true);
+		ImageIcon img = new ImageIcon(ImportJob.class.getResource("Handyman Scheduler Logo 1.png"));
+		this.setIconImage(img.getImage());
 	}
 
 	/**
@@ -99,15 +108,14 @@ public class ImportJob extends JFrame {
 		search.setBackground(green);
 		ButtonPanel.add(search);
 		search.addActionListener(new ActionListener() {
-			
+
 			/**
 			 * Call the search method
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": ImportJob -> Clicked search");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": ImportJob -> Clicked search");
 				search();
 			}
 		});
@@ -138,10 +146,9 @@ public class ImportJob extends JFrame {
 			 * if the user hits cancel the frame will be disposed.
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": ImportJob -> Clicked cancel");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": ImportJob -> Clicked cancel");
 				dispose();
 			}
 		});
@@ -154,10 +161,9 @@ public class ImportJob extends JFrame {
 			 * Submits the selected job back to add or edit job frame
 			 */
 			public void actionPerformed(ActionEvent e) {
-				/*Log action*/
-				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-						.format(new java.util.Date()) + 
-						": ImportJob -> Clicked submit");
+				/* Log action */
+				System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+						+ ": ImportJob -> Clicked submit");
 				if (isEdit) {
 					edit.setJob(driver.getResults().get(table.getSelectedRow()));
 					dispose();
@@ -177,16 +183,16 @@ public class ImportJob extends JFrame {
 	 * This method will query the database based off the given values
 	 */
 	private void search() {
-		//removes the previous table if any
+		// removes the previous table if any
 		searchResultsPanel.removeAll();
 		// gets the selected search filter
 		String query = querytype.getSelectedItem().toString().toUpperCase().trim();
 		System.out.println(query);
 
-		//Search the database
+		// Search the database
 		driver = new Search_Driver(value.getText(), query);
 
-		//If there are no results tell the user
+		// If there are no results tell the user
 		if (driver.getResults().size() == 0) {
 			JOptionPane.showMessageDialog(null, "No results!", "No Results", 2);
 		}

@@ -69,7 +69,7 @@ public class Search_GUI extends JFrame {
 		this.setQuery(query);
 		this.setSearchType(searchType);
 		this.setLocationRelativeTo(null);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(Search_GUI.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		// Object to start the searching
 		driver = new Search_Driver(query, searchType);

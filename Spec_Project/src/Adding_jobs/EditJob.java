@@ -1,6 +1,6 @@
 package Adding_jobs;
 
-import java.awt.FileDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -10,7 +10,6 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import java.awt.Color;
-import java.awt.Desktop;
 import java.awt.Font;
 
 import Search_DB.Editing_Driver;
@@ -30,7 +29,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -126,7 +125,7 @@ public class EditJob extends JFrame {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(EditJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		this.setVisible(true);
 		NameSection();
@@ -157,7 +156,7 @@ public class EditJob extends JFrame {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(EditJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		this.setVisible(true);
 		NameSection();

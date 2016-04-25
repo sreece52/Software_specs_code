@@ -39,7 +39,7 @@ public class EditNotes extends JFrame {
 	 */
 	public EditNotes(String string) {
 		//icon in top corner
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(EditNotes.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 
 		setTitle("Edit Notes");
