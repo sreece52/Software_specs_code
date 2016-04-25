@@ -38,7 +38,7 @@ public class ViewNotes extends JFrame{
 	 */
 	public ViewNotes(String string) {
 		//icon in top left hand corner
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(ViewNotes.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		
 		setTitle("View Notes");

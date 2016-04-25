@@ -53,7 +53,7 @@ public class Search_Driver {
 		 */
 		dbUserName = "admin";
 		dbPassword = "password";
-		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "/newDB";
+		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "/Database/JobsDataBase";
 		System.out.println(dataBaseURL);
 		/*
 		 * The following code handle connecting to the db using the above
@@ -74,8 +74,10 @@ public class Search_Driver {
 			System.out.println("SQL Exception..");
 			e.printStackTrace();
 		}
+		
 		sendQuery(); // after we are connected the db the search begins
 	}
+
 
 	/**
 	 * This method functions as relay to move the search to the appropriate SQL
@@ -118,13 +120,13 @@ public class Search_Driver {
 		case "DATE":
 			searchDate(query);
 			break;
-		
-		//Internal use only 
+
+		// Internal use only
 		case "WORKID":
 			searchWorkID(query);
 			break;
-			
-		//Internal use only 	
+
+		// Internal use only
 		case "CURRENTID":
 			searchCurrentId();
 			break;
@@ -135,10 +137,6 @@ public class Search_Driver {
 			break;
 		}
 	}
-
-	
-
-
 
 	/**
 	 * This method is used to close the connection to the database
@@ -151,8 +149,11 @@ public class Search_Driver {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	 * this method is for internal use only. User will not be able to search this for the program's screens
+	 * this method is for internal use only. User will not be able to search
+	 * this for the program's screens
+	 * 
 	 * @param query2
 	 */
 	private void searchCurrentId() {
@@ -177,19 +178,20 @@ public class Search_Driver {
 	}
 
 	/**
-	 * this method is for internal use only. User will not be able to search this for the program's screens
+	 * this method is for internal use only. User will not be able to search
+	 * this for the program's screens
+	 * 
 	 * @param query
 	 */
 	private void searchWorkID(String query) {
 		try {
 			statement = conn.createStatement();
-			String searchName = String.format("select * from jobs where work_id = '%s' ;",query);
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+			String searchName = String.format("select * from jobs where work_id = '%s' ;", query);
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -206,7 +208,7 @@ public class Search_Driver {
 			System.out.println("Error: Connection to database was not established!");
 		}
 	}
-	
+
 	/**
 	 * Shows all data in the table
 	 */
@@ -214,12 +216,11 @@ public class Search_Driver {
 		try {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs order by lname;");
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -249,12 +250,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(fname) = '%s' order by lname;",
 					query.toUpperCase());
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -282,12 +282,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(lname) = '%s' order by lname;",
 					query.toUpperCase());
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -313,12 +312,11 @@ public class Search_Driver {
 		try {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where id = '%s' order by lname;", query);
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -344,12 +342,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(date) = '%s' order by lname;",
 					query.toUpperCase());
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -377,12 +374,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(street) = '%s' order by lname;",
 					query.toUpperCase());
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -410,12 +406,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where zip_code = '%s' order by lname;",
 					query.toUpperCase());
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -442,12 +437,11 @@ public class Search_Driver {
 		try {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where phone_number = '%s' order by lname;", query);
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -474,11 +468,10 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(city) = '%s' order by lname;",
 					query.toUpperCase());
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),
@@ -505,12 +498,11 @@ public class Search_Driver {
 			statement = conn.createStatement();
 			String searchName = String.format("select * from jobs where upper(state) = '%s' order by lname;",
 					query.toUpperCase());
-			
-			/*Log query*/
-			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss")
-					.format(new java.util.Date()) + 
-					": Search_Driver -> Sent query " + searchName);
-			
+
+			/* Log query */
+			System.out.println(new SimpleDateFormat("yyy.MM.dd.HH.mm.ss").format(new java.util.Date())
+					+ ": Search_Driver -> Sent query " + searchName);
+
 			results = statement.executeQuery(searchName);
 			while (results.next()) {
 				job = new Jobs(results.getString(1), results.getString(2), results.getString(3), results.getString(4),

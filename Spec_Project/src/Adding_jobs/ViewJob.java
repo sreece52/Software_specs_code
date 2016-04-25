@@ -123,7 +123,7 @@ public class ViewJob extends JFrame {
 		getContentPane().setLayout(gridBagLayout);
 
 		//icon for window
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(ViewJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		NameSection();
 		AddressSection();

@@ -33,7 +33,7 @@ public class AddNotes extends JFrame {
 	 */
 	public AddNotes() {
 		//corner image icon
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(AddNotes.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 
 		setTitle("Add Notes");

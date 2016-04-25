@@ -126,7 +126,7 @@ public class EditJob extends JFrame {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(EditJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		this.setVisible(true);
 		NameSection();
@@ -157,7 +157,7 @@ public class EditJob extends JFrame {
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
-		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
+		ImageIcon img = new ImageIcon(EditJob.class.getResource("Handyman Scheduler Logo 1.png"));
 		this.setIconImage(img.getImage());
 		this.setVisible(true);
 		NameSection();

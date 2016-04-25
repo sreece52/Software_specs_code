@@ -49,7 +49,7 @@ public class Editing_Driver {
 		 */
 		dbUserName = "admin";
 		dbPassword = "password";
-		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "/newDB";
+		dataBaseURL = "jdbc:h2:" + System.getProperty("user.dir") + "\\JobsDataBase";
 
 		/*
 		 * The following code handle connecting to the db using the above
