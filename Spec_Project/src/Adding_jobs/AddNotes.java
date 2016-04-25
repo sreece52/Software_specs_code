@@ -23,12 +23,16 @@ public class AddNotes extends JFrame {
 	private String notes;
 
 	/**
-	 * Create the frame.
+	 * Create the frame for Add Notes window
+	 * 
+	 *Save button and action handler for button
+	 *
+	 *Saves notes in database
 	 * 
 	 * @param fromAddJob
 	 */
 	public AddNotes() {
-
+		//corner image icon
 		ImageIcon img = new ImageIcon("Handyman Scheduler Logo 1.png");
 		this.setIconImage(img.getImage());
 
@@ -80,6 +84,8 @@ public class AddNotes extends JFrame {
 		getContentPane().add(btnSaveAddNotes, gbc_btnSaveAddNotes);
 
 	}
+	
+	//gets and setters for the class
 
 	public String getNotes() {
 		return notes;
