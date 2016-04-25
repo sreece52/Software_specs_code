@@ -4,11 +4,11 @@ import java.awt.Color;
 
 import com.thehowtotutorial.splashscreen.JSplash;
 
-public class mySplash {
+public class MySplash {
 
-	public mySplash() {
+	public MySplash() {
 		try {
-			JSplash splash = new JSplash(mySplash.class.getResource("Handyman Scheduler Logo 1.png"), true, true, false,
+			JSplash splash = new JSplash(MySplash.class.getResource("Handyman Scheduler Logo 1.png"), true, true, false,
 					"V1", null, Color.darkGray, Color.BLUE);
 
 			splash.splashOn(); // to display
